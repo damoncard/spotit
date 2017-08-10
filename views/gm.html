@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang='en'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no'>
+	<head>
+		<title>Game Master</title>
+		<link rel='stylesheet' href='static/lib/timer.css' />
+		<link rel='stylesheet' href='_static/style.css' />
+		<script type= 'text/javascript' src='/static/lib/jquery-3.2.0.min.js'></script>
+		<script type= 'text/javascript' src='/socket.io/socket.io.js'></script>
+		<script type= 'text/javascript' src='/static/function.js'></script>
+		<script type= 'text/javascript' src='/static/pile.js'></script>
+		<script type= 'text/javascript' src='/static/card.js'></script>
+		<script> 
+			$(document).ready(function() {
+				var list = {}
+				var r_list = {}
+				var s_list = {}
+				var answer
+				var remain = 6
+				var player = 0
+				var timer = null
+				var ready = false
+				var socket = io.connect('/tunnel')
+				// ################# Initialize Phase ############### //
+				socket.on('joining', function(package) {
+					if (package['key'] != null) {
+						list[package['key']] = package['name']
+						s_list[package['key']] = 0
+						r_list[package['key']] = false
+						if (++player == 1) {
+							setActive(true)
+						}
+						ready = false
+						addToLobby(package['key'])
+					}
+				})
+				socket.on('leaving', function(package) {
+					if (list[package['key']] != null) {
+						$('#' + package['key']).css('display','none')
+						delete list[package['key']]
+						delete s_list[package['key']]
+						delete r_list[package['key']]
+						player--
+						socket.emit('exit')
+					}
+				})
+				socket.on('inactive', function() {
+					setActive(false)
+				})
+				function addToLobby(key) {
+					$('#container').append(`<span style='margin-left: 50px; font-size: 0.5em; color: red;' id=` + key + `>`+ list[key] +`</span>`)
+				}
+				function setActive(status) {
+					if (status) {
+						$('#container').empty()
+						$('#container').append(`<p>Lobby</p><br><span style="font-size:0.7em;">Player List</span>`)
+						createCountdown()
+					} else {
+						$('#container').empty()
+						$('#container').append(`<p class='buzz'>Spot It</p>`)
+					}
+				}
+				socket.on('ready', function(package) {
+					r_list[package['key']] = true
+					$('#' + package['key']).css('color', 'green')
+					if (checkReady(r_list)) {
+						ready = true
+						$('#wrap').css('display','block')
+						startCountdown()
+					}
+				})
+				socket.on('notready', function(package) {
+					r_list[package['key']] = false
+					$('#' + package['key']).css('color', 'red')
+					ready = false
+					$('#wrap').css('display','none')
+				})
+				// ################ Playing Phase ################ //
+				socket.on('submit', function(package) {
+					if (answer.indexOf(package['value']) != -1 || answer.indexOf('hand') != -1) {
+						var temp = answer
+						$('#' + package['key']).text(++s_list[package['key']])
+						if (nextPic()) {
+							socket.emit('acknowledge', {key: package['key'], card: temp, result:'true'})
+						} else {
+							showResult()
+						}
+					} else {
+						socket.emit('acknowledge', {key: package['key'], card: null, result:'false'})
+					}
+				})
+				function nextPic() {
+					if (remain-- > 0) {
+						answer = pile[55 - remain]
+						showPic(answer)
+						return true
+					}
+					return false
+				}
+				function showResult() {
+					var arr = showLeaderboard(s_list)
+					var i = 1
+					for (var a in arr) {
+						$('body').append(`<center>
+										<span class='score'>` + list[arr[a][0]] + `: </span>
+										<span class='score'>` + arr[a][1] + `</span>
+									   </center>`)
+						socket.emit('acknowledge', {key: arr[a][0], rank: i++, result: 'end'})
+					}
+					setTimeout(function(){
+						socket.emit('gameStarted', 'end')
+						restartGame()
+					}, 30000)
+				}
+				// ############################################# //
+				function startCountdown() {
+					$('body').css({'background-color': '#ffb84d'})
+					var s = 5
+					function countdown(){
+						if (s < 0) {
+							$('body').css({'background-color': '#e6e6e6'})
+							$('#container').empty()
+							//$('#container').removeAttr('class')
+							init(player)
+							var i = 0
+							for (var k in list) {
+								socket.emit('acknowledge', {key: k, card: pile[i], result: 'none'})
+								i++
+							}
+							socket.emit('gameStarted', 'start')
+							remain -= player
+							showScores(list, s_list)
+							nextPic()
+							return
+						}
+						$('#wrap').removeAttr('class')
+						setTimeout(function(){
+							if (!ready) {
+								$('body').css({'background-color': '#e6e6e6'})
+								$('#wrap').css('display','none')
+								return
+							}
+							$('#wrap').addClass('wrap-' + s)
+							setTimeout(function(){
+								s--
+								countdown()
+							}, 1000)
+						}, 600)
+					}
+					countdown()
+				}
+				function restartGame() {
+					list = {}
+					r_list = {}
+					s_list = {}
+					player = 0
+					$('body').empty()
+					$('body').append(`<div id='container' class='what'></div>`)
+					setActive(false)
+				}
+			})
+		</script>
+	</head>
+	<body>
+		<div id='container' class='what'>
+			<p class='buzz'>Spot It</p>
+		</div>
+	</body>
+</html>
