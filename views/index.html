@@ -1,149 +1,17 @@
 <!DOCTYPE html>
 <html lang='en'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no'>
 	<head>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no'>
 		<title>Player</title>
-		<link rel='stylesheet' href='static/style_index.css' />
-		<script type='text/javascript' src='/static/lib/jquery-3.2.0.min.js'></script>
+		<link rel='stylesheet' href='static/css/style_index.css' />
+		<script type='text/javascript' src='/static/vendor/jquery-3.2.0.min.js'></script>
 		<script type='text/javascript' src='/socket.io/socket.io.js'></script>
-		<script type= 'text/javascript' src='/static/function.js'></script>
-		<script type='text/javascript' src='/static/card.js'></script>
-		<script type='text/javascript' src='/static/pile.js'></script>
-		<script>
-			$(document).ready(function() {
-				// ################# Initialize Phase ############### //
-				var id
-				var name
-				var count = 0
-				var score = 0
-				const page = [
-					{	'background-color': '#ffb84d',
-						'margin': '0'},
-					{	'background-color': '#ffb84d',
-						'margin': '0'},
-					{	'background-color': '#ffb84d',
-						'margin': '0'},
-					{	'background-color': '#ffb84d',
-						'margin': '25% auto'}
-				]
-				var socket = io.connect('/')
-				socket.on('id', function(key) {
-					if (key != null) {
-						id = key
-					}
-					ChangePage(1, null)
-				})
-				socket.on('status', function(package) {
-					switch (package['response']) {
-						case 'online':
-							ChangePage(2, null)
-							break
-						case 'offline':
-							alert('GM was offline, please wait until GM is wake up.')
-							break
-						case 'running':
-							alert('Game was already started, please wait until the game end.')
-							break
-						case 'full':
-							alert('Game was full of player, please wait until the seat is available')
-					}
-				})
-				// ################ Playing Phase ################ //							
-				socket.on('callback', function(package) {
-					if (id == package['key']) {
-						switch (package['result']) {
-							case 'true': 	
-								showPic(package['card'])
-								$('#score').text(++score)
-								break
-							case 'false':
-								if (++count%3 == 0) {
-									$('#ban').show()
-									$('img').each(function() {
-										$(this).hide()
-									})
-									setTimeout(function(){
-										$('img').each(function() {
-											$('#ban').hide()
-											$(this).show()
-										})
-									}, 10000)
-									break
-								}
-								alert('You pick the wrong one')
-								break
-							case 'end': 
-								ChangePage(4, package['rank'])
-								count = 0
-								break
-							case 'none': 
-								ChangePage(3, package['card'])
-								break
-						}
-					}
-				})
-				
-				$('body').on('click', 'img', function() {
-					socket.emit('choose', {key: id, value: $(this).attr('value')})	
-				})
-				// ######################################### //
-				function ChangePage(part, element) {
-					$('#container').empty()
-					switch(part) {
-						case 1:
-							$('body').empty()
-							$('body').append(`<div id='container' class='center'>
-											<p class='name-label'>Please enter your name: </p>
-											<input id='enter' class='enter-name' type='text' />
-										   </div>`)
-							$('#enter').keypress(function(e){
-								if (e.keyCode==13) {
-									if ($('#enter').val().length == 0) {
-										alert('Name must contain at least 1 character')
-									} else {
-										name = $('#enter').val()
-										socket.emit('enter', {key: name})
-									}
-								}
-							})
-							setBackground(page[0])
-							break
-						case 2:
-							setBackground(page[1])
-							$('#container').attr('class', 'what')
-							$('#container').append(`<div class='wrapper'>
-													<a href='#' id='state' class='btn'>Click to Ready</a>
-											    </div>`)
-							$('#state').click(function() {
-								if($(this).text() == 'Click to Ready') {
-									$(this).text('Click to Not Ready')
-									socket.emit('ready', {key: id})
-								} else {
-									$(this).text('Click to Ready')
-									socket.emit('notready', {key: id})
-								}
-							})
-							break
-						case 3:
-							setBackground(page[2])
-							$('#container').attr('class', 'container')
-							$('body').prepend(`<p class='score-label'>Your Score: </p>
-										    <p id='score' class='score-label'>` + score + `<p>`)
-							$('body').prepend(`<p id='ban'>You got TEMPORALLY banned, from picking the wrong one</p>`)
-							$('#ban').hide()
-							showPic(element)
-							break
-						case 4:
-							setBackground(page[3])
-							$('body').empty()
-							$('body').append(`<p class='rank'>Your Rank:</p>`)
-							$('body').append(`<p class='rank'>` + element + `</p>`)
-							break
-					}
-				}
-			})
-		</script>
+		<script type='text/javascript' src='/static/js/pile.min.js'></script>
+		<script type='text/javascript' src='/static/js/index.min.js'></script>
 	</head>
 	<body>
+		<div class="container"></div>
+		<input id="UserID" type="hidden" data-id="" />
+		<input id="UserName" type="hidden" data-name="" />
 	</body>
 </html>

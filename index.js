@@ -13,10 +13,8 @@
 	online = false
 // Set environment
 	server.listen(port)
-	app.use(express.static(__dirname + '/views/'))
-	app.use('/static', express.static(__dirname + '/assets/'))
+	app.use('/static', express.static(__dirname + '/assets/prod'))
 	app.disable('etag')
-
 // Set route //
 	app.get('/', function(req, res) {
 		res.sendFile(__dirname + '/views/index.html')
