@@ -10,23 +10,23 @@ $(document).ready(function () {
     var socket = io.connect('/tunnel')
     // ################# Initialize Phase ############### //
     socket.on('joining', function (token) {
-        if (token['key'] != null) {
-            list[token['key']] = token['name']
-            s_list[token['key']] = 0
-            r_list[token['key']] = false
+        if (token['id'] != null) {
+            list[token['id']] = token['name']
+            s_list[token['id']] = 0
+            r_list[token['id']] = false
             if (++player == 1) {
                 setActive(true)
             }
             ready = false
-            addToLobby(token['key'])
+            addToLobby(token['id'])
         }
     })
     socket.on('leaving', function (token) {
-        if (list[token['key']] != null) {
-            $('#' + token['key']).css('display', 'none')
-            delete list[token['key']]
-            delete s_list[token['key']]
-            delete r_list[token['key']]
+        if (list[token['id']] != null) {
+            $('#' + token['id']).css('display', 'none')
+            delete list[token['id']]
+            delete s_list[token['id']]
+            delete r_list[token['id']]
             player--
             socket.emit('exit')
         }
@@ -34,8 +34,8 @@ $(document).ready(function () {
     socket.on('inactive', function () {
         setActive(false)
     })
-    function addToLobby(key) {
-        $('#container').append(`<span style='margin-left: 50px; font-size: 0.5em; color: red;' id=` + key + `>` + list[key] + `</span>`)
+    function addToLobby(id) {
+        $('#container').append(`<span style='margin-left: 50px; font-size: 0.5em; color: red;' id=` + id + `>` + list[id] + `</span>`)
     }
     function setActive(status) {
         if (status) {
@@ -47,33 +47,34 @@ $(document).ready(function () {
             $('#container').append(`<p class='buzz'>Spot It</p>`)
         }
     }
-    socket.on('ready', function (token) {
-        r_list[token['key']] = true
-        $('#' + token['key']).css('color', 'green')
-        if (checkReady(r_list)) {
-            ready = true
-            $('#wrap').css('display', 'block')
-            startCountdown()
+    socket.on('status', function (obj) {
+        if (obj['status'] == "ready") {
+            r_list[token['id']] = true
+            $('#' + token['id']).css('color', 'green')
+            if (checkReady(r_list)) {
+                ready = true
+                $('#wrap').css('display', 'block')
+                startCountdown()
+            }
+        } else if (obj['status'] == "not") {
+            r_list[token['id']] = false
+            $('#' + token['id']).css('color', 'red')
+            ready = false
+            $('#wrap').css('display', 'none')
         }
-    })
-    socket.on('notready', function (token) {
-        r_list[token['key']] = false
-        $('#' + token['key']).css('color', 'red')
-        ready = false
-        $('#wrap').css('display', 'none')
     })
     // ################ Playing Phase ################ //
     socket.on('submit', function (token) {
         if (answer.indexOf(token['value']) != -1 || answer.indexOf('hand') != -1) {
             var temp = answer
-            $('#' + token['key']).text(++s_list[token['key']])
+            $('#' + token['id']).text(++s_list[token['id']])
             if (nextPic()) {
-                socket.emit('acknowledge', { key: token['key'], card: temp, result: 'true' })
+                socket.emit('acknowledge', { id: token['id'], card: temp, result: 'true' })
             } else {
                 showResult()
             }
         } else {
-            socket.emit('acknowledge', { key: token['key'], card: null, result: 'false' })
+            socket.emit('acknowledge', { id: token['id'], card: null, result: 'false' })
         }
     })
     function nextPic() {
@@ -92,7 +93,7 @@ $(document).ready(function () {
 										<span class='score'>` + list[arr[a][0]] + `: </span>
 										<span class='score'>` + arr[a][1] + `</span>
 									   </center>`)
-            socket.emit('acknowledge', { key: arr[a][0], rank: i++, result: 'end' })
+            socket.emit('acknowledge', { id: arr[a][0], rank: i++, result: 'end' })
         }
         setTimeout(function () {
             socket.emit('gameStarted', 'end')
@@ -110,8 +111,8 @@ $(document).ready(function () {
                 //$('#container').removeAttr('class')
                 init(player)
                 var i = 0
-                for (var k in list) {
-                    socket.emit('acknowledge', { key: k, card: pile[i], result: 'none' })
+                for (var id in list) {
+                    socket.emit('acknowledge', { id: id, card: pile[i], result: 'none' })
                     i++
                 }
                 socket.emit('gameStarted', 'start')

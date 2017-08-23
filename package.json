@@ -12,7 +12,8 @@
     "express": "^4.15.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.3",
+    "socketio-wildcard": "^2.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
