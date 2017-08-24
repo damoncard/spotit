@@ -1,3 +1,4 @@
 node_modules/
 package-lock.json
-assets/js/*
+assets/prod/js/*
+assets/prod/app.min.css
