@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 var config = {
   entry: {
-    index: './player.jsx',
+    player: './player.jsx',
     gm: './gm.jsx',
     pile: './pile.jsx'
   },

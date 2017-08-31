@@ -4,6 +4,7 @@ var io = require('socket.io-client')
 var socket = io('/')
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
+var reactComponent
 
 $(document).ready(function () {
 
@@ -16,7 +17,7 @@ $(document).ready(function () {
                 if (value != null) {
                     $('#UserID').attr('data-id', value)
                 }
-                reRenderComponent(<InitContainer />)
+                reactComponent = ReactDOM.render(<InitContainer />, document.querySelector('.player-container'))
                 break
             case 'status':
                 switch (value['response']) {
@@ -40,12 +41,12 @@ $(document).ready(function () {
                 if (userID == value['id']) {
                     switch (value['result']) {
                         case 'true':
-                            stageContainter.setState({ score: stageContainter.state.score + 1 })
-                            stageContainter.setState({ cards: value['card'] })
-                            stageContainter.setState({ pattern: value['pattern'] })
+                            reactComponent.setState({ score: reactComponent.state.score + 1 })
+                            reactComponent.setState({ cards: value['card'] })
+                            reactComponent.setState({ pattern: value['pattern'] })
                             break
                         case 'false':
-                            stageContainter.faultImage()
+                            reactComponent.faultImage()
                             break
                         case 'end':
                             reRenderComponent(<RankContainer rank={value['rank']} />)
@@ -60,64 +61,64 @@ $(document).ready(function () {
     })
 })
 
-var initContainer = class InitContainer extends React.Component {
+class InitContainer extends React.Component {
 
     constructor(props) {
         super(props)
+        this.enterName = this.enterName.bind(this)
     }
 
-    componentDidMount() {
-        $('.input-name').keypress(function (e) {
-            if (e.keyCode == 13) {
-                if ($('#enter').val().length == 0) {
-                    alert('Name must contain at least 1 character')
-                } else {
-                    var name = $('#enter').val()
-                    $('#UserName').attr('data-name', name)
-                    socket.emit('enter', name)
-                }
+    enterName(key) {
+        if (key.key == 'Enter') {
+            var name = $('.input-name').val().trim()
+            if (name.length == 0) {
+                alert('Name must contain at least 1 character')
+            } else {
+                $('#UserName').attr('data-name', name)
+                socket.emit('enter', name)
             }
-        })
+        }
     }
 
     render() {
         return (
             <div className='center'>
                 <p className='name-label'>Please enter your name: </p>
-                <input className='input-name' type='text' />
+                <input className='input-name' type='text' onKeyPress={this.enterName} />
             </div>
         )
     }
 }
 
-var stateContainer = class StateContainer extends React.Component {
+class StateContainer extends React.Component {
 
     constructor(props) {
         super(props)
+        this.checkStatus = this.checkStatus.bind(this)
     }
 
-    componentDidMount() {
-        $('#state').click(function () {
-            if ($(this).text() == 'Click to Ready') {
-                $(this).text('Click to Not Ready')
-                socket.emit('status', { id: id, status: "ready" })
-            } else {
-                $(this).text('Click to Ready')
-                socket.emit('status', { id: id, status: "not" })
-            }
-        })
+    checkStatus() {
+        var text = $('.btn-ready').text()
+        var id = $('#UserID').attr('data-id')
+        if (text == 'Click to Ready') {
+            $('.btn-ready').text('Click to Not Ready')
+            socket.emit('status', { id: id, status: 'ready' })
+        } else {
+            $('.btn-ready').text('Click to Ready')
+            socket.emit('status', { id: id, status: 'not' })
+        }
     }
 
     render() {
         return (
             <div className='player-status'>
-                <a href='#' className='btn-ready'>Click to Ready</a>
+                <a href='#' className='btn-ready' onClick={this.checkStatus}>Click to Ready</a>
             </div>
         )
     }
 }
 
-var stageContainter = class StageContainer extends React.Component {
+class StageContainer extends React.Component {
 
     constructor(props) {
         super(props)
@@ -138,7 +139,7 @@ var stageContainter = class StageContainer extends React.Component {
     faultImage() {
         var count = this.state.count
         this.setState({ count: count + 1 })
-        if (count%3 == 0) {
+        if (count % 3 == 0) {
             $('.ban-label').show()
             $('.stage-container' > 'img').each(function () {
                 $(this).hide()
@@ -159,14 +160,16 @@ var stageContainter = class StageContainer extends React.Component {
                 <p className='score-label'>Your Score: <span className='score-label'>{this.state.score}</span></p>
                 <p className='ban-label' style={{ 'display': 'none' }}>You got TEMPORALLY banned, from picking the wrong one</p>
                 {this.state.cards.map(function (card) {
-                    <img height='100px' src={getPic(card)} value={card} />
+                    return (
+                        <img height='100px' src={getPic(card)} value={card} />
+                    )
                 })}
             </div>
         )
     }
 }
 
-var rankContainer = class RankContainer extends React.Component {
+class RankContainer extends React.Component {
 
     constructor(props) {
         super(props)
@@ -183,6 +186,6 @@ var rankContainer = class RankContainer extends React.Component {
 }
 
 function reRenderComponent(component) {
-    ReactDOM.unmountComponentAtNode($('.player-containter'))
-    ReactDOM.render(component, $('.player-container'))
+    ReactDOM.unmountComponentAtNode(document.querySelector('.player-container'))
+    reactComponent = ReactDOM.render(component, document.querySelector('.player-container'))
 }

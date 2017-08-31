@@ -8,7 +8,7 @@ path = require('path')
 
 // Set variable //
 port = process.env.PORT || 8080
-player = 0
+// player = 0
 timer = null
 status = 'offline'
 online = false
@@ -50,7 +50,7 @@ var user = io.of('/').on('connection', function (socket) {
 				}
 				break
 			case 'status':
-				admin.emit('status', value)
+				admin.emit('status', {id: value['id'], status: value['status'], player: player })
 				break
 			case 'submit':
 				admin.emit('submit', value)
@@ -60,7 +60,7 @@ var user = io.of('/').on('connection', function (socket) {
 
 	socket.on('disconnect', function () {
 		admin.emit('leaving', { id: socket.id })
-		if (player == 0) {
+		if (--player == 0) {
 			startCountdown()
 		}
 	})
@@ -68,6 +68,7 @@ var user = io.of('/').on('connection', function (socket) {
 
 var admin = io.of('/tunnel').on('connection', function (socket) {
 	status = 'online'
+	player = io.engine.clientsCount - 1
 
 	socket.on('*', function (obj) {
 		var event = obj.data[0]
@@ -76,16 +77,13 @@ var admin = io.of('/tunnel').on('connection', function (socket) {
 			case 'acknowledge':
 				user.emit('callback', value)
 				break
-			case 'gameStarted':
+			case 'status':
 				if (value == 'end') {
 					status = 'online'
 					user.emit('id')
 				} else {
 					status = 'running'
 				}
-				break
-			case 'exit':
-				player--
 				break
 		}
 	})
@@ -101,8 +99,8 @@ function startCountdown() {
 	timer = setInterval(function () {
 		countdown -= 1000;
 		if (countdown <= 0) {
-			clearInterval(timer)
 			admin.emit('inactive')
+			clearInterval(timer)
 		}
 	}, 1000)
 }

@@ -42,29 +42,29 @@
 /*--------------------
 Nine
 --------------------*/
-.countdown-timer-9 .c {
+.second-9 .c {
   width: 180px;
   height: 60px;
   left: 90px;
   top: 30px; }
-.countdown-timer-9 .o {
+.second-9 .o {
   width: 60px;
   height: 240px;
   left: 240px;
   top: 60px;
   transform: rotate(180deg); }
-.countdown-timer-9 .u {
+.second-9 .u {
   width: 150px;
   height: 60px;
   left: 120px;
   top: 270px;
   transform: rotate(180deg); }
-.countdown-timer-9 .n {
+.second-9 .n {
   width: 180px;
   height: 60px;
   left: 90px;
   top: 150px; }
-.countdown-timer-9 .t {
+.second-9 .t {
   width: 60px;
   height: 120px;
   left: 60px;
@@ -74,29 +74,29 @@ Nine
 /*--------------------
 Eight
 --------------------*/
-.countdown-timer-8 .c {
+.second-8 .c {
   width: 180px;
   height: 60px;
   left: 90px;
   top: 150px;
   transform: rotate(180deg); }
-.countdown-timer-8 .o {
+.second-8 .o {
   width: 60px;
   height: 240px;
   left: 60px;
   top: 60px; }
-.countdown-timer-8 .u {
+.second-8 .u {
   width: 180px;
   height: 60px;
   left: 90px;
   top: 270px;
   transform: rotate(180deg); }
-.countdown-timer-8 .n {
+.second-8 .n {
   width: 180px;
   height: 60px;
   left: 90px;
   top: 30px; }
-.countdown-timer-8 .t {
+.second-8 .t {
   width: 60px;
   height: 240px;
   left: 240px;
@@ -106,29 +106,29 @@ Eight
 /*--------------------
 Seven
 --------------------*/
-.countdown-timer-7 .c {
+.second-7 .c {
   width: 140px;
   height: 60px;
   left: 190px;
   top: 70px;
   transform: rotate(-65deg); }
-.countdown-timer-7 .o {
+.second-7 .o {
   width: 190px;
   height: 60px;
   left: 100px;
   top: 210px;
   transform: rotate(-65deg); }
-.countdown-timer-7 .u {
+.second-7 .u {
   width: 0;
   height: 0;
   left: 90px;
   top: 270px; }
-.countdown-timer-7 .n {
+.second-7 .n {
   width: 0;
   height: 0;
   left: 150px;
   top: 150px; }
-.countdown-timer-7 .t {
+.second-7 .t {
   width: 180px;
   height: 60px;
   left: 90px;
@@ -137,30 +137,30 @@ Seven
 /*--------------------
 Six
 --------------------*/
-.countdown-timer-6 .c {
+.second-6 .c {
   width: 180px;
   height: 60px;
   left: 90px;
   top: 150px;
   transform: rotate(180deg); }
-.countdown-timer-6 .o {
+.second-6 .o {
   width: 180px;
   height: 60px;
   left: 90px;
   top: 270px;
   transform: rotate(180deg); }
-.countdown-timer-6 .u {
+.second-6 .u {
   width: 60px;
   height: 240px;
   left: 60px;
   top: 60px; }
-.countdown-timer-6 .n {
+.second-6 .n {
   width: 60px;
   height: 120px;
   left: 240px;
   top: 180px;
   transform: rotate(180deg); }
-.countdown-timer-6 .t {
+.second-6 .t {
   width: 180px;
   height: 60px;
   left: 90px;
@@ -169,30 +169,30 @@ Six
 /*--------------------
 Five
 --------------------*/
-.countdown-timer-5 .c {
+.second-5 .c {
   width: 210px;
   height: 60px;
   left: 60px;
   top: 30px;
   transform: rotate(180deg); }
-.countdown-timer-5 .o {
+.second-5 .o {
   width: 210px;
   height: 60px;
   left: 60px;
   top: 270px;
   transform: rotate(180deg); }
-.countdown-timer-5 .u {
+.second-5 .u {
   width: 60px;
   height: 120px;
   left: 240px;
   top: 180px;
   transform: rotate(180deg); }
-.countdown-timer-5 .n {
+.second-5 .n {
   width: 60px;
   height: 140px;
   left: 60px;
   top: 60px; }
-.countdown-timer-5 .t {
+.second-5 .t {
   width: 180px;
   height: 60px;
   left: 90px;
@@ -201,31 +201,31 @@ Five
 /*--------------------
 Four
 --------------------*/
-.countdown-timer-4 .c {
+.second-4 .c {
   width: 60px;
   height: 303px;
   left: 210px;
   top: 30px;
   transform: rotate(180deg); }
-.countdown-timer-4 .o {
+.second-4 .o {
   width: 60px;
   height: 60px;
   left: 244px;
   top: 211px;
   transform: rotate(180deg); }
-.countdown-timer-4 .u {
+.second-4 .u {
   width: 60px;
   height: 81px;
   left: 60px;
   top: 180px;
   transform: rotate(180deg); }
-.countdown-timer-4 .n {
+.second-4 .n {
   width: 60px;
   height: 208px;
   left: 110px;
   top: 9px;
   transform: rotate(45deg); }
-.countdown-timer-4 .t {
+.second-4 .t {
   width: 210px;
   height: 60px;
   left: 57px;
@@ -234,30 +234,30 @@ Four
 /*--------------------
 Three
 --------------------*/
-.countdown-timer-3 .c {
+.second-3 .c {
   width: 180px;
   height: 60px;
   left: 90px;
   top: 150px;
   transform: rotate(180deg); }
-.countdown-timer-3 .o {
+.second-3 .o {
   width: 60px;
   height: 110px;
   left: 240px;
   top: 60px;
   transform: rotate(180deg); }
-.countdown-timer-3 .u {
+.second-3 .u {
   width: 180px;
   height: 60px;
   left: 90px;
   top: 270px;
   transform: rotate(180deg); }
-.countdown-timer-3 .n {
+.second-3 .n {
   width: 180px;
   height: 60px;
   left: 90px;
   top: 30px; }
-.countdown-timer-3 .t {
+.second-3 .t {
   width: 60px;
   height: 110px;
   left: 240px;
@@ -267,29 +267,29 @@ Three
 /*--------------------
 Two
 --------------------*/
-.countdown-timer-2 .c {
+.second-2 .c {
   width: 180px;
   height: 60px;
   left: 90px;
   top: 30px; }
-.countdown-timer-2 .o {
+.second-2 .o {
   width: 60px;
   height: 130px;
   left: 240px;
   top: 60px;
   transform: rotate(180deg); }
-.countdown-timer-2 .u {
+.second-2 .u {
   width: 210px;
   height: 60px;
   left: 90px;
   top: 270px;
   transform: rotate(180deg); }
-.countdown-timer-2 .n {
+.second-2 .n {
   width: 180px;
   height: 60px;
   left: 90px;
   top: 150px; }
-.countdown-timer-2 .t {
+.second-2 .t {
   width: 60px;
   height: 160px;
   left: 60px;
@@ -299,30 +299,30 @@ Two
 /*--------------------
 One
 --------------------*/
-.countdown-timer-1 .c {
+.second-1 .c {
   width: 160px;
   height: 60px;
   left: 101px;
   top: 57px;
   transform: rotate(-36deg); }
-.countdown-timer-1 .o {
+.second-1 .o {
   width: 0;
   height: 0;
   left: 240px;
   top: 60px;
   transform: rotate(180deg); }
-.countdown-timer-1 .u {
+.second-1 .u {
   width: 0;
   height: 0;
   left: 90px;
   top: 270px; }
-.countdown-timer-1 .n {
+.second-1 .n {
   width: 60px;
   height: 140px;
   left: 193px;
   top: 50px;
   transform: rotate(180deg); }
-.countdown-timer-1 .t {
+.second-1 .t {
   width: 60px;
   height: 160px;
   left: 193px;
@@ -332,29 +332,29 @@ One
 /*--------------------
 Zero
 --------------------*/
-.countdown-timer-0 .c {
+.second-0 .c {
   width: 0;
   height: 0;
   left: 90px;
   top: 150px;
   transform: rotate(180deg); }
-.countdown-timer-0 .o {
+.second-0 .o {
   width: 60px;
   height: 240px;
   left: 60px;
   top: 60px; }
-.countdown-timer-0 .u {
+.second-0 .u {
   width: 180px;
   height: 60px;
   left: 90px;
   top: 270px;
   transform: rotate(180deg); }
-.countdown-timer-0 .n {
+.second-0 .n {
   width: 180px;
   height: 60px;
   left: 90px;
   top: 30px; }
-.countdown-timer-0 .t {
+.second-0 .t {
   width: 60px;
   height: 240px;
   left: 240px;
