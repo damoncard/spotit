@@ -5,7 +5,7 @@ var socket = io('/tunnel')
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 
-import {pile, getPic, initGame} from './pile.jsx'
+import { pile, getPic, initGame } from './pile.jsx'
 
 var reactComponent
 var list = {}
@@ -150,7 +150,7 @@ class StageContainer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            list: [],
+            list: props.list,
             cards: [],
         }
     }
@@ -159,11 +159,11 @@ class StageContainer extends React.Component {
         return (
             <div className='stage-container'>
                 <div className='player-panel'>
-                    {this.state.list.map(function (player) {
+                    {Object.keys(this.state.list).map((player) => {
                         return (
                             <div className='player-profile'>
-                                <span className='player-name'>{player.name}</span>
-                                <span id={player} className='player-score'>{player.score}</span>
+                                <span className='player-name'>{this.state.list[player].name}</span>
+                                <span id={player} className='player-score'>{this.state.list[player].score}</span>
                             </div>
                         )
                     })}
@@ -244,7 +244,7 @@ function startCountdown() {
                 socket.emit('acknowledge', { id: id, card: pile[i++], result: 'none' })
             }
 
-            reRenderComponent(<StageContainer />)
+            reRenderComponent(<StageContainer list={list} />)
             socket.emit('status', 'start')
             remain -= player
             nextPic()

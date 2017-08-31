@@ -39,7 +39,7 @@ var user = io.of('/').on('connection', function (socket) {
 			case 'enter':
 				if (player < 8) {
 					if (status == 'online') {
-						if (++player == 1) {
+						if (player == 1) {
 							stopCountdown()
 						}
 						admin.emit('joining', { name: value, id: socket.id })
