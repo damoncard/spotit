@@ -1,82 +1,79 @@
+var React = require('react');
+var ReactDOM = require('react-dom');
+var io = require('socket.io-client')
+var socket = io('/tunnel')
+var patch = require('socketio-wildcard')(io.Manager);
+patch(socket);
+
 $(document).ready(function () {
     var list = {}
-    var r_list = {}
-    var s_list = {}
-    var answer
     var remain = 6
     var player = 0
     var timer = null
-    var ready = false
-    var socket = io.connect('/tunnel')
-    // ################# Initialize Phase ############### //
-    socket.on('joining', function (token) {
-        if (token['id'] != null) {
-            list[token['id']] = token['name']
-            s_list[token['id']] = 0
-            r_list[token['id']] = false
-            if (++player == 1) {
-                setActive(true)
-            }
-            ready = false
-            addToLobby(token['id'])
+
+    socket.on('*', function (obj) {
+        var event = obj.data[0]
+        var value = obj.data[1]
+        switch (event) {
+            // ################# Initialize Phase ############### //
+            case 'joining':
+                if (value['id'] != null) {
+                    list[value['id']] = {
+                        name: value['name'],
+                        score: 0,
+                        status: false,
+                    }
+                    if (++player == 1) {
+                        initContainer.setState({ active: true })
+                    }
+                    initContainer.setState({ list: list })
+                }
+                break
+            case 'leaving':
+                if (list[value['id']] != null) {
+                    delete list[value['id']]
+                    initContainer.setState({ list: list })
+                    player--
+                    socket.emit('exit')
+                }
+                break
+            case 'inactive':
+                initContainer.setState({ active: false })
+                break
+            case 'status':
+                var id = value['id']
+                var status = value['status'] == 'ready' ? true : false
+                list[id].status = status
+                $('#' + id).css('color', status ? 'green' : 'red')
+
+                var all_ready = false
+                for (var i in list) {
+                    if (!list[i].status) {
+                        all_ready = false
+                        break
+                    }
+                }
+
+                if (all_ready) {
+                    $('.countdown-container').show()
+                    startCountdown()
+                } else {
+                    $('.countdown-container').hide()
+                }
+                break
+            // ################ Playing Phase ################ //
+            case 'submit':
+                
+                if (nextPic()) {
+                    socket.emit('acknowledge', { id: value['id'], card: temp, result: 'true' })
+                } else {
+                    showResult()
+                }
+                socket.emit('acknowledge', { id: value['id'], card: null, result: 'false' })
+                break
         }
     })
-    socket.on('leaving', function (token) {
-        if (list[token['id']] != null) {
-            $('#' + token['id']).css('display', 'none')
-            delete list[token['id']]
-            delete s_list[token['id']]
-            delete r_list[token['id']]
-            player--
-            socket.emit('exit')
-        }
-    })
-    socket.on('inactive', function () {
-        setActive(false)
-    })
-    function addToLobby(id) {
-        $('#container').append(`<span style='margin-left: 50px; font-size: 0.5em; color: red;' id=` + id + `>` + list[id] + `</span>`)
-    }
-    function setActive(status) {
-        if (status) {
-            $('#container').empty()
-            $('#container').append(`<p>Lobby</p><br><span style="font-size:0.7em;">Player List</span>`)
-            createCountdown()
-        } else {
-            $('#container').empty()
-            $('#container').append(`<p class='buzz'>Spot It</p>`)
-        }
-    }
-    socket.on('status', function (obj) {
-        if (obj['status'] == "ready") {
-            r_list[token['id']] = true
-            $('#' + token['id']).css('color', 'green')
-            if (checkReady(r_list)) {
-                ready = true
-                $('#wrap').css('display', 'block')
-                startCountdown()
-            }
-        } else if (obj['status'] == "not") {
-            r_list[token['id']] = false
-            $('#' + token['id']).css('color', 'red')
-            ready = false
-            $('#wrap').css('display', 'none')
-        }
-    })
-    // ################ Playing Phase ################ //
-    socket.on('submit', function (token) {
-        if (answer.indexOf(token['value']) != -1 || answer.indexOf('hand') != -1) {
-            var temp = answer
-            $('#' + token['id']).text(++s_list[token['id']])
-            if (nextPic()) {
-                socket.emit('acknowledge', { id: token['id'], card: temp, result: 'true' })
-            } else {
-                showResult()
-            }
-        } else {
-            socket.emit('acknowledge', { id: token['id'], card: null, result: 'false' })
-        }
-    })
+
     function nextPic() {
         if (remain-- > 0) {
             answer = pile[55 - remain]
@@ -85,6 +82,7 @@ $(document).ready(function () {
         }
         return false
     }
+
     function showResult() {
         var arr = showLeaderboard(s_list)
         var i = 1
@@ -97,18 +95,17 @@ $(document).ready(function () {
         }
         setTimeout(function () {
             socket.emit('gameStarted', 'end')
-            restartGame()
+            list = {}
+            player = 0
+            reRenderComponent(<InitContainer />)
         }, 30000)
     }
     // ############################################# //
     function startCountdown() {
-        $('body').css({ 'background-color': '#ffb84d' })
         var s = 5
         function countdown() {
             if (s < 0) {
-                $('body').css({ 'background-color': '#e6e6e6' })
                 $('#container').empty()
-                //$('#container').removeAttr('class')
                 init(player)
                 var i = 0
                 for (var id in list) {
@@ -121,14 +118,13 @@ $(document).ready(function () {
                 nextPic()
                 return
             }
-            $('#wrap').removeAttr('class')
+            $('.countdown-container').show()
             setTimeout(function () {
                 if (!ready) {
-                    $('body').css({ 'background-color': '#e6e6e6' })
-                    $('#wrap').css('display', 'none')
+                    $('.countdown-container').hide()
                     return
                 }
-                $('#wrap').addClass('wrap-' + s)
+                $('.countdown-timer').addClass('wrap-' + s)
                 setTimeout(function () {
                     s--
                     countdown()
@@ -137,45 +133,9 @@ $(document).ready(function () {
         }
         countdown()
     }
-    function restartGame() {
-        list = {}
-        r_list = {}
-        s_list = {}
-        player = 0
-        $('body').empty()
-        $('body').append(`<div id='container' class='what'></div>`)
-        setActive(false)
-    }
+
+    ReactDOM.render(<InitContainer />, $('.admin-container'))
 })
-
-function createCountdown() {
-    $('#container').append(`<div id="wrap">
-					<div class="c"></div>
-					<div class="o"></div>
-					<div class="u"></div>
-					<div class="n"></div>
-					<div class="t"></div>
-			    </div>
-			<svg style='display: none;'>
-				<defs>
-					<filter id="filter">
-						<feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur" />
-						<feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 28 -10" result="filter" />
-						<feComposite in="SourceGraphic" in2="filter" operator="atop" />
-					</filter>
-				</defs>
-			</svg>`)
-    $('#wrap').css('display', 'none')
-}
-
-function checkReady(list) {
-    for (var s in list) {
-        if (!list[s]) {
-            return false
-        }
-    }
-    return true
-}
 
 function showScores(name, score) {
     for (var k in name) {
@@ -194,4 +154,101 @@ function showLeaderboard(score) {
     }
     sortable.sort(function (a, b) { return b[1] - a[1] })
     return sortable
+}
+
+var initContainer = class InitContainer extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            active: false,
+            list: [],
+        }
+    }
+
+    render() {
+        return (
+            <div className='init-container'>
+                {this.state.active ? (
+                    <div>
+                        <div className='lobby-room'>
+                            <p>Lobby</p><br />
+                            <span style='font-size:0.7em;'>Player List</span>
+                            {this.state.list.map(function (player) {
+                                <span id={player.id} style={{ 'margin-left': '50px', 'font-size': '0.5em', 'color': 'red' }}>{player.name}</span>
+                            })}
+                        </div>
+
+                        <div className='countdown-container' style={{ 'display': 'none' }}>
+                            <div id='countdown-timer'>
+                                <div className='c'></div>
+                                <div className='o'></div>
+                                <div className='u'></div>
+                                <div className='n'></div>
+                                <div className='t'></div>
+                            </div>
+                            <svg style='display: none;'>
+                                <defs>
+                                    <filter id='filter'>
+                                        <feGaussianBlur in='SourceGraphic' stdDeviation='18' result='blur' />
+                                        <feColorMatrix in='blur' mode='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 28 -10' result='filter' />
+                                        <feComposite in='SourceGraphic' in2='filter' operator='atop' />
+                                    </filter>
+                                </defs>
+                            </svg>
+                        </div>
+                    </div>
+                ) : (
+                        <div>
+                            <p class='game-label'>Spot It</p>
+                        </div>
+                    )}
+            </div>
+        )
+    }
+}
+
+var stageContainer = class StageContainer extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            list: [],
+            cards: [],
+        }
+    }
+
+
+    render() {
+        return (
+            <div className='stage-container'>
+                <p className='score-label'>Your Score: <span className='score-label'>{this.state.score}</span></p>
+                <p className='ban-label' style={{ 'display': 'none' }}>You got TEMPORALLY banned, from picking the wrong one</p>
+                {this.state.cards.map(function (card) {
+                    <img height='100px' src={getPic(card)} value={card} />
+                })}
+            </div>
+        )
+    }
+
+}
+
+var rankContainer = class RankContainer extends React.Component {
+
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        return (
+            <div>
+
+            </div>
+        )
+    }
+}
+
+function reRenderComponent(component) {
+    ReactDOM.unmountComponentAtNode($('.admin-containter'))
+    ReactDOM.render(component, $('.admin-container'))
 }

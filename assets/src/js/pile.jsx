@@ -120,21 +120,14 @@ var symbol =
 		yay: '_static/pic/yay.png'
 	}
 
+function getPic(name) {
+	return symbol[name]
+}
+
 function init(player) {
 	pointer = player
 	shuffle()
 	centre = pile[pointer + 1]
-}
-
-function showPic(set) {
-	$('div').empty()
-	for (var card in set) {
-		$('div').append(`<img height='100' src='` + getPic(set[card]) + `' value='` + set[card] + `' />`)
-	}
-}
-
-function getPic(name) {
-	return symbol[name]
 }
 
 function shuffle() {

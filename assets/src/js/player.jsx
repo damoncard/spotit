@@ -5,27 +5,6 @@ var socket = io('/')
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 
-var count = 0
-var score = 0
-const page = [
-    {
-        'background-color': '#ffb84d',
-        'margin': '0'
-    },
-    {
-        'background-color': '#ffb84d',
-        'margin': '0'
-    },
-    {
-        'background-color': '#ffb84d',
-        'margin': '0'
-    },
-    {
-        'background-color': '#ffb84d',
-        'margin': '25% auto'
-    }
-]
-
 $(document).ready(function () {
 
     socket.on('*', function (obj) {
@@ -37,12 +16,12 @@ $(document).ready(function () {
                 if (value != null) {
                     $('#UserID').attr('data-id', value)
                 }
-                changePage(1, null)
+                reRenderComponent(<InitContainer />)
                 break
             case 'status':
                 switch (value['response']) {
                     case 'online':
-                        changePage(2, null)
+                        reRenderComponent(<StateContainer />)
                         break
                     case 'offline':
                         alert('GM was offline, please wait until GM is wake up.')
@@ -61,115 +40,34 @@ $(document).ready(function () {
                 if (userID == value['id']) {
                     switch (value['result']) {
                         case 'true':
-                            showPic(value['card'])
-                            $('#score').text(++score)
+                            stageContainter.setState({ score: stageContainter.state.score + 1 })
+                            stageContainter.setState({ cards: value['card'] })
+                            stageContainter.setState({ pattern: value['pattern'] })
                             break
                         case 'false':
-                            if (++count % 3 == 0) {
-                                $('#ban').show()
-                                $('img').each(function () {
-                                    $(this).hide()
-                                })
-                                setTimeout(function () {
-                                    $('img').each(function () {
-                                        $('#ban').hide()
-                                        $(this).show()
-                                    })
-                                }, 10000)
-                                break
-                            }
-                            alert('You pick the wrong one')
+                            stageContainter.faultImage()
                             break
                         case 'end':
-                            changePage(4, value['rank'])
-                            count = 0
+                            reRenderComponent(<RankContainer rank={value['rank']} />)
                             break
                         case 'none':
-                            changePage(3, value['card'])
+                            reRenderComponent(<StageContainer cards={value['card']} />)
                             break
                     }
                 }
                 break
         }
     })
-
-    $('body').on('click', 'img', function () {
-        socket.emit('submit', { id: $('#UserID').attr('data-id'), value: $(this).attr('value') })
-    })
-    // ######################################### //
 })
 
-function setBackground(prop) {
-    for (var p in prop) {
-        $('body').css(prop)
-    }
-}
-
-function changePage(part, element) {
-    $('#container').empty()
-    switch (part) {
-        case 1:
-            $('body').empty()
-            $('body').append(`<div id='container' class='center'>
-											<p class='name-label'>Please enter your name: </p>
-											<input id='enter' class='enter-name' type='text' />
-										   </div>`)
-            $('#enter').keypress(function (e) {
-                if (e.keyCode == 13) {
-                    if ($('#enter').val().length == 0) {
-                        alert('Name must contain at least 1 character')
-                    } else {
-                        var name = $('#enter').val()
-                        $('#UserName').attr('data-name', name)
-                        socket.emit('enter', name)
-                    }
-                }
-            })
-            setBackground(page[0])
-            break
-        case 2:
-            setBackground(page[1])
-            $('#container').attr('class', 'what')
-            $('#container').append(`<div class='wrapper'>
-													<a href='#' id='state' class='btn'>Click to Ready</a>
-											    </div>`)
-            $('#state').click(function () {
-                if ($(this).text() == 'Click to Ready') {
-                    $(this).text('Click to Not Ready')
-                    socket.emit('status', { id: id, status: "ready" })
-                } else {
-                    $(this).text('Click to Ready')
-                    socket.emit('status', { id: id, status: "not" })
-                }
-            })
-            break
-        case 3:
-            setBackground(page[2])
-            $('#container').attr('class', 'container')
-            $('body').prepend(`<p class='score-label'>Your Score: </p>
-										    <p id='score' class='score-label'>` + score + `<p>`)
-            $('body').prepend(`<p id='ban'>You got TEMPORALLY banned, from picking the wrong one</p>`)
-            $('#ban').hide()
-            showPic(element)
-            break
-        case 4:
-            setBackground(page[3])
-            $('body').empty()
-            $('body').append(`<p class='rank'>Your Rank:</p>`)
-            $('body').append(`<p class='rank'>` + element + `</p>`)
-            break
-    }
-}
-
-class InitContainer extends React.Component {
+var initContainer = class InitContainer extends React.Component {
 
     constructor(props) {
         super(props)
-        this.emitSocket = this.emitSocket.bind(this)
     }
 
     componentDidMount() {
-        $('.enter').keypress(function (e) {
+        $('.input-name').keypress(function (e) {
             if (e.keyCode == 13) {
                 if ($('#enter').val().length == 0) {
                     alert('Name must contain at least 1 character')
@@ -186,9 +84,106 @@ class InitContainer extends React.Component {
         return (
             <div className='center'>
                 <p className='name-label'>Please enter your name: </p>
-                <input className='username' type='text' />
+                <input className='input-name' type='text' />
             </div>
         )
     }
+}
 
+var stateContainer = class StateContainer extends React.Component {
+
+    constructor(props) {
+        super(props)
+    }
+
+    componentDidMount() {
+        $('#state').click(function () {
+            if ($(this).text() == 'Click to Ready') {
+                $(this).text('Click to Not Ready')
+                socket.emit('status', { id: id, status: "ready" })
+            } else {
+                $(this).text('Click to Ready')
+                socket.emit('status', { id: id, status: "not" })
+            }
+        })
+    }
+
+    render() {
+        return (
+            <div className='player-status'>
+                <a href='#' className='btn-ready'>Click to Ready</a>
+            </div>
+        )
+    }
+}
+
+var stageContainter = class StageContainer extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            score: 0,
+            count: 0,
+            cards: props.cards,
+            pattern: props.pattern,
+        }
+    }
+
+    componentDidMount() {
+        $('.stage-container').on('click', 'img', function () {
+            socket.emit('submit', { id: $('#UserID').attr('data-id'), value: $(this).val() })
+        })
+    }
+
+    faultImage() {
+        var count = this.state.count
+        this.setState({ count: count + 1 })
+        if (count%3 == 0) {
+            $('.ban-label').show()
+            $('.stage-container' > 'img').each(function () {
+                $(this).hide()
+            })
+            setTimeout(function () {
+                $('.ban-label').hide()
+                $('.stage-container' > 'img').each(function () {
+                    $(this).show()
+                })
+            }, 10000)
+            break
+        }
+        alert('You pick the wrong one')
+    }
+
+    render() {
+        return (
+            <div className='stage-container'>
+                <p className='score-label'>Your Score: <span className='score-label'>{this.state.score}</span></p>
+                <p className='ban-label' style={{ 'display': 'none' }}>You got TEMPORALLY banned, from picking the wrong one</p>
+                {this.state.cards.map(function (card) {
+                    <img height='100px' src={getPic(card)} value={card} />
+                })}
+            </div>
+        )
+    }
+}
+
+var rankContainer = class RankContainer extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state.rank = props.rank
+    }
+
+    render() {
+        return (
+            <div className='container-margin'>
+                <p className='rank'>Your Rank: <span className='rank'>{this.state.rank}</span></p>
+            </div>
+        )
+    }
+}
+
+function reRenderComponent(component) {
+    ReactDOM.unmountComponentAtNode($('.player-containter'))
+    ReactDOM.render(component, $('.player-container'))
 }
