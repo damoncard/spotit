@@ -149,7 +149,6 @@ var stageContainter = class StageContainer extends React.Component {
                     $(this).show()
                 })
             }, 10000)
-            break
         }
         alert('You pick the wrong one')
     }

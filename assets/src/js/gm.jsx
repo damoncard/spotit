@@ -7,9 +7,9 @@ patch(socket);
 
 $(document).ready(function () {
     var list = {}
-    var remain = 6
     var player = 0
-    var timer = null
+    var remain = 6
+    var all_ready = false
 
     socket.on('*', function (obj) {
         var event = obj.data[0]
@@ -46,10 +46,9 @@ $(document).ready(function () {
                 list[id].status = status
                 $('#' + id).css('color', status ? 'green' : 'red')
 
-                var all_ready = false
                 for (var i in list) {
-                    if (!list[i].status) {
-                        all_ready = false
+                    if (list[i].status) {
+                        all_ready = true
                         break
                     }
                 }
@@ -73,6 +72,8 @@ $(document).ready(function () {
 
                 if (result) {
                     if (nextPic()) {
+                        list[value['id']].score++
+                        stageContainer.setState({ list: list })                        
                         socket.emit('acknowledge', { id: value['id'], card: answer, result: 'true' })
                     } else {
                         sortScore()
@@ -87,12 +88,6 @@ $(document).ready(function () {
 
     ReactDOM.render(<InitContainer />, $('.admin-container'))
 })
-
-function showScores(name, score) {
-    for (var k in name) {
-        $('body').append(`<span class='score'>` + name[k] + `: </span><span id='` + k + `' class='score'>` + score[k] + `</span><br>`)
-    }
-}
 
 var initContainer = class InitContainer extends React.Component {
 
@@ -137,7 +132,7 @@ var initContainer = class InitContainer extends React.Component {
                         </div>
                     </div>
                 ) : (
-                        <div>
+                        <div className='center'>
                             <p class='game-label'>Spot It</p>
                         </div>
                     )}
@@ -156,17 +151,23 @@ var stageContainer = class StageContainer extends React.Component {
         }
     }
 
-
     render() {
         return (
             <div className='stage-container'>
+                <div className='player-panel'>
+                    {this.state.list.map(function (player) {
+                        <div className='player-profile'>
+                            <span className='player-name'>{player.name}</span>
+                            <span id={player} className='player-score'>{player.score}</span>
+                        </div>
+                    })}
+                </div>
                 {this.state.cards.map(function (card) {
                     <img height='100px' src={getPic(card)} value={card} />
                 })}
             </div>
         )
     }
-
 }
 
 var rankContainer = class RankContainer extends React.Component {
@@ -194,6 +195,12 @@ var rankContainer = class RankContainer extends React.Component {
         return (
             <div className='center'>
                 <p>Leaderboard</p>
+                {this.state.list.map(function (player, index) {
+                    <div className='rank-profile'>
+                        <span className='rank-label'>{index}</span>
+                        <span className='player-name'>{player.name}</span>
+                    </div>
+                })}
             </div>
         )
     }
@@ -209,41 +216,43 @@ function nextPic() {
 }
 
 function sortScore() {
-    for (var s in score) {
-        sortable.push([s, score[s]])
+    var sortable = []
+    for (var s in list) {
+        sortable.push([s, list[s].score])
     }
     sortable.sort(function (a, b) { return b[1] - a[1] })
-    return sortable
+    list = sortable
 }
 
 function startCountdown() {
-    var s = 5
+    var second = 5
     function countdown() {
-        if (s < 0) {
-            $('#container').empty()
+        if (second < 0) {
             init(player)
+
             var i = 0
             for (var id in list) {
                 socket.emit('acknowledge', { id: id, card: pile[i], result: 'none' })
                 i++
             }
+
+            reRenderComponent(<stageContainer />)
             socket.emit('gameStarted', 'start')
             remain -= player
-            showScores(list, s_list)
             nextPic()
             return
         }
         $('.countdown-container').show()
         setTimeout(function () {
-            if (!ready) {
+            if (!all_ready) {
                 $('.countdown-container').hide()
-                return
+            } else {
+                $('.countdown-timer').addClass('wrap-' + second)
+                setTimeout(function () {
+                    second--
+                    countdown()
+                }, 1000)
             }
-            $('.countdown-timer').addClass('wrap-' + s)
-            setTimeout(function () {
-                s--
-                countdown()
-            }, 1000)
         }, 600)
     }
     countdown()
