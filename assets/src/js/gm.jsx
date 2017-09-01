@@ -27,6 +27,8 @@ $(document).ready(function () {
                         score: 0,
                         status: false,
                     }
+                    all_ready = false
+                    $('.countdown-container').hide()
                     reactComponent.setState({ active: true })
                     reactComponent.setState({ list: list })
                 }
