@@ -170,7 +170,9 @@ class RankContainer extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state.rank = props.rank
+        this.state = {
+            rank: props.rank,
+        }
     }
 
     render() {

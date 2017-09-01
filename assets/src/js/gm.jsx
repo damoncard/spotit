@@ -10,7 +10,7 @@ import { pile, initGame } from './pile.jsx'
 var reactComponent
 var list = {}
 var player = 0
-var remain = 6
+var remain = 4 // default: 55
 var all_ready = false
 
 $(document).ready(function () {
@@ -73,13 +73,18 @@ $(document).ready(function () {
                 }
 
                 if (result) {
+                    list[value['id']].score++
                     if (nextPic()) {
-                        list[value['id']].score++
                         reactComponent.setState({ list: list })
                         socket.emit('callback', { id: value['id'], card: answer, result: 'true' })
                     } else {
-                        sortScore()
-                        reRenderComponent(<RankContainer list={list} />)
+                        var sorted_list = Object.keys(list).sort(function (a, b) { return list[b].score - list[a].score })
+
+                        for (var i in sorted_list) {
+                            socket.emit('callback', { id: sorted_list[i], rank: parseInt(i)+1, result: 'end' })
+                        }
+
+                        reRenderComponent(<RankContainer list={sorted_list} />)
                     }
                 } else {
                     socket.emit('callback', { id: value['id'], card: null, result: 'false' })
@@ -184,21 +189,18 @@ class RankContainer extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state.list = props.list
+        this.state = {
+            list: props.list,
+        }
     }
 
     componentDidMount() {
-        var rank = 1
-        for (var i in this.state.list) {
-            socket.emit('callback', { id: list[i], rank: rank++, result: 'end' })
-        }
-
         setTimeout(function () {
             socket.emit('status', 'end')
             list = {}
             player = 0
             reRenderComponent(<InitContainer />)
-        }, 30000)
+        }, 15000)
     }
 
     render() {
@@ -208,9 +210,9 @@ class RankContainer extends React.Component {
                 {this.state.list.map(function (player, index) {
                     return (
                         <div className='rank-profile'>
-                            <span className='rank-label'>{index}</span>
-                            <span className='player-name'>{player.name}</span>
-                            <span className='player-score'>{player.score}</span>
+                            <span className='rank-label'>{index+1}</span>
+                            <span className='player-name'>{list[player].name}</span>
+                            <span className='player-score'>{list[player].score}</span>
                         </div>
                     )
                 })}
@@ -219,38 +221,18 @@ class RankContainer extends React.Component {
     }
 }
 
-function nextPic() {
-    if (remain-- > 0) {
-        var cards = pile[55 - remain]
-        reactComponent.setState({ cards: cards })
-        return true
-    }
-    return false
-}
-
-function sortScore() {
-    var sortable = []
-    for (var s in list) {
-        sortable.push([s, list[s].score])
-    }
-    sortable.sort(function (a, b) { return b[1] - a[1] })
-    list = sortable
-}
-
 function startCountdown() {
     var second = 5
     function countdown() {
         if (second < 0) {
-            initGame(player)
+            initGame()
 
-            var i = 0
             for (var id in list) {
-                socket.emit('callback', { id: id, card: pile[i++], result: 'none' })
+                socket.emit('callback', { id: id, card: pile[remain--], result: 'none' })
             }
 
             reRenderComponent(<StageContainer list={list} />)
             socket.emit('status', 'start')
-            remain -= player
             nextPic()
             return
         }
@@ -265,6 +247,14 @@ function startCountdown() {
         }, 600)
     }
     countdown()
+}
+
+function nextPic() {
+    if (remain > 0) {
+        reactComponent.setState({ cards: pile[remain--] })
+        return true
+    }
+    return false
 }
 
 function reRenderComponent(component) {

@@ -1,5 +1,3 @@
-var centre, pointer
-
 export const pile = [
 	["gnome", "magnet", "dumbbell", "pumpkin", "diamond", "badge", "oops", "hand"],
 	["hand", "camera", "starfish", "plunger", "pig", "racecar", "toothbrush", "fork"],
@@ -59,10 +57,8 @@ export const pile = [
 	["snail", "fork", "bat", "clip", "pumpkin", "pin", "hourglass", "tower"]
 ]
 
-export function initGame(player) {
-	pointer = player
+export function initGame() {
 	shuffle()
-	centre = pile[pointer + 1]
 }
 
 function shuffle() {
