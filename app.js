@@ -37,9 +37,10 @@ var user = io.of('/').on('connection', function (socket) {
 			case 'enter':
 				if (player < 8) {
 					if (status == 'online') {
-						if (player == 1) {
-							stopCountdown()
-						}
+						// if (player == 1) {
+						// 	stopCountdown()
+						// }
+						player++
 						admin.emit('joining', { name: value, id: socket.id })
 					}
 					socket.emit('status', { response: status })
@@ -48,7 +49,7 @@ var user = io.of('/').on('connection', function (socket) {
 				}
 				break
 			case 'status':
-				admin.emit('status', {id: value['id'], status: value['status'], player: player })
+				admin.emit('status', { id: value['id'], status: value['status'], player: player })
 				break
 			case 'submit':
 				admin.emit('submit', value)
@@ -58,9 +59,10 @@ var user = io.of('/').on('connection', function (socket) {
 
 	socket.on('disconnect', function () {
 		admin.emit('leaving', { id: socket.id })
-		if (--player == 0) {
-			startCountdown()
-		}
+		player--
+		// if (--player == 0) {
+		// 	startCountdown()
+		// }
 	})
 })
 
@@ -68,21 +70,16 @@ var admin = io.of('/tunnel').on('connection', function (socket) {
 	status = 'online'
 	player = io.engine.clientsCount - 1
 
-	socket.on('*', function (obj) {
-		var event = obj.data[0]
-		var value = obj.data[1]
-		switch (event) {
-			case 'callback':
-				user.emit('callback', value)
-				break
-			case 'status':
-				if (value == 'end') {
-					status = 'online'
-					user.emit('id')
-				} else {
-					status = 'running'
-				}
-				break
+	socket.on('callback', function (obj) {
+		user.emit('callback', obj)
+	})
+
+	socket.on('status', function (obj) {
+		if (obj == 'end') {
+			status = 'online'
+			user.emit('id')
+		} else {
+			status = 'running'
 		}
 	})
 

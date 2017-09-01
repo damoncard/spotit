@@ -43,7 +43,6 @@ $(document).ready(function () {
                         case 'true':
                             reactComponent.setState({ score: reactComponent.state.score + 1 })
                             reactComponent.setState({ cards: value['card'] })
-                            reactComponent.setState({ pattern: value['pattern'] })
                             break
                         case 'false':
                             reactComponent.faultImage()
@@ -52,7 +51,6 @@ $(document).ready(function () {
                             reRenderComponent(<RankContainer rank={value['rank']} />)
                             break
                         case 'none':
-                            console.log('test')
                             reRenderComponent(<StageContainer cards={value['card']} />)
                             break
                     }
@@ -127,29 +125,22 @@ class StageContainer extends React.Component {
             score: 0,
             count: 0,
             cards: props.cards,
-            pattern: props.pattern,
+            ban: false,
         }
+        this.sendResult = this.sendResult.bind(this)
     }
 
-    componentDidMount() {
-        $('.stage-container').on('click', 'img', function () {
-            socket.emit('submit', { id: $('#UserID').attr('data-id'), value: $(this).val() })
-        })
+    sendResult(value) {
+        socket.emit('submit', { id: $('#UserID').attr('data-id'), value: value })
     }
 
     faultImage() {
-        var count = this.state.count
-        this.setState({ count: count + 1 })
-        if (count % 3 == 0) {
-            $('.ban-label').show()
-            $('.stage-container' > 'img').each(function () {
-                $(this).hide()
-            })
+        this.setState({ count: this.state.count + 1 })
+        if (this.state.count % 3 == 0) {
+            var react = this
+            react.setState({ ban: true })
             setTimeout(function () {
-                $('.ban-label').hide()
-                $('.stage-container' > 'img').each(function () {
-                    $(this).show()
-                })
+                react.setState({ ban: false })
             }, 10000)
         }
         alert('You pick the wrong one')
@@ -159,12 +150,17 @@ class StageContainer extends React.Component {
         return (
             <div className='stage-container'>
                 <p className='score-label'>Your Score: <span className='score-label'>{this.state.score}</span></p>
-                <p className='ban-label' style={{ 'display': 'none' }}>You got TEMPORALLY banned, from picking the wrong one</p>
-                {this.state.cards.map((card) => {
-                    return (
-                        <img height='100px' src={'static/pic/' + card + '.png'} value={card} />
-                    )
-                })}
+                {this.state.ban ? (
+                    <p className='ban-label'>You got TEMPORALLY banned, from picking the wrong one</p>
+                ) : (
+                        <div className='cards-panel'>
+                            {this.state.cards.map((card) => {
+                                return (
+                                    <img height='100px' src={'static/pic/' + card + '.png'} onClick={() => this.sendResult(card)} />
+                                )
+                            })}
+                        </div>
+                    )}
             </div>
         )
     }
