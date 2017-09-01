@@ -5,17 +5,14 @@ var server = require('http').Server(app)
 var io = require('socket.io')(server)
 var middleware = require('socketio-wildcard')();
 var path = require('path')
-
-// Set variable //
-var port = process.env.PORT || 8080
-var timer = null
 var status = 'offline'
 
 // Set environment
-server.listen(port)
 app.use('/static', express.static(__dirname + '/assets/prod'))
 app.disable('etag')
 io.use(middleware)
+server.listen(port)
+console.log('Server starting on port: ' + 8080)
 
 // Set route //
 app.get('/', function (req, res) {
@@ -37,9 +34,6 @@ var user = io.of('/').on('connection', function (socket) {
 			case 'enter':
 				if (player < 8) {
 					if (status == 'online') {
-						// if (player == 1) {
-						// 	stopCountdown()
-						// }
 						player++
 						admin.emit('joining', { name: value, id: socket.id })
 					}
@@ -49,7 +43,7 @@ var user = io.of('/').on('connection', function (socket) {
 				}
 				break
 			case 'status':
-				admin.emit('status', { id: value['id'], status: value['status'], player: player })
+				admin.emit('status', { id: value['id'], status: value['status']})
 				break
 			case 'submit':
 				admin.emit('submit', value)
@@ -60,9 +54,6 @@ var user = io.of('/').on('connection', function (socket) {
 	socket.on('disconnect', function () {
 		admin.emit('leaving', { id: socket.id })
 		player--
-		// if (--player == 0) {
-		// 	startCountdown()
-		// }
 	})
 })
 
@@ -88,20 +79,3 @@ var admin = io.of('/tunnel').on('connection', function (socket) {
 		user.emit('id')
 	})
 })
-// Others
-function startCountdown() {
-	var countdown = 8 * 1000
-	timer = setInterval(function () {
-		countdown -= 1000;
-		if (countdown <= 0) {
-			admin.emit('inactive')
-			clearInterval(timer)
-		}
-	}, 1000)
-}
-
-function stopCountdown() {
-	clearInterval(timer)
-}
-
-console.log('Server starting on port: ' + port)

@@ -9,7 +9,6 @@ import { pile, initGame } from './pile.jsx'
 
 var reactComponent
 var list = {}
-var player = 0
 var remain = 4 // default: 55
 var all_ready = false
 
@@ -29,6 +28,7 @@ $(document).ready(function () {
                     }
                     all_ready = false
                     $('.countdown-container').hide()
+                    $('#countdown-timer').removeClass()
                     reactComponent.setState({ active: true })
                     reactComponent.setState({ list: list })
                 }
@@ -37,6 +37,19 @@ $(document).ready(function () {
                 if (list[value['id']] != null) {
                     delete list[value['id']]
                     reactComponent.setState({ list: list })
+
+                    if (Object.keys(list).length == 0) {
+                        var countdown = 5 * 1000
+                        var timer = setInterval(function () {
+                            if (Object.keys(list).length == 0) {
+                                countdown -= 1000
+                                if (countdown == 0) {
+                                    reactComponent.setState({ active: false })
+                                    clearInterval(timer)
+                                }
+                            }
+                        }, 1000)
+                    }
                 }
                 break
             case 'inactive':
@@ -46,7 +59,6 @@ $(document).ready(function () {
                 var id = value['id']
                 var status = value['status'] == 'ready' ? true : false
                 list[id].status = status
-                player = value['player']
                 $('#' + id).css('color', status ? 'green' : 'red')
 
                 for (var i in list) {
@@ -56,6 +68,7 @@ $(document).ready(function () {
                     }
                     all_ready = false
                     $('.countdown-container').hide()
+                    $('#countdown-timer').removeClass()
                     break
                 }
 
@@ -83,7 +96,7 @@ $(document).ready(function () {
                         var sorted_list = Object.keys(list).sort(function (a, b) { return list[b].score - list[a].score })
 
                         for (var i in sorted_list) {
-                            socket.emit('callback', { id: sorted_list[i], rank: parseInt(i)+1, result: 'end' })
+                            socket.emit('callback', { id: sorted_list[i], rank: parseInt(i) + 1, result: 'end' })
                         }
 
                         reRenderComponent(<RankContainer list={sorted_list} />)
@@ -200,9 +213,8 @@ class RankContainer extends React.Component {
         setTimeout(function () {
             socket.emit('status', 'end')
             list = {}
-            player = 0
             reRenderComponent(<InitContainer />)
-        }, 15000)
+        }, 10000)
     }
 
     render() {
@@ -212,7 +224,7 @@ class RankContainer extends React.Component {
                 {this.state.list.map(function (player, index) {
                     return (
                         <div className='rank-profile'>
-                            <span className='rank-label'>{index+1}</span>
+                            <span className='rank-label'>{index + 1}</span>
                             <span className='player-name'>{list[player].name}</span>
                             <span className='player-score'>{list[player].score}</span>
                         </div>

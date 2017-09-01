@@ -1,5 +1,6 @@
 node_modules/
 package-lock.json
+
 assets/prod/js/*
 assets/prod/app.min.*
 assets/src/sass/.sass-cache
