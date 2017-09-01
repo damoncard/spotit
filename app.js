@@ -1,17 +1,15 @@
 // Import //
-express = require('express')
-app = express()
-server = require('http').Server(app)
-io = require('socket.io')(server)
-middleware = require('socketio-wildcard')();
-path = require('path')
+var express = require('express')
+var app = express()
+var server = require('http').Server(app)
+var io = require('socket.io')(server)
+var middleware = require('socketio-wildcard')();
+var path = require('path')
 
 // Set variable //
-port = process.env.PORT || 8080
-// player = 0
-timer = null
-status = 'offline'
-online = false
+var port = process.env.PORT || 8080
+var timer = null
+var status = 'offline'
 
 // Set environment
 server.listen(port)
@@ -24,7 +22,7 @@ app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/views/player.html')
 })
 
-app.get('/rNzX54tInH', function (req, res) {
+app.get('/tunnel', function (req, res) {
 	res.sendFile(__dirname + '/views/gm.html')
 })
 
@@ -74,7 +72,7 @@ var admin = io.of('/tunnel').on('connection', function (socket) {
 		var event = obj.data[0]
 		var value = obj.data[1]
 		switch (event) {
-			case 'acknowledge':
+			case 'callback':
 				user.emit('callback', value)
 				break
 			case 'status':

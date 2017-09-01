@@ -52,6 +52,7 @@ $(document).ready(function () {
                             reRenderComponent(<RankContainer rank={value['rank']} />)
                             break
                         case 'none':
+                            console.log('test')
                             reRenderComponent(<StageContainer cards={value['card']} />)
                             break
                     }
@@ -159,9 +160,9 @@ class StageContainer extends React.Component {
             <div className='stage-container'>
                 <p className='score-label'>Your Score: <span className='score-label'>{this.state.score}</span></p>
                 <p className='ban-label' style={{ 'display': 'none' }}>You got TEMPORALLY banned, from picking the wrong one</p>
-                {this.state.cards.map(function (card) {
+                {this.state.cards.map((card) => {
                     return (
-                        <img height='100px' src={getPic(card)} value={card} />
+                        <img height='100px' src={'static/pic/' + card + '.png'} value={card} />
                     )
                 })}
             </div>

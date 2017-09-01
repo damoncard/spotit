@@ -5,7 +5,7 @@ var socket = io('/tunnel')
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 
-import { pile, getPic, initGame } from './pile.jsx'
+import { pile, initGame } from './pile.jsx'
 
 var reactComponent
 var list = {}
@@ -76,13 +76,13 @@ $(document).ready(function () {
                     if (nextPic()) {
                         list[value['id']].score++
                         reactComponent.setState({ list: list })
-                        socket.emit('acknowledge', { id: value['id'], card: answer, result: 'true' })
+                        socket.emit('callback', { id: value['id'], card: answer, result: 'true' })
                     } else {
                         sortScore()
                         reRenderComponent(<RankContainer list={list} />)
                     }
                 } else {
-                    socket.emit('acknowledge', { id: value['id'], card: null, result: 'false' })
+                    socket.emit('callback', { id: value['id'], card: null, result: 'false' })
                 }
                 break
         }
@@ -168,9 +168,13 @@ class StageContainer extends React.Component {
                         )
                     })}
                 </div>
-                {this.state.cards.map(function (card) {
-                    <img height='100px' src={getPic(card)} value={card} />
-                })}
+                <div className='cards-panel'>
+                    {this.state.cards.map((card) => {
+                        return (
+                            <img height='100px' src={'static/pic/' + card + '.png'} value={card} />
+                        )
+                    })}
+                </div>
             </div>
         )
     }
@@ -186,7 +190,7 @@ class RankContainer extends React.Component {
     componentDidMount() {
         var rank = 1
         for (var i in this.state.list) {
-            socket.emit('acknowledge', { id: list[i], rank: rank++, result: 'end' })
+            socket.emit('callback', { id: list[i], rank: rank++, result: 'end' })
         }
 
         setTimeout(function () {
@@ -241,7 +245,7 @@ function startCountdown() {
 
             var i = 0
             for (var id in list) {
-                socket.emit('acknowledge', { id: id, card: pile[i++], result: 'none' })
+                socket.emit('callback', { id: id, card: pile[i++], result: 'none' })
             }
 
             reRenderComponent(<StageContainer list={list} />)
