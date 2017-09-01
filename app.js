@@ -6,12 +6,13 @@ var io = require('socket.io')(server)
 var middleware = require('socketio-wildcard')();
 var path = require('path')
 var status = 'offline'
+var player = 0
 
 // Set environment
 app.use('/static', express.static(__dirname + '/assets/prod'))
 app.disable('etag')
 io.use(middleware)
-server.listen(port)
+server.listen(8080)
 console.log('Server starting on port: ' + 8080)
 
 // Set route //
