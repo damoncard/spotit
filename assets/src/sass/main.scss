@@ -1,2 +1,16 @@
+@font-face {
+    font-family: 'PWScratched';
+    src: url("/static/font/PWScratched.ttf");
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}
+
 @import "player";
 @import "admin";

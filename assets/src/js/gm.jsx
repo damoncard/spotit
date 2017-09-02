@@ -127,13 +127,19 @@ class InitContainer extends React.Component {
                 {this.state.active ? (
                     <div>
                         <div className='lobby-room'>
-                            <p>Lobby</p><br />
-                            <span>Player List</span>
-                            {Object.keys(this.state.list).map((player) => {
-                                return (
-                                    <span id={player} className='player-name'>{this.state.list[player].name}</span>
-                                )
-                            })}
+                            <div className='lobby-header'>
+                                <p>Lobby</p>
+                            </div>
+                            <div className='lobby-list'>
+                                <p className='list-header'>Player List</p>
+                                <div className='list-box'>
+                                    {Object.keys(this.state.list).map((player) => {
+                                        return (
+                                            <p id={player} className='player-name'>{this.state.list[player].name}</p>
+                                        )
+                                    })}
+                                </div>
+                            </div>
                         </div>
 
                         <div className='countdown-container' style={{ 'display': 'none' }}>
@@ -157,9 +163,12 @@ class InitContainer extends React.Component {
                     </div>
                 ) : (
                         <div className='center'>
-                            <p class='game-label'>Spot It</p>
+                            <p className='game-label'>Spot It</p>
                         </div>
                     )}
+                <div className='footer'>
+                    <p className='credit'>CS15@SIT-KMUTT</p>
+                </div>
             </div>
         )
     }

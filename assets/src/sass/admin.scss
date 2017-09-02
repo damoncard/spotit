@@ -1,26 +1,53 @@
 .admin-container {
-	display: table;
-	width: 100%; 
 	height: 100%;
-	margin: 0;
-	background: #e6e6e6;
-	color: #3d3d3d;
-	font-weight: bold;
-	font-size: 4em;
+	width: 100%;
+	background: #e8ad37;
 	/* ####################### Logo Game ######################## */
-	div.center {
-		display:table-cell;
-		text-align:center;
-		vertical-align:middle;
-		.game-label
-		{
-			display:inline-block;
-			position:relative;
-			color:inherit;
-			text-decoration:none;
-			transition:all 250ms ease;
-			transform:translatez(0);
-			perspective:50px;
+	.init-container {
+		height: 100%;
+		.center {
+			text-align: center;
+			position: absolute;
+			width: 100%;
+			top: 50%;
+			margin-top: -132px;
+			.game-label {
+				font-family: 'PWScratched';
+				font-size: 15rem;
+				color: #fff;
+			}
+		}
+		.lobby-room {
+			padding-top: 6rem;
+			.lobby-header {
+				text-align: center;
+				font-size: 2rem;
+			}
+			.lobby-list {
+				padding: 1.5rem 0rem 0rem 35%;
+				.list-header {
+					font-size: 1.25rem;
+				}
+				.list-box {
+					width: 300px;
+					height: 300px;
+					border: 1px solid black;
+					margin: 1rem 0rem 0rem 5.5rem;
+					.player-name {
+						position: relative;
+					}
+				}
+			}
+		}
+		.footer {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			.credit {
+				float: right;
+				font-size: 1.75rem;
+				padding: 0.5rem;
+			}
 		}
 	}
 }
