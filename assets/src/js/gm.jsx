@@ -8,6 +8,7 @@ patch(socket);
 import { pile, initGame } from './pile.jsx'
 
 var reactComponent
+var timer
 var list = {}
 var remain = 4 // default: 55
 var all_ready = false
@@ -39,10 +40,11 @@ $(document).ready(function () {
                     reactComponent.setState({ list: list })
 
                     if (Object.keys(list).length == 0) {
-                        var countdown = 5 * 1000
-                        var timer = setInterval(function () {
+                        var countdown = 5
+                        clearInterval(timer)
+                        timer = setInterval(function () {
                             if (Object.keys(list).length == 0) {
-                                countdown -= 1000
+                                countdown--
                                 if (countdown == 0) {
                                     reactComponent.setState({ active: false })
                                     clearInterval(timer)
@@ -73,10 +75,10 @@ $(document).ready(function () {
                 if (all_ready) {
                     $('.countdown-container').show()
                     $('.countdown-modal').show()
-                    $('#countdown-timer').removeClass()
                     startCountdown()
                 } else {
                     $('.countdown-container').hide()
+                    $('#countdown-timer').removeClass()
                     $('.countdown-modal').hide()
                 }
                 break
@@ -249,31 +251,26 @@ class RankContainer extends React.Component {
 
 function startCountdown() {
     var second = 5
-    function countdown() {
-        if (second < 0) {
-            $('.countdown-modal').hide()
-            initGame()
+    clearInterval(timer)
+    timer = setInterval(function () {
+        if (all_ready) {
+            $('#countdown-timer').removeClass()
+            $('#countdown-timer').addClass('second-' + second)
+            if (second-- < 0) {
+                $('.countdown-modal').hide()
+                initGame()
 
-            for (var id in list) {
-                socket.emit('callback', { id: id, card: pile[remain--], result: 'none' })
+                for (var id in list) {
+                    socket.emit('callback', { id: id, card: pile[remain--], result: 'none' })
+                }
+
+                reRenderComponent(<StageContainer list={list} />)
+                socket.emit('status', 'start')
+                nextPic()
+                clearInterval(timer)
             }
-
-            reRenderComponent(<StageContainer list={list} />)
-            socket.emit('status', 'start')
-            nextPic()
-            return
         }
-        setTimeout(function () {
-            if (all_ready) {
-                $('#countdown-timer').addClass('second-' + second)
-                setTimeout(function () {
-                    second--
-                    countdown()
-                }, 1000)
-            }
-        }, 600)
-    }
-    countdown()
+    }, 1000)
 }
 
 function nextPic() {
