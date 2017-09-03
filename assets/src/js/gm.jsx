@@ -205,7 +205,7 @@ class StageContainer extends React.Component {
                 <div className='cards-panel'>
                     {this.state.cards.map((card) => {
                         return (
-                            <img height='100px' src={'static/pic/' + card + '.png'} value={card} />
+                            <img height='100px' src={'static/pic/' + card + '.svg'} value={card} />
                         )
                     })}
                 </div>
