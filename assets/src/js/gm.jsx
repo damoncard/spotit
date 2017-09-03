@@ -67,14 +67,17 @@ $(document).ready(function () {
                         continue
                     }
                     all_ready = false
-                    $('.countdown-container').hide()
-                    $('#countdown-timer').removeClass()
                     break
                 }
 
                 if (all_ready) {
                     $('.countdown-container').show()
+                    $('.countdown-modal').show()
+                    $('#countdown-timer').removeClass()
                     startCountdown()
+                } else {
+                    $('.countdown-container').hide()
+                    $('.countdown-modal').hide()
                 }
                 break
             // ################ Playing Phase ################ //
@@ -135,7 +138,7 @@ class InitContainer extends React.Component {
                                 <div className='list-box'>
                                     {Object.keys(this.state.list).map((player) => {
                                         return (
-                                            <p id={player} className='player-name'>{this.state.list[player].name}</p>
+                                            <p id={player} className='player-name' style={{ 'color': 'red' }}>{this.state.list[player].name}</p>
                                         )
                                     })}
                                 </div>
@@ -248,6 +251,7 @@ function startCountdown() {
     var second = 5
     function countdown() {
         if (second < 0) {
+            $('.countdown-modal').hide()
             initGame()
 
             for (var id in list) {

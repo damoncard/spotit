@@ -27,15 +27,15 @@ app.get('/tunnel', function (req, res) {
 // Socket.io
 var user = io.of('/').on('connection', function (socket) {
 	socket.emit('id', socket.id)
+	player++
 
 	socket.on('*', function (obj) {
 		var event = obj.data[0]
 		var value = obj.data[1]
 		switch (event) {
 			case 'enter':
-				if (player < 8) {
+				if (player <= 8) {
 					if (status == 'online') {
-						player++
 						admin.emit('joining', { name: value, id: socket.id })
 					}
 					socket.emit('status', { response: status })

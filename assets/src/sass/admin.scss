@@ -21,20 +21,22 @@
 			padding-top: 6rem;
 			.lobby-header {
 				text-align: center;
-				font-size: 2rem;
+				font-size: 4rem;
 			}
 			.lobby-list {
 				padding: 1.5rem 0rem 0rem 35%;
 				.list-header {
-					font-size: 1.25rem;
+					font-size: 2rem;
 				}
 				.list-box {
-					width: 300px;
-					height: 300px;
+					width: 500px;
+					height: 500px;
 					border: 1px solid black;
-					margin: 1rem 0rem 0rem 5.5rem;
+					margin: 1rem 0rem 0rem 2rem;
 					.player-name {
 						position: relative;
+						font-size: 2rem;
+						padding-left: 1rem;
 					}
 				}
 			}
@@ -50,4 +52,16 @@
 			}
 		}
 	}
+}
+
+.countdown-modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.6);
+	z-index: 1;
+	overflow: auto;
 }
