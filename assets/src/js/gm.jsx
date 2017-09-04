@@ -86,15 +86,18 @@ $(document).ready(function () {
             // ################ Playing Phase ################ //
             case 'submit':
                 var result = false
-                var answer = reactComponent.state.card
+                var answer = reactComponent.state.cards
                 var player_choice = value['value']
 
-                if (answer.indexOf(player_choice) != -1) {
+                if (answer.map(function(e) { return e.name; }).indexOf(player_choice) != -1) {
                     result = true
                 }
 
                 if (result) {
                     list[value['id']].score++
+                    if (player_choice == 'trophy') {
+                        reactComponent.trophyTaken(value['id'])
+                    }
                     if (nextPic()) {
                         reactComponent.setState({ list: list })
                         socket.emit('callback', { id: value['id'], card: answer, result: 'true' })
@@ -206,6 +209,21 @@ class StageContainer extends React.Component {
         })
     }
 
+    trophyTaken(id) {
+        var pos = parseInt($('.trophy-token').attr('data-pos'))
+        var player = parseInt($('#' + id).parent().child('.player-no').text())
+        console.log(pos, player)
+        var pixel = (player - pos) * 56
+        if (pos == 0) {
+            pixel += 14 // -70 for first player pos +56 for later player
+            $('.trophy-token').css('animation', 'trophy-taken 1s linear')
+            $('.trophy-token').css('transform', 'translateY(' + pixel + ') 1s ease-in')
+        } else {
+            $('.trophy-token').css('transform', 'translateY(' + pixel + ') 1s ease-in')
+        }
+        $('.trophy-token').attr('data-pos', player + '')
+    }
+
     render() {
         return (
             <div className='stage-container'>
@@ -221,7 +239,7 @@ class StageContainer extends React.Component {
                         <span>o</span>
                         <span>a</span>
                         <span>r</span>
-                        <span>d</span>
+                        <span style={{ 'margin-right': '40px' }}>d</span>
                     </p>
                     <ul>
                         {Object.keys(this.state.list).map((player, index) => {
@@ -242,6 +260,7 @@ class StageContainer extends React.Component {
                             )
                         })}
                     </ul>
+                    <img src='static/pic/trophy.svg' data-pos='0' className='trophy-token' />
                 </div>
                 <div className='cards-panel'>
                     {this.state.cards.map((card) => {
