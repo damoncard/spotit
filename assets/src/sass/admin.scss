@@ -65,4 +65,15 @@
 	background: rgba(0, 0, 0, 0.6);
 	z-index: 1;
 	overflow: auto;
+	.countdown-background {
+		position: relative;
+		border-radius: 100px;
+		background-color: #ff0000;
+		height: 400px;
+		width: 400px;
+		top: 50%;
+		left: 50%;
+		margin-top: -200px;
+		margin-left: -200px;
+	}
 }

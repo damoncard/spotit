@@ -10,7 +10,7 @@ import { pile, initGame } from './pile.jsx'
 var reactComponent
 var timer
 var list = {}
-var remain = 4 // default: 55
+var remain = 20 // default: 55
 var all_ready = false
 
 $(document).ready(function () {
@@ -29,6 +29,7 @@ $(document).ready(function () {
                     }
                     all_ready = false
                     $('.countdown-container').hide()
+                    $('.countdown-modal').hide()
                     $('#countdown-timer').removeClass()
                     reactComponent.setState({ active: true })
                     reactComponent.setState({ list: list })
@@ -88,7 +89,7 @@ $(document).ready(function () {
                 var answer = reactComponent.state.cards
                 var player_choice = value['value']
 
-                if (answer.indexOf(player_choice) != -1 || answer.indexOf('hand') != -1) {
+                if (answer.indexOf(player_choice) != -1) {
                     result = true
                 }
 
@@ -227,6 +228,7 @@ class RankContainer extends React.Component {
         setTimeout(function () {
             socket.emit('status', 'end')
             list = {}
+            remain = 20
             reRenderComponent(<InitContainer />)
         }, 10000)
     }
