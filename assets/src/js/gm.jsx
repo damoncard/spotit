@@ -190,7 +190,7 @@ class StageContainer extends React.Component {
         }
     }
 
-    render() {
+    render() {         
         return (
             <div className='stage-container'>
                 <div className='player-panel'>
@@ -228,9 +228,13 @@ class StageContainer extends React.Component {
                     </ul>
                 </div>
                 <div className='cards-panel'>
-                    {this.state.cards.map((card) => {
+                    {this.state.cards.map((card, index) => {
                         return (
-                            <img height='100px' src={'static/pic/' + card + '.svg'} value={card} />
+                            Math.random() * 10 > 5 ? (
+                                <img src={'static/pic/' + card + '.svg'} style={{ 'animation': 'rotating-front ' + (Math.random() * 10) + 1 + 's linear infinite'}} className='card-pic' value={card} />
+                            ) : (
+                                <img src={'static/pic/' + card + '.svg'} style={{ 'animation': 'rotating-back ' + (Math.random() * 10) + 1 + 's linear infinite'}} className='card-pic' value={card} />
+                            )
                         )
                     })}
                 </div>

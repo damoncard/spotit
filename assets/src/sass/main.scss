@@ -3,6 +3,18 @@
     src: url("/static/font/PWScratched.ttf");
 }
 
+@keyframes rotating-front {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotating-back {
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
 html, body {
     height: 100%;
     margin: 0;

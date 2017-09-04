@@ -159,7 +159,7 @@ class StageContainer extends React.Component {
                                     <img height='100px' src={'static/pic/' + card + '.svg'} onClick={() => this.sendResult(card)} />
                                 )
                             })}
-                            <img height='100px' src={'static/pic/hand.svg'} className='hand-card' onClick={() => this.sendResult('hand')} />
+                            <img height='100px' src={'static/pic/trophy.svg'} className='hand-card' onClick={() => this.sendResult('trophy')} />
                         </div>
                     )}
             </div>

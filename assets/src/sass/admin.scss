@@ -93,7 +93,24 @@
 				}
 			}
 		}
+		.cards-panel {
+			position: relative;
+			top: 50%;
+			left: 50%;
+			transform: translate(-60%, -50%);
+			width: 75%;
+			height: 105%;
+			background-color: #fff;
+			border-radius: 400px;
+			.card-pic {
+				position: relative;
+				height: 100px;
+				top: 50%;
+				left: 25%;
+			}
+		}
 	}
+	
 }
 
 .countdown-modal {
