@@ -5,7 +5,7 @@ var socket = io('/tunnel')
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 
-import { pile, initGame } from './pile.jsx'
+import { pile, patterns, initGame } from './pile.jsx'
 
 var reactComponent
 var timer
@@ -86,7 +86,7 @@ $(document).ready(function () {
             // ################ Playing Phase ################ //
             case 'submit':
                 var result = false
-                var answer = reactComponent.state.cards
+                var answer = reactComponent.state.card
                 var player_choice = value['value']
 
                 if (answer.indexOf(player_choice) != -1) {
@@ -190,7 +190,23 @@ class StageContainer extends React.Component {
         }
     }
 
-    render() {         
+    componentDidUpdate() {
+        $('.cards-panel > img').each(function () {
+            var top = $(this).data('top')
+            var left = $(this).data('left')
+            var height = $(this).data('height')
+            var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back '
+            $(this).css({
+                position: 'absolute',
+                top: top + '%',
+                left: left + '%',
+                height: height + 'px',
+                animation: animation + ((Math.random() * 10) + 1) + 's linear infinite'
+            })
+        })
+    }
+
+    render() {
         return (
             <div className='stage-container'>
                 <div className='player-panel'>
@@ -228,13 +244,9 @@ class StageContainer extends React.Component {
                     </ul>
                 </div>
                 <div className='cards-panel'>
-                    {this.state.cards.map((card, index) => {
+                    {this.state.cards.map((card) => {
                         return (
-                            Math.random() * 10 > 5 ? (
-                                <img src={'static/pic/' + card + '.svg'} style={{ 'animation': 'rotating-front ' + (Math.random() * 10) + 1 + 's linear infinite'}} className='card-pic' value={card} />
-                            ) : (
-                                <img src={'static/pic/' + card + '.svg'} style={{ 'animation': 'rotating-back ' + (Math.random() * 10) + 1 + 's linear infinite'}} className='card-pic' value={card} />
-                            )
+                            <img src={'static/pic/' + card.name + '.svg'} data-top={card.top} data-left={card.left} data-height={card.height} value={card.name} />
                         )
                     })}
                 </div>
@@ -303,16 +315,28 @@ function startCountdown() {
 
 function nextPic() {
     if (remain > 0) {
-        var cards = pile[remain--]
+        var card = pile[remain--]
+        var pattern = patterns[0]
 
-        for (var i in cards) {
+        for (var i in card) {
             var j = parseInt(Math.random() * i)
-            var x = cards[i]
-            cards[i] = cards[j]
-            cards[j] = x
+            var x = card[i]
+            card[i] = card[j]
+            card[j] = x
         }
 
-        reactComponent.setState({ cards: cards })
+        var set = []
+
+        for (var i in card) {
+            set[i] = {
+                name: card[i],
+                top: pattern[i].top,
+                left: pattern[i].left,
+                height: pattern[i].height
+            }
+        }
+
+        reactComponent.setState({ cards: set })
         return true
     }
     return false

@@ -57,6 +57,17 @@ export const pile = [
 	['snail', 'knife', 'bat', 'clip', 'pumpkin', 'tape', 'hourglass', 'computer']
 ]
 
+export const patterns = [
+	[{ top: '8', left: '40', height: '200' },
+	{ top: '37', left: '33', height: '200' },
+	{ top: '67', left: '72', height: '200' },
+	{ top: '75', left: '35', height: '200' },
+	{ top: '14', left: '13', height: '250' },
+	{ top: '53', left: '50', height: '250' },
+	{ top: '52', left: '10', height: '300' },
+	{ top: '9', left: '61', height: '450' }]
+]
+
 export function initGame() {
 	shuffle()
 }
