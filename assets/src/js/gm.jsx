@@ -194,14 +194,38 @@ class StageContainer extends React.Component {
         return (
             <div className='stage-container'>
                 <div className='player-panel'>
-                    {Object.keys(this.state.list).map((player) => {
-                        return (
-                            <div className='player-profile'>
-                                <span className='player-name'>{this.state.list[player].name}</span>
-                                <span id={player} className='player-score'>{this.state.list[player].score}</span>
-                            </div>
-                        )
-                    })}
+                    <p className='player-header'>
+                        <span>L</span>
+                        <span>e</span>
+                        <span>a</span>
+                        <span>d</span>
+                        <span>e</span>
+                        <span>r</span>
+                        <span>b</span>
+                        <span>o</span>
+                        <span>a</span>
+                        <span>r</span>
+                        <span>d</span>
+                    </p>
+                    <ul>
+                        {Object.keys(this.state.list).map((player, index) => {
+                            return (
+                                index % 2 == 0 ? (
+                                    <li style={{ 'background-color': '#fdb4bf' }}>
+                                        <span className='player-no'>{index + 1}</span>
+                                        <span className='player-name'>{this.state.list[player].name}</span>
+                                        <span id={player} className='player-score'>{this.state.list[player].score}</span>
+                                    </li>
+                                ) : (
+                                        <li style={{ 'background-color': '#ffdddd' }}>
+                                            <span className='player-no'>{index + 1}</span>
+                                            <span className='player-name'>{this.state.list[player].name}</span>
+                                            <span id={player} className='player-score'>{this.state.list[player].score}</span>
+                                        </li>
+                                    )
+                            )
+                        })}
+                    </ul>
                 </div>
                 <div className='cards-panel'>
                     {this.state.cards.map((card) => {
@@ -238,13 +262,11 @@ class RankContainer extends React.Component {
             <div className='center'>
                 <p>Leaderboard</p>
                 {this.state.list.map(function (player, index) {
-                    return (
-                        <div className='rank-profile'>
-                            <span className='rank-label'>{index + 1}</span>
-                            <span className='player-name'>{list[player].name}</span>
-                            <span className='player-score'>{list[player].score}</span>
-                        </div>
-                    )
+                    <div className='rank-profile'>
+                        <span className='rank-label'>{index + 1}</span>
+                        <span className='player-name'>{list[player].name}</span>
+                        <span className='player-score'>{list[player].score}</span>
+                    </div>
                 })}
             </div>
         )
@@ -277,7 +299,16 @@ function startCountdown() {
 
 function nextPic() {
     if (remain > 0) {
-        reactComponent.setState({ cards: pile[remain--] })
+        var cards = pile[remain--]
+
+        for (var i in cards) {
+            var j = parseInt(Math.random() * i)
+            var x = cards[i]
+            cards[i] = cards[j]
+            cards[j] = x
+        }
+
+        reactComponent.setState({ cards: cards })
         return true
     }
     return false
