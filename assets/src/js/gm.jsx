@@ -19,6 +19,10 @@ $(document).ready(function () {
         var event = obj.data[0]
         var value = obj.data[1]
         switch (event) {
+            // Keep server alive
+            case 'ping':
+                socket.emit('ping')
+                break
             // ################# Initialize Phase ############### //
             case 'joining':
                 if (value['id'] != null) {
@@ -47,7 +51,12 @@ $(document).ready(function () {
                             if (Object.keys(list).length == 0) {
                                 countdown--
                                 if (countdown == 0) {
-                                    reactComponent.setState({ active: false })
+                                    if (reactComponent.state.active == null) {
+                                        socket.emit('status', 'end')
+                                        reRenderComponent(<InitContainer />)
+                                    } else {
+                                        reactComponent.setState({ active: false })
+                                    }
                                     clearInterval(timer)
                                 }
                             }
@@ -193,7 +202,7 @@ class StageContainer extends React.Component {
         }
     }
 
-    componentDidUpdate() {
+    componentDidMount() {
         $('.cards-panel > img').each(function () {
             var top = $(this).data('top')
             var left = $(this).data('left')
@@ -203,7 +212,7 @@ class StageContainer extends React.Component {
                 position: 'absolute',
                 top: top + '%',
                 left: left + '%',
-                height: height + 'px',
+                height: height + '%',
                 animation: animation + ((Math.random() * 10) + 1) + 's linear infinite'
             })
         })
@@ -211,14 +220,14 @@ class StageContainer extends React.Component {
 
     trophyTaken(id) {
         var pos = parseInt($('.trophy-token').attr('data-pos'))
-        var player = parseInt($('#' + id).parent().child('.player-no').text())
-        console.log(pos, player)
+        var player = parseInt($('#' + id).parent().children('.player-no').text())
         var pixel = (player - pos) * 56
         if (pos == 0) {
             pixel += 14 // -70 for first player pos +56 for later player
-            $('.trophy-token').css('animation', 'trophy-taken 1s linear')
+            $('.trophy-token').css('transition', 'transform 1s ease-in')
             $('.trophy-token').css('transform', 'translateY(' + pixel + ') 1s ease-in')
         } else {
+            $('.trophy-token').css('transition', 'transform 1s ease-in')
             $('.trophy-token').css('transform', 'translateY(' + pixel + ') 1s ease-in')
         }
         $('.trophy-token').attr('data-pos', player + '')
@@ -309,7 +318,7 @@ class RankContainer extends React.Component {
 }
 
 function startCountdown() {
-    var second = 5
+    var second = 1
     clearInterval(timer)
     timer = setInterval(function () {
         if (all_ready) {
@@ -320,7 +329,18 @@ function startCountdown() {
                 initGame()
 
                 for (var id in list) {
-                    socket.emit('callback', { id: id, card: pile[remain--], result: 'none' })
+                    var card = pile[remain--]
+                    var pattern = patterns[0]   
+                    var set = []
+                    for (var i in card) {
+                        set[i] = {
+                            name: card[i],
+                            top: pattern[i].top,
+                            left: pattern[i].left,
+                            height: pattern[i].height
+                        }
+                    }
+                    socket.emit('callback', { id: id, card: set, result: 'none' })
                 }
 
                 reRenderComponent(<StageContainer list={list} />)

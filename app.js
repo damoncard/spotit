@@ -55,6 +55,7 @@ var user = io.of('/').on('connection', function (socket) {
 	socket.on('disconnect', function () {
 		admin.emit('leaving', { id: socket.id })
 		player--
+		console.log('disconnect: ' + player)
 	})
 })
 
@@ -74,6 +75,13 @@ var admin = io.of('/tunnel').on('connection', function (socket) {
 			status = 'running'
 		}
 	})
+
+	setTimeout(sendHeartbeat, 25000);
+
+    function sendHeartbeat(){
+        setTimeout(sendHeartbeat, 25000);
+        socket.emit('ping');
+    }
 
 	socket.on('disconnect', function () {
 		status = 'offline'

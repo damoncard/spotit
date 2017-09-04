@@ -156,7 +156,7 @@ class StageContainer extends React.Component {
                         <div className='cards-panel'>
                             {this.state.cards.map((card) => {
                                 return (
-                                    <img height='100px' src={'static/pic/' + card + '.svg'} onClick={() => this.sendResult(card)} />
+                                    <img height='100px' src={'static/pic/' + card.name + '.svg'} onClick={() => this.sendResult(card.name)} />
                                 )
                             })}
                             <img height='100px' src={'static/pic/trophy.svg'} className='hand-card' onClick={() => this.sendResult('trophy')} />
