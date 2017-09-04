@@ -1,7 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var io = require('socket.io-client')
-var socket = io('/tunnel')
+var socket = io.connect('/admin')
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 
@@ -21,6 +20,7 @@ $(document).ready(function () {
         switch (event) {
             // Keep server alive
             case 'ping':
+                console.log('test')
                 socket.emit('ping')
                 break
             // ################# Initialize Phase ############### //
@@ -198,7 +198,7 @@ class StageContainer extends React.Component {
         super(props)
         this.state = {
             list: props.list,
-            cards: [],
+            cards: props.cards,
         }
     }
 
@@ -219,7 +219,7 @@ class StageContainer extends React.Component {
     }
 
     trophyTaken(id) {
-        var pos = parseInt($('.trophy-token').attr('data-pos'))
+        var pos = parseInt($('.trophy-token').data('pos'))
         var player = parseInt($('#' + id).parent().children('.player-no').text())
         var pixel = (player - pos) * 56
         if (pos == 0) {
@@ -343,9 +343,29 @@ function startCountdown() {
                     socket.emit('callback', { id: id, card: set, result: 'none' })
                 }
 
-                reRenderComponent(<StageContainer list={list} />)
+                var card = pile[remain--]
+                var pattern = patterns[0]
+        
+                for (var i in card) {
+                    var j = parseInt(Math.random() * i)
+                    var x = card[i]
+                    card[i] = card[j]
+                    card[j] = x
+                }
+        
+                var set = []
+        
+                for (var i in card) {
+                    set[i] = {
+                        name: card[i],
+                        top: pattern[i].top,
+                        left: pattern[i].left,
+                        height: pattern[i].height
+                    }
+                }
+
+                reRenderComponent(<StageContainer list={list} cards={set} />)
                 socket.emit('status', 'start')
-                nextPic()
                 clearInterval(timer)
             }
         }

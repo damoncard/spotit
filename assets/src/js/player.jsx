@@ -1,7 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var io = require('socket.io-client')
-var socket = io('/')
+var socket = io.connect('/player')
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 var reactComponent
@@ -73,8 +72,9 @@ class InitContainer extends React.Component {
             if (name.length == 0) {
                 alert('Name must contain at least 1 character')
             } else {
+                var id = $('#UserID').attr('data-id')
                 $('#UserName').attr('data-name', name)
-                socket.emit('enter', name)
+                socket.emit('enter', { id: id, name: name } )
             }
         }
     }
