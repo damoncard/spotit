@@ -94,6 +94,7 @@
 			}
 			.trophy-token {
 				animation-fill-mode: forwards;
+				transition: transform 1s ease-in;
 				position: absolute;
 				top: 36px;
 				right: 31px;

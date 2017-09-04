@@ -3,6 +3,7 @@ var ReactDOM = require('react-dom');
 var socket = io.connect('/player')
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
+socket.heartbeatTimeout = 20000;
 var reactComponent
 
 $(document).ready(function () {

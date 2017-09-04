@@ -3,13 +3,14 @@ var ReactDOM = require('react-dom');
 var socket = io.connect('/admin')
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
+socket.heartbeatTimeout = 20000;
 
 import { pile, patterns, initGame } from './pile.jsx'
 
 var reactComponent
 var timer
 var list = {}
-var remain = 20 // default: 55
+var remain = 3 // default: 55
 var all_ready = false
 
 $(document).ready(function () {
@@ -18,11 +19,6 @@ $(document).ready(function () {
         var event = obj.data[0]
         var value = obj.data[1]
         switch (event) {
-            // Keep server alive
-            case 'ping':
-                console.log('test')
-                socket.emit('ping')
-                break
             // ################# Initialize Phase ############### //
             case 'joining':
                 if (value['id'] != null) {
@@ -98,7 +94,7 @@ $(document).ready(function () {
                 var answer = reactComponent.state.cards
                 var player_choice = value['value']
 
-                if (answer.map(function(e) { return e.name; }).indexOf(player_choice) != -1) {
+                if (answer.map(function (e) { return e.name; }).indexOf(player_choice) != -1) {
                     result = true
                 }
 
@@ -218,17 +214,31 @@ class StageContainer extends React.Component {
         })
     }
 
+    componentDidUpdate() {
+        $('.cards-panel > img').each(function () {
+            var top = $(this).data('top')
+            var left = $(this).data('left')
+            var height = $(this).data('height')
+            var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back '
+            $(this).css({
+                position: 'absolute',
+                top: top + '%',
+                left: left + '%',
+                height: height + '%',
+                animation: animation + ((Math.random() * 10) + 1) + 's linear infinite'
+            })
+        })
+    }
+
     trophyTaken(id) {
         var pos = parseInt($('.trophy-token').data('pos'))
         var player = parseInt($('#' + id).parent().children('.player-no').text())
         var pixel = (player - pos) * 56
         if (pos == 0) {
             pixel += 14 // -70 for first player pos +56 for later player
-            $('.trophy-token').css('transition', 'transform 1s ease-in')
-            $('.trophy-token').css('transform', 'translateY(' + pixel + ') 1s ease-in')
+            $('.trophy-token').css('transform', 'translateY(' + pixel + 'px) 1s ease-in')
         } else {
-            $('.trophy-token').css('transition', 'transform 1s ease-in')
-            $('.trophy-token').css('transform', 'translateY(' + pixel + ') 1s ease-in')
+            $('.trophy-token').css('transform', 'translateY(' + pixel + 'px) 1s ease-in')
         }
         $('.trophy-token').attr('data-pos', player + '')
     }
@@ -305,12 +315,16 @@ class RankContainer extends React.Component {
         return (
             <div className='center'>
                 <p>Leaderboard</p>
-                {this.state.list.map(function (player, index) {
-                    <div className='rank-profile'>
-                        <span className='rank-label'>{index + 1}</span>
-                        <span className='player-name'>{list[player].name}</span>
-                        <span className='player-score'>{list[player].score}</span>
-                    </div>
+                {this.state.list.map((player, index) => {
+                    console.log(list)
+                    console.log(player, index)
+                    return (
+                        <div className='rank-profile'>
+                            <span className='rank-label'>{index + 1}</span>
+                            <span className='player-name'>{list[player].name}</span>
+                            <span className='player-score'>{list[player].score}</span>
+                        </div>
+                    )
                 })}
             </div>
         )
@@ -330,7 +344,7 @@ function startCountdown() {
 
                 for (var id in list) {
                     var card = pile[remain--]
-                    var pattern = patterns[0]   
+                    var pattern = patterns[0]
                     var set = []
                     for (var i in card) {
                         set[i] = {
@@ -345,16 +359,16 @@ function startCountdown() {
 
                 var card = pile[remain--]
                 var pattern = patterns[0]
-        
+
                 for (var i in card) {
                     var j = parseInt(Math.random() * i)
                     var x = card[i]
                     card[i] = card[j]
                     card[j] = x
                 }
-        
+
                 var set = []
-        
+
                 for (var i in card) {
                     set[i] = {
                         name: card[i],

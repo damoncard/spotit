@@ -69,10 +69,8 @@ const admin = io.of('/admin').on('connection', function (socket) {
 		}
 	})
 
-	setTimeout(sendHeartbeat, 25000);
-
-	function sendHeartbeat() {
-		setTimeout(sendHeartbeat, 25000);
-		socket.emit('ping');
-	}
+	socket.on('disconnect', function() {
+		status = 'offline'
+		user.emit('id')
+	})
 })
