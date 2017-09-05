@@ -48,7 +48,7 @@ const user = io.of('/player').on('connection', function (socket) {
 	})
 
 	socket.on('disconnect', function () {
-		admin.emit('leaving', { id: socket.id })
+		admin.emit('leaving', { id: socket.client.id })
 		player--
 	})
 })

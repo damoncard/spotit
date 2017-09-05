@@ -11,13 +11,16 @@ $(document).ready(function () {
     socket.on('*', function (obj) {
         var event = obj.data[0]
         var value = obj.data[1]
+        console.log(event, value)
         switch (event) {
             // ################# Initialize Phase ############### //
             case 'id':
                 if (value != null) {
                     $('#UserID').attr('data-id', value)
+                    reactComponent = ReactDOM.render(<InitContainer />, document.querySelector('.player-container'))
+                } else {
+                    reRenderComponent(<InitContainer />)
                 }
-                reactComponent = ReactDOM.render(<InitContainer />, document.querySelector('.player-container'))
                 break
             case 'status':
                 switch (value['response']) {

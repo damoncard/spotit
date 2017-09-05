@@ -3,6 +3,16 @@
     src: url("/static/font/PWScratched.ttf");
 }
 
+@font-face {
+    font-family: 'JuneGull';
+    src: url("/static/font/junegull.ttf");
+}
+
+@font-face {
+    font-family: 'Typo-Round';
+    src: url("/static/font/typo_round/Typo_Round_Regular_Demo.otf");
+}
+
 @keyframes rotating-front {
     to {
         transform: rotate(360deg);
@@ -21,6 +31,7 @@ html, body {
 }
 
 p {
+    font-family: 'JuneGull';
     margin: 0;
 }
 

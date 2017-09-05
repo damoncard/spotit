@@ -55,6 +55,25 @@
 	.stage-container {
 		height: 100%;
 		background-color: rgba(255, 190, 125, 0.6);
+		.remain-indicator {
+			display: inline-block;
+			position: absolute;
+			top: 2%;
+			.remain-header {
+				font-family: 'JuneGull';
+				font-size: 2rem;
+				color: #fff;
+				margin-left: 0.5rem;
+				-webkit-text-stroke: 2px;
+				-webkit-text-stroke-color: #88DDBB;
+			}
+			.remain-no {
+				font-family: 'JuneGull';
+				font-size: 7rem;
+				color: #FFF;
+				margin-left: 2rem;
+			}
+		}
 		.player-panel {
 			float: right;
 			margin: 10px 17px 0px 0px;
@@ -66,6 +85,7 @@
 				border-bottom: 1px solid #767676;
 				span {
 					color: #fff;
+					text-shadow: 1px 1px 0 #000;
 				}
 			}
 			ul {
@@ -83,12 +103,15 @@
 						border-radius: 15px;
 					}
 					.player-name {
+						font-family: 'Typo-Round';
 						font-size: 1.25rem;
+						color: #fff;
 					}
 					.player-score {
 						float: right;
 						margin-right: 40px;
 						font-size: 1.25rem;
+						color: #fff;
 					}
 				}
 			}
@@ -96,9 +119,9 @@
 				animation-fill-mode: forwards;
 				transition: transform 1s ease-in;
 				position: absolute;
-				top: 36px;
-				right: 31px;
-				height: 35px;
+				top: 35px;
+				right: 30px;
+				height: 30px;
 			}
 		}
 
@@ -113,7 +136,34 @@
 			border-radius: 400px;
 		}
 	}
-	
+	.rank-container {
+		text-align: center;
+		position: relative;
+		top: 5%;
+		.rank-header {
+			font-size: 6rem;
+		}
+		.rank-profile {
+			line-height: 1rem;
+			margin-top: 1rem;
+			.rank-label {
+				margin-right: 1rem;
+				padding: 5px 12px 5px 12px;
+				color: #fff;
+				background-color: #e95488;
+				border-radius: 15px;
+				font-size: 1.5rem;
+			}
+			.player-name {
+				font-family: 'Typo-Round';
+				font-size: 2rem;
+			}
+			.player-score {
+				margin-left: 10rem;
+				font-size: 1.5rem;
+			}
+		}
+	}
 }
 
 .countdown-modal {

@@ -107,6 +107,8 @@ $(document).ready(function () {
                         reactComponent.setState({ list: list })
                         socket.emit('callback', { id: value['id'], card: answer, result: 'true' })
                     } else {
+                        var trophy = $('.trophy-token').data('pos')
+                        console.log(trophy)
                         var sorted_list = Object.keys(list).sort(function (a, b) { return list[b].score - list[a].score })
 
                         for (var i in sorted_list) {
@@ -215,6 +217,7 @@ class StageContainer extends React.Component {
     }
 
     componentDidUpdate() {
+        this.props.remain--
         $('.cards-panel > img').each(function () {
             var top = $(this).data('top')
             var left = $(this).data('left')
@@ -236,16 +239,18 @@ class StageContainer extends React.Component {
         var pixel = (player - pos) * 56
         if (pos == 0) {
             pixel += 14 // -70 for first player pos +56 for later player
-            $('.trophy-token').css('transform', 'translateY(' + pixel + 'px) 1s ease-in')
-        } else {
-            $('.trophy-token').css('transform', 'translateY(' + pixel + 'px) 1s ease-in')
         }
+        $('.trophy-token').css('transform', 'translateY(' + pixel + 'px)')
         $('.trophy-token').attr('data-pos', player + '')
     }
 
     render() {
         return (
             <div className='stage-container'>
+                <div className='remain-indicator'>
+                    <p className='remain-header'>Remaining Cards</p>
+                    <p className='remain-no'>{this.props.remain}</p>
+                </div>
                 <div className='player-panel'>
                     <p className='player-header'>
                         <span>L</span>
@@ -258,7 +263,7 @@ class StageContainer extends React.Component {
                         <span>o</span>
                         <span>a</span>
                         <span>r</span>
-                        <span style={{ 'margin-right': '40px' }}>d</span>
+                        <span style={{ 'margin-right': '30px' }}>d</span>
                     </p>
                     <ul>
                         {Object.keys(this.state.list).map((player, index) => {
@@ -303,21 +308,19 @@ class RankContainer extends React.Component {
     }
 
     componentDidMount() {
-        setTimeout(function () {
-            socket.emit('status', 'end')
-            list = {}
-            remain = 20
-            reRenderComponent(<InitContainer />)
-        }, 10000)
+        // setTimeout(function () {
+        //     socket.emit('status', 'end')
+        //     list = {}
+        //     remain = 20
+        //     reRenderComponent(<InitContainer />)
+        // }, 10000)
     }
 
     render() {
         return (
-            <div className='center'>
-                <p>Leaderboard</p>
+            <div className='rank-container'>
+                <p className='rank-header'>Leaderboard</p>
                 {this.state.list.map((player, index) => {
-                    console.log(list)
-                    console.log(player, index)
                     return (
                         <div className='rank-profile'>
                             <span className='rank-label'>{index + 1}</span>
@@ -378,7 +381,7 @@ function startCountdown() {
                     }
                 }
 
-                reRenderComponent(<StageContainer list={list} cards={set} />)
+                reRenderComponent(<StageContainer list={list} cards={set} remain={remain} />)
                 socket.emit('status', 'start')
                 clearInterval(timer)
             }
