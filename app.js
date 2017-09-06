@@ -10,8 +10,8 @@ var player = 0
 // Set environment
 app.use('/static', express.static(__dirname + '/assets/prod'))
 app.disable('etag')
-server.listen(8080)
-console.log('Server starting on port: ' + 8080)
+server.listen(3333)
+console.log('Server starting on port: ' + 3333)
 
 // Set route
 app.get('/play', function (req, res) {

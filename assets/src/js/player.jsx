@@ -1,12 +1,11 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var socket = io.connect('/player')
+var socket = io.connect('/player', { reconnection: false })
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
-socket.heartbeatTimeout = 20000;
 var reactComponent
 
-$(document).ready(function () {
+$(document).ready(function () { 
 
     socket.on('*', function (obj) {
         var event = obj.data[0]
@@ -67,27 +66,43 @@ class InitContainer extends React.Component {
 
     constructor(props) {
         super(props)
-        this.enterName = this.enterName.bind(this)
     }
 
-    enterName(key) {
-        if (key.key == 'Enter') {
-            var name = $('.input-name').val().trim()
-            if (name.length == 0) {
-                alert('Name must contain at least 1 character')
+    componentDidMount() {
+        $('.form-name').submit(function(e) {
+            e.preventDefault()
+            var name = $('.name-input').val().trim()
+            if (name.length == 0 || name.length > 10) {
+                alert('Name must contain at least 1 up to 10 characters')
             } else {
-                var id = $('#UserID').attr('data-id')
+                var id = $('#UserID').data('id')
                 $('#UserName').attr('data-name', name)
                 socket.emit('enter', { id: id, name: name } )
             }
-        }
+        })
     }
 
     render() {
         return (
-            <div className='center'>
-                <p className='name-label'>Please enter your name: </p>
-                <input className='input-name' type='text' onKeyPress={this.enterName} />
+            <div className='init-container'>
+                <div className='introduction-container'>
+                    <p className='introduction-header'>
+                        Welcome to
+                        <span style={{ 'color': '#ff9f3e' }}> S</span>
+                        <span style={{ 'color': '#febac5' }}>p</span>
+                        <span style={{ 'color': '#57ff6d' }}>o</span>
+                        <span style={{ 'color': '#3ed1ff' }}>t</span>
+                        <span>-</span>
+                        <span style={{ 'color': '#fff5a5' }}>i</span>
+                        <span style={{ 'color': '#3ed1ff' }}>t </span> 
+                        Game
+                    </p>
+                </div>
+                <form className='form-name'>
+                    <p className='name-label'>Please enter your name</p>
+                    <input className='name-input' type='text' placeholder='Type your name here' />
+                    <input className='submit-form' type='submit' value='OK' />
+                </form>
             </div>
         )
     }
@@ -147,7 +162,6 @@ class StageContainer extends React.Component {
                 react.setState({ ban: false })
             }, 10000)
         }
-        alert('You pick the wrong one')
     }
 
     render() {

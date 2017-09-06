@@ -1,29 +1,70 @@
 .player-container {
-  background-color: #e8ad37;
-  display: table;
-  width: 100%; 
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: "Source Sans Pro", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  /* ####################### Enter Name ######################## */
-  div.center {
-    text-align: center;
-    vertical-align: middle;
-    .name-label {
-      font-family: "Times New Roman", Times, serif;
-      font-size: 2rem;
-      color: black;
+	height: 100%;
+	width: 100%;
+	overflow-y: auto;
+  .init-container {
+		height: 100%;
+		background-color: #ffac57;
+    .introduction-container {
       text-align: center;
+      top: 15%;
+      position: relative;
+      .introduction-header {
+        padding: 0rem 2rem;
+        font-size: 5rem;
+        color: #fff;
+        text-shadow: 3px 4px 10px #000;
+        @media screen and (max-width: 425px) {
+          font-size: 4rem;
+        }
+        @media screen and (max-width: 360px) {
+          font-size: 3rem;
+        }
+      }
     }
-    .input-name {
-      font-size: 1rem;
-      padding: 0.5rem;
+    .form-name {
+      position: relative;
+      top: 28%;
       text-align: center;
+      .name-label {
+        padding: 0rem 1rem;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        @media screen and (max-width: 425px) {
+          font-size: 2rem;
+        }
+        @media screen and (max-width: 360px) {
+          font-size: 1.5rem;
+        }
+      }
+      .name-input {
+        font-family: 'Typo-Round';
+        font-size: 1rem;
+        margin-right: 1rem;
+        padding: 6px 15px;
+        border: 3px solid #c0c0c0;
+        border-radius: 15px;
+        @media screen and (max-width: 320px) {
+          font-size: 0.8rem;
+        }
+      }
+      .name-input:focus {
+        border: 3px solid #5d5d5d;
+      }
+      .submit-form {
+        font-family: 'JuneGull';
+        font-size: 1rem;
+        padding: 5px 15px;
+        border: 0;
+        border-radius: 5px;
+        background: #F900F9;
+        color: #fff;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+      }
     }
   }
-  /* ###################### Ready page ####################### */
+
   .player-status {
     min-height: 100vh;
     display: flex;
@@ -94,17 +135,14 @@
     }
   }
 
-  /* ###################### Playing page ####################### */
-  .score-label{
+  .stage-container {
+    height: 100%;
+    background-color: #ffac57;
+    .score-label{
       text-align: right;
       font-size: 2rem;
       margin: 0
-  }
-
-  /* ###################### Score Page ######################### */
-  .rank{
-      text-align: center;
-      font-size: 2rem;
+    }
   }
 }
 

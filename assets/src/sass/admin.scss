@@ -117,7 +117,7 @@
 			}
 			.trophy-token {
 				animation-fill-mode: forwards;
-				transition: transform 1s ease-in;
+				transition: transform 0.5s ease-in;
 				position: absolute;
 				top: 35px;
 				right: 30px;
@@ -137,30 +137,37 @@
 		}
 	}
 	.rank-container {
-		text-align: center;
 		position: relative;
 		top: 5%;
 		.rank-header {
 			font-size: 6rem;
+			text-align: center;
 		}
-		.rank-profile {
-			line-height: 1rem;
-			margin-top: 1rem;
-			.rank-label {
-				margin-right: 1rem;
-				padding: 5px 12px 5px 12px;
-				color: #fff;
-				background-color: #e95488;
-				border-radius: 15px;
-				font-size: 1.5rem;
-			}
-			.player-name {
-				font-family: 'Typo-Round';
-				font-size: 2rem;
-			}
-			.player-score {
-				margin-left: 10rem;
-				font-size: 1.5rem;
+		.player-list {
+			padding-left: 42%;
+			.rank-profile {
+				margin-top: 1rem;
+				.trophy-token {
+					height: 40px;
+					position: absolute;
+					left: 39%;
+				}
+				.rank-label {
+					margin-right: 1rem;
+					padding: 5px 12px 5px 12px;
+					color: #fff;
+					background-color: #e95488;
+					border-radius: 15px;
+					font-size: 1.5rem;
+				}
+				.player-name {
+					font-family: 'Typo-Round';
+					font-size: 2rem;
+				}
+				.player-score {
+					margin-left: 10rem;
+					font-size: 1.5rem;
+				}
 			}
 		}
 	}

@@ -1,16 +1,15 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var socket = io.connect('/admin')
+var socket = io.connect('/admin', { reconnection: false })
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
-socket.heartbeatTimeout = 20000;
 
 import { pile, patterns, initGame } from './pile.jsx'
 
 var reactComponent
 var timer
 var list = {}
-var remain = 3 // default: 55
+var remain = 5 // default: 55
 var all_ready = false
 
 $(document).ready(function () {
@@ -26,6 +25,7 @@ $(document).ready(function () {
                         name: value['name'],
                         score: 0,
                         status: false,
+                        trophy: false,
                     }
                     all_ready = false
                     $('.countdown-container').hide()
@@ -104,11 +104,14 @@ $(document).ready(function () {
                         reactComponent.trophyTaken(value['id'])
                     }
                     if (nextPic()) {
-                        reactComponent.setState({ list: list })
                         socket.emit('callback', { id: value['id'], card: answer, result: 'true' })
                     } else {
-                        var trophy = $('.trophy-token').data('pos')
-                        console.log(trophy)
+                        var trophy = $('.trophy-token').attr('data-pos')
+                        if (trophy != 0) {
+                            var id = $('ul > li:nth-child(' + trophy + ') > .player-no').data('id')
+                            list[id].score += 3
+                            list[id].trophy = true
+                        }
                         var sorted_list = Object.keys(list).sort(function (a, b) { return list[b].score - list[a].score })
 
                         for (var i in sorted_list) {
@@ -196,28 +199,13 @@ class StageContainer extends React.Component {
         super(props)
         this.state = {
             list: props.list,
-            cards: props.cards,
+            cards: [],
         }
     }
 
-    componentDidMount() {
-        $('.cards-panel > img').each(function () {
-            var top = $(this).data('top')
-            var left = $(this).data('left')
-            var height = $(this).data('height')
-            var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back '
-            $(this).css({
-                position: 'absolute',
-                top: top + '%',
-                left: left + '%',
-                height: height + '%',
-                animation: animation + ((Math.random() * 10) + 1) + 's linear infinite'
-            })
-        })
-    }
-
-    componentDidUpdate() {
+    updatePic(cards) {
         this.props.remain--
+        this.setState({ cards: cards })
         $('.cards-panel > img').each(function () {
             var top = $(this).data('top')
             var left = $(this).data('left')
@@ -241,7 +229,7 @@ class StageContainer extends React.Component {
             pixel += 14 // -70 for first player pos +56 for later player
         }
         $('.trophy-token').css('transform', 'translateY(' + pixel + 'px)')
-        $('.trophy-token').attr('data-pos', player + '')
+        $('.trophy-token').attr('data-pos', player)
     }
 
     render() {
@@ -270,13 +258,13 @@ class StageContainer extends React.Component {
                             return (
                                 index % 2 == 0 ? (
                                     <li style={{ 'background-color': '#fdb4bf' }}>
-                                        <span className='player-no'>{index + 1}</span>
+                                        <span className='player-no' data-id={player}>{index + 1}</span>
                                         <span className='player-name'>{this.state.list[player].name}</span>
                                         <span id={player} className='player-score'>{this.state.list[player].score}</span>
                                     </li>
                                 ) : (
                                         <li style={{ 'background-color': '#ffdddd' }}>
-                                            <span className='player-no'>{index + 1}</span>
+                                            <span className='player-no' data-id={player}>{index + 1}</span>
                                             <span className='player-name'>{this.state.list[player].name}</span>
                                             <span id={player} className='player-score'>{this.state.list[player].score}</span>
                                         </li>
@@ -320,15 +308,18 @@ class RankContainer extends React.Component {
         return (
             <div className='rank-container'>
                 <p className='rank-header'>Leaderboard</p>
-                {this.state.list.map((player, index) => {
-                    return (
-                        <div className='rank-profile'>
-                            <span className='rank-label'>{index + 1}</span>
-                            <span className='player-name'>{list[player].name}</span>
-                            <span className='player-score'>{list[player].score}</span>
-                        </div>
-                    )
-                })}
+                <div className='player-list'>
+                    {this.state.list.map((player, index) => {
+                        return (
+                            <div className='rank-profile'>
+                                {list[player].trophy && <img src='static/pic/trophy.svg' className='trophy-token' />}
+                                <span className='rank-label'>{index + 1}</span>
+                                <span className='player-name'>{list[player].name}</span>
+                                <span className='player-score'>{list[player].score}</span>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         )
     }
@@ -360,28 +351,8 @@ function startCountdown() {
                     socket.emit('callback', { id: id, card: set, result: 'none' })
                 }
 
-                var card = pile[remain--]
-                var pattern = patterns[0]
-
-                for (var i in card) {
-                    var j = parseInt(Math.random() * i)
-                    var x = card[i]
-                    card[i] = card[j]
-                    card[j] = x
-                }
-
-                var set = []
-
-                for (var i in card) {
-                    set[i] = {
-                        name: card[i],
-                        top: pattern[i].top,
-                        left: pattern[i].left,
-                        height: pattern[i].height
-                    }
-                }
-
-                reRenderComponent(<StageContainer list={list} cards={set} remain={remain} />)
+                reRenderComponent(<StageContainer list={list} remain={remain} />)
+                nextPic()
                 socket.emit('status', 'start')
                 clearInterval(timer)
             }
@@ -412,7 +383,7 @@ function nextPic() {
             }
         }
 
-        reactComponent.setState({ cards: set })
+        reactComponent.updatePic(set)
         return true
     }
     return false
