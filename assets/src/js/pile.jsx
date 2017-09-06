@@ -50,7 +50,6 @@ export const pile = [
 	['duck', 'watermelon', 'rocket', 'mouse', 'bullet', 'snail', 'santa', 'paintbrush'],
 	['rabbit', 'starfish', 'ace', 'clip', 'acorn', 'cupcake', 'watermelon', 'dynamite'],
 	['wheel', 'badge', 'sneaker', 'headphone', 'duck', 'ace', 'lollipop', 'knife'],
-	['sneaker', 'badge', 'wheel', 'headphone', 'duck', 'ace', 'lollipop', 'knife'],
 	['pumpkin', 'hydrant', 'doll', 'lollipop', 'watermelon', 'toothbrush', 'binky', 'butterfly'],
 	['santa', 'starfish', 'butterfly', 'wheel', 'hourglass', 'trumpet', 'orange', 'hammer'],
 	['santa', 'phone', 'camera', 'comb', 'computer', 'headphone', 'dynamite', 'binky'],
