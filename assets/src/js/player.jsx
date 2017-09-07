@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var socket = io.connect('/player', { reconnection: false })
+var socket = io.connect('/player', { transports: ['websocket'], reconnection: false })
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 var reactComponent
@@ -53,7 +53,7 @@ $(document).ready(function () {
                             reRenderComponent(<RankContainer rank={value['rank']} />)
                             break
                         case 'none':
-                            reRenderComponent(<StageContainer cards={value['card']} score={0} />)
+                            reRenderComponent(<StageContainer cards={value['card']} score={0} count={0} />)
                             break
                     }
                 }
@@ -141,7 +141,6 @@ class StageContainer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            count: 0,
             cards: props.cards,
             ban: false,
         }
@@ -153,11 +152,19 @@ class StageContainer extends React.Component {
     }
 
     faultImage() {
-        this.setState({ count: this.state.count + 1 })
-        if (this.state.count % 3 == 0) {
+        this.props.count++
+        if (this.props.count % 3 == 0) {
             var react = this
             react.setState({ ban: true })
+            var timer = setInterval(function() {
+                var second = parseFloat($('.ban-second').text())
+                second -= 0.1
+                second = second.toFixed(1)
+                $('.ban-second').text(second)
+            }, 100)
             setTimeout(function () {
+                clearInterval(timer)
+                $('.ban-second').text(10)
                 react.setState({ ban: false })
             }, 10000)
         }
@@ -166,20 +173,27 @@ class StageContainer extends React.Component {
     render() {
         return (
             <div className='stage-container'>
-                <div className='score-indicator'>
-                    <p className='score-header'>Your Score</p>
-                    <p className='score-no'>{this.props.score}</p>
-                </div>
+                {!this.state.ban &&
+                    <div className='score-indicator'>
+                        <p className='score-header'>Your Score</p>
+                        <p className='score-no'>{this.props.score}</p>
+                    </div>
+                }
                 {this.state.ban ? (
-                    <p className='ban-label'>You got TEMPORALLY banned, from picking the wrong one</p>
+                    <div className='ban-container'>
+                        <p className='ban-label'>You got TEMPORALLY <span className='ban-word'>banned</span></p>
+                        <p className='ban-countdown'>for <span className='ban-second'>10</span> seconds</p>
+                    </div>
                 ) : (
                         <div className='cards-panel'>
                             {this.state.cards.map((card) => {
+                                var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back '
                                 var style = {
                                     position: 'absolute',
                                     top: card.top + '%',
-                                    left: card.left + '%', 
-                                    height: card.height + '%'
+                                    left: card.left + '%',
+                                    height: card.height + '%',
+                                    animation: animation + ((Math.random() * 10) + 1) + 's linear infinite'
                                 }
                                 return (
                                     <img src={'static/pic/' + card.name + '.svg'} style={style} value={card.name} onClick={() => this.sendResult(card.name)} />
@@ -204,8 +218,8 @@ class RankContainer extends React.Component {
 
     render() {
         return (
-            <div className='container-margin'>
-                <p className='rank'>Your Rank: <span className='rank'>{this.state.rank}</span></p>
+            <div className='rank-container'>
+                <p className='rank-header'>Your Rank: <span className='rank-no'>{this.state.rank}</span></p>
             </div>
         )
     }

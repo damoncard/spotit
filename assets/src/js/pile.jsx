@@ -60,11 +60,11 @@ export const patterns = [
 	[{ top: '8', left: '40', height: '19.5' },
 	{ top: '37', left: '35', height: '19.5' },
 	{ top: '67', left: '72', height: '19.5' },
-	{ top: '73', left: '34', height: '19.5' },
+	{ top: '74', left: '34', height: '19.5' },
 	{ top: '14', left: '13', height: '24' },
-	{ top: '53', left: '50', height: '24' },
+	{ top: '55', left: '50', height: '24' },
 	{ top: '52', left: '9', height: '29' },
-	{ top: '11', left: '61', height: '38.5' }]
+	{ top: '15', left: '61', height: '38.5' }]
 ]
 
 export function initGame() {

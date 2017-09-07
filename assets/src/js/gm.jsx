@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var socket = io.connect('/admin', { reconnection: false })
+var socket = io.connect('/admin', { transports: ['websocket'], reconnection: false })
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 
