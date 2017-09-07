@@ -1,7 +1,7 @@
 .player-container {
 	height: 100%;
 	width: 100%;
-	overflow-y: auto;
+	overflow: hidden;
   .init-container {
 		height: 100%;
 		background-color: #ffac57;
@@ -139,9 +139,28 @@
     height: 100%;
     background-color: #ffac57;
     .score-label{
-      text-align: right;
       font-size: 2rem;
-      margin: 0
+      float: right;
+      padding: 4px;
+    }
+    .cards-panel {
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-60%, -50%);
+      width: 75%;
+      height: 105%;
+      background-color: #fff;
+      border-radius: 400px;
+    }
+    .trophy-card {
+      position: absolute;
+      bottom: 3%;
+      right: 2%;
+      height: 20%;
+      background-color: #fff;
+      border-radius: 20px;
+      padding: 0.5rem 1rem 0.5rem 1rem;
     }
   }
 }

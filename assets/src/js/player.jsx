@@ -5,7 +5,7 @@ var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 var reactComponent
 
-$(document).ready(function () { 
+$(document).ready(function () {
 
     socket.on('*', function (obj) {
         var event = obj.data[0]
@@ -43,7 +43,6 @@ $(document).ready(function () {
                 if (userID == value['id']) {
                     switch (value['result']) {
                         case 'true':
-                            reactComponent.setState({ score: reactComponent.state.score + 1 })
                             reactComponent.setState({ cards: value['card'] })
                             break
                         case 'false':
@@ -53,7 +52,7 @@ $(document).ready(function () {
                             reRenderComponent(<RankContainer rank={value['rank']} />)
                             break
                         case 'none':
-                            reRenderComponent(<StageContainer cards={value['card']} />)
+                            reRenderComponent(<StageContainer cards={value['card']} score={0} />)
                             break
                     }
                 }
@@ -69,7 +68,7 @@ class InitContainer extends React.Component {
     }
 
     componentDidMount() {
-        $('.form-name').submit(function(e) {
+        $('.form-name').submit(function (e) {
             e.preventDefault()
             var name = $('.name-input').val().trim()
             if (name.length == 0 || name.length > 10) {
@@ -77,7 +76,7 @@ class InitContainer extends React.Component {
             } else {
                 var id = $('#UserID').data('id')
                 $('#UserName').attr('data-name', name)
-                socket.emit('enter', { id: id, name: name } )
+                socket.emit('enter', { id: id, name: name })
             }
         })
     }
@@ -94,7 +93,7 @@ class InitContainer extends React.Component {
                         <span style={{ 'color': '#3ed1ff' }}>t</span>
                         <span>-</span>
                         <span style={{ 'color': '#fff5a5' }}>i</span>
-                        <span style={{ 'color': '#3ed1ff' }}>t </span> 
+                        <span style={{ 'color': '#3ed1ff' }}>t </span>
                         Game
                     </p>
                 </div>
@@ -141,12 +140,27 @@ class StageContainer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            score: 0,
             count: 0,
             cards: props.cards,
             ban: false,
         }
         this.sendResult = this.sendResult.bind(this)
+    }
+
+    updatePic(cards) {
+        this.props.score++
+        this.setState({ cards: cards })
+        $('.cards-panel > img').each(function () {
+            var top = $(this).data('top')
+            var left = $(this).data('left')
+            var height = $(this).data('height')
+            $(this).css({
+                position: 'absolute',
+                top: top + '%',
+                left: left + '%',
+                height: height + '%',
+            })
+        })
     }
 
     sendResult(value) {
@@ -167,19 +181,25 @@ class StageContainer extends React.Component {
     render() {
         return (
             <div className='stage-container'>
-                <p className='score-label'>Your Score: <span className='score-label'>{this.state.score}</span></p>
+                <p className='score-label'>Your Score: <span className='score-label'>{this.props.score}</span></p>
                 {this.state.ban ? (
                     <p className='ban-label'>You got TEMPORALLY banned, from picking the wrong one</p>
                 ) : (
                         <div className='cards-panel'>
                             {this.state.cards.map((card) => {
+                                var style = {
+                                    position: 'absolute',
+                                    top: card.top + '%',
+                                    left: card.left + '%', 
+                                    height: card.height + '%'
+                                }
                                 return (
-                                    <img height='100px' src={'static/pic/' + card.name + '.svg'} onClick={() => this.sendResult(card.name)} />
+                                    <img src={'static/pic/' + card.name + '.svg'} style={style} value={card.name} onClick={() => this.sendResult(card.name)} />
                                 )
                             })}
-                            <img height='100px' src={'static/pic/trophy.svg'} className='hand-card' onClick={() => this.sendResult('trophy')} />
                         </div>
                     )}
+                {!this.state.ban && <img src={'static/pic/trophy.svg'} className='trophy-card' onClick={() => this.sendResult('trophy')} />}
             </div>
         )
     }

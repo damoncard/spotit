@@ -58,7 +58,7 @@ export const pile = [
 
 export const patterns = [
 	[{ top: '8', left: '40', height: '19.5' },
-	{ top: '37', left: '33', height: '19.5' },
+	{ top: '37', left: '35', height: '19.5' },
 	{ top: '67', left: '72', height: '19.5' },
 	{ top: '73', left: '34', height: '19.5' },
 	{ top: '14', left: '13', height: '24' },
