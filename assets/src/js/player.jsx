@@ -43,6 +43,7 @@ $(document).ready(function () {
                 if (userID == value['id']) {
                     switch (value['result']) {
                         case 'true':
+                            reactComponent.props.score++
                             reactComponent.setState({ cards: value['card'] })
                             break
                         case 'false':
@@ -147,22 +148,6 @@ class StageContainer extends React.Component {
         this.sendResult = this.sendResult.bind(this)
     }
 
-    updatePic(cards) {
-        this.props.score++
-        this.setState({ cards: cards })
-        $('.cards-panel > img').each(function () {
-            var top = $(this).data('top')
-            var left = $(this).data('left')
-            var height = $(this).data('height')
-            $(this).css({
-                position: 'absolute',
-                top: top + '%',
-                left: left + '%',
-                height: height + '%',
-            })
-        })
-    }
-
     sendResult(value) {
         socket.emit('submit', { id: $('#UserID').attr('data-id'), value: value })
     }
@@ -181,7 +166,10 @@ class StageContainer extends React.Component {
     render() {
         return (
             <div className='stage-container'>
-                <p className='score-label'>Your Score: <span className='score-label'>{this.props.score}</span></p>
+                <div className='score-indicator'>
+                    <p className='score-header'>Your Score</p>
+                    <p className='score-no'>{this.props.score}</p>
+                </div>
                 {this.state.ban ? (
                     <p className='ban-label'>You got TEMPORALLY banned, from picking the wrong one</p>
                 ) : (

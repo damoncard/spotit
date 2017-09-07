@@ -137,11 +137,23 @@
 
   .stage-container {
     height: 100%;
-    background-color: #ffac57;
-    .score-label{
-      font-size: 2rem;
+    background-color: #ffbe7d;
+    .score-indicator{
       float: right;
       padding: 4px;
+      text-align: right;
+      .score-header {
+        font-size: 2rem;
+        color: #fff;
+        margin-right: 0.5rem;
+        -webkit-text-stroke: 1px;
+        -webkit-text-stroke-color: #a4c8f0;
+      }
+      .score-no {
+        font-size: 4rem;
+        margin-right: 2rem;
+        color: #fff;
+      }
     }
     .cards-panel {
       position: relative;
