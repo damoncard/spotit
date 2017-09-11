@@ -103,23 +103,14 @@ class InitContainer extends React.Component {
         var id = $('#UserID').data('id')
         var status = this.state.status
         if (status) {
-            $('.state-button').css('transform', 'rotateY(-180deg)')
+            $('.state-button').css('transform', 'rotateY(0deg)')
+            socket.emit('status', { id: id, status: 'not' })
             this.setState({ status: false })
         } else {
-            $('.state-button').css('transform', 'rotateY(0deg)')
+            $('.state-button').css('transform', 'rotateY(-180deg)')
+            socket.emit('status', { id: id, status: 'ready' })
             this.setState({ status: true })
         }
-        // if ($('.state').hasClass('fa-check')) {
-        //     $('.state').removeClass('fa-check')
-        //     $('.state').addClass('fa-times')
-        //     $('.state').css('color', 'red')
-        //     socket.emit('status', { id: id, status: 'not' })
-        // } else {
-        //     $('.state').removeClass('fa-times')
-        //     $('.state').addClass('fa-check')
-        //     $('.state').css('color', 'green')
-        //     socket.emit('status', { id: id, status: 'ready' })
-        // }
     }
 
     openStatus() {
