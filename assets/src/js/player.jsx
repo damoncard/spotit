@@ -106,7 +106,6 @@ class InitContainer extends React.Component {
             center: true,
         })
 
-        $('.state-button').flip()
         // socket.emit('status', { id: id, status: 'ready' })
         // socket.emit('status', { id: id, status: 'not' })
     }
@@ -141,14 +140,7 @@ class InitContainer extends React.Component {
                             <div className='image-container'></div>
                             <div className='state-container'>
                                 <div className='state-outer'>
-                                    <div className='state-button'>
-                                        <div className='front'>
-                                            Front
-                                        </div>
-                                        <div className='back'>
-                                            Back
-                                        </div>
-                                    </div>
+                                    <div className='state-button'>Ready</div>
                                 </div>
                                 <button className='change-name' onClick={this.changeName}>Change Name</button>
                             </div>
