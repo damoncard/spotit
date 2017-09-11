@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var socket = io.connect('/admin', { transports: ['websocket'], reconnection: false })
+var socket = io.connect('/admin', { reconnection: false })
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 
@@ -106,7 +106,7 @@ $(document).ready(function () {
                     if (nextPic()) {
                         socket.emit('callback', { id: value['id'], card: answer, result: 'true' })
                     } else {
-                        var trophy = $('.trophy-token').attr('data-pos')
+                        var trophy = $('#trophy-pos').data('pos')
                         if (trophy != 0) {
                             var id = $('ul > li:nth-child(' + trophy + ') > .player-no').data('id')
                             list[id].score += 3
@@ -222,14 +222,14 @@ class StageContainer extends React.Component {
     }
 
     trophyTaken(id) {
-        var pos = parseInt($('.trophy-token').data('pos'))
+        var pos = parseInt($('#trophy-pos').data('pos'))
         var player = parseInt($('#' + id).parent().children('.player-no').text())
         var pixel = (player - pos) * 56
         if (pos == 0) {
             pixel += 14 // -70 for first player pos +56 for later player
         }
         $('.trophy-token').css('transform', 'translateY(' + pixel + 'px)')
-        $('.trophy-token').attr('data-pos', player)
+        $('#trophy-pos').data('pos', player)
     }
 
     render() {
@@ -272,7 +272,7 @@ class StageContainer extends React.Component {
                             )
                         })}
                     </ul>
-                    <img src='static/pic/trophy.svg' data-pos='0' className='trophy-token' />
+                    <img src='static/pic/trophy.svg' className='trophy-token' />
                 </div>
                 <div className='cards-panel'>
                     {this.state.cards.map((card) => {
@@ -281,6 +281,7 @@ class StageContainer extends React.Component {
                         )
                     })}
                 </div>
+                <input type='hidden' id='trophy-pos' data-pos='0' />>
             </div>
         )
     }

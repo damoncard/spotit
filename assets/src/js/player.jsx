@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var socket = io.connect('/player', { transports: ['websocket'], reconnection: false })
+var socket = io.connect('/player', { reconnection: false })
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 var reactComponent
@@ -66,6 +66,7 @@ class InitContainer extends React.Component {
 
     constructor(props) {
         super(props)
+        this.checkStatus = this.checkStatus.bind(this)
     }
 
     componentDidMount() {
@@ -80,57 +81,51 @@ class InitContainer extends React.Component {
                 socket.emit('enter', { id: id, name: name })
             }
         })
+
+        $('.owl-carousel').owlCarousel({
+            items: 1,
+            stagePadding: 30,
+            dots: true,
+            margin: 20,
+            center: true,
+        })
+    }
+
+    checkStatus() {
+        socket.emit('status', { id: id, status: 'ready' })
+        socket.emit('status', { id: id, status: 'not' })
     }
 
     render() {
         return (
             <div className='init-container'>
-                <div className='introduction-container'>
-                    <p className='introduction-header'>
-                        Welcome to
-                        <span style={{ 'color': '#ff9f3e' }}> S</span>
-                        <span style={{ 'color': '#febac5' }}>p</span>
-                        <span style={{ 'color': '#57ff6d' }}>o</span>
-                        <span style={{ 'color': '#3ed1ff' }}>t</span>
-                        <span>-</span>
-                        <span style={{ 'color': '#fff5a5' }}>i</span>
-                        <span style={{ 'color': '#3ed1ff' }}>t </span>
-                        Game
+                <div className='input-section'>
+                    <div className='introduction-container'>
+                        <p className='introduction-header'>
+                            Welcome to<br />
+                            <span style={{ 'color': '#ff9f3e' }}> S</span>
+                            <span style={{ 'color': '#febac5' }}>p</span>
+                            <span style={{ 'color': '#57ff6d' }}>o</span>
+                            <span style={{ 'color': '#3ed1ff' }}>t</span>
+                            <span>-</span>
+                            <span style={{ 'color': '#fff5a5' }}>i</span>
+                            <span style={{ 'color': '#3ed1ff' }}>t </span>
+                            Game
                     </p>
+                    </div>
+                    <form className='form-name'>
+                        <p className='name-label'>Please enter your name</p>
+                        <input className='name-input' type='text' placeholder='Type your name here' />
+                        <input className='submit-form' type='submit' value='OK' />
+                    </form>
                 </div>
-                <form className='form-name'>
-                    <p className='name-label'>Please enter your name</p>
-                    <input className='name-input' type='text' placeholder='Type your name here' />
-                    <input className='submit-form' type='submit' value='OK' />
-                </form>
-            </div>
-        )
-    }
-}
-
-class StateContainer extends React.Component {
-
-    constructor(props) {
-        super(props)
-        this.checkStatus = this.checkStatus.bind(this)
-    }
-
-    checkStatus() {
-        var text = $('.btn-ready').text()
-        var id = $('#UserID').attr('data-id')
-        if (text == 'Click to Ready') {
-            $('.btn-ready').text('Click to Not Ready')
-            socket.emit('status', { id: id, status: 'ready' })
-        } else {
-            $('.btn-ready').text('Click to Ready')
-            socket.emit('status', { id: id, status: 'not' })
-        }
-    }
-
-    render() {
-        return (
-            <div className='player-status'>
-                <a href='#' className='btn-ready' onClick={this.checkStatus}>Click to Ready</a>
+                <div className='state-section'>
+                    <div className='owl-carousel owl-theme' >
+                        <div className='instruction-container'></div>
+                        <div className='image-container'></div>
+                        <div className='state-container'></div>
+                    </div>
+                </div>
             </div>
         )
     }
@@ -156,7 +151,7 @@ class StageContainer extends React.Component {
         if (this.props.count % 3 == 0) {
             var react = this
             react.setState({ ban: true })
-            var timer = setInterval(function() {
+            var timer = setInterval(function () {
                 var second = parseFloat($('.ban-second').text())
                 second -= 0.1
                 second = second.toFixed(1)
