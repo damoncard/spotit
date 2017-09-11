@@ -24,7 +24,7 @@ $(document).ready(function () {
             case 'status':
                 switch (value['response']) {
                     case 'online':
-                        reRenderComponent(<StateContainer />)
+                        reactComponent.openStatus()
                         break
                     case 'offline':
                         alert('GM was offline, please wait until GM is wake up.')
@@ -66,7 +66,11 @@ class InitContainer extends React.Component {
 
     constructor(props) {
         super(props)
-        this.checkStatus = this.checkStatus.bind(this)
+        this.state = {
+            status: false,
+            open_state: false,
+        }
+        this.changeName = this.changeName.bind(this)
     }
 
     componentDidMount() {
@@ -77,10 +81,22 @@ class InitContainer extends React.Component {
                 alert('Name must contain at least 1 up to 10 characters')
             } else {
                 var id = $('#UserID').data('id')
-                $('#UserName').attr('data-name', name)
+                $('.name-input').attr('placeholder', name)
+                $('#UserName').data('name', name)
                 socket.emit('enter', { id: id, name: name })
             }
         })
+    }
+
+    changeName() {
+        $('.name-input').val('')
+        socket.emit('change-name')
+        this.setState({ open_state: false })
+        $('.name-input').focus()
+    }
+
+    openStatus() {
+        this.setState({ open_state: true })
 
         $('.owl-carousel').owlCarousel({
             items: 1,
@@ -89,11 +105,10 @@ class InitContainer extends React.Component {
             margin: 20,
             center: true,
         })
-    }
 
-    checkStatus() {
-        socket.emit('status', { id: id, status: 'ready' })
-        socket.emit('status', { id: id, status: 'not' })
+        $('.state-button').flip()
+        // socket.emit('status', { id: id, status: 'ready' })
+        // socket.emit('status', { id: id, status: 'not' })
     }
 
     render() {
@@ -119,13 +134,26 @@ class InitContainer extends React.Component {
                         <input className='submit-form' type='submit' value='OK' />
                     </form>
                 </div>
-                <div className='state-section'>
-                    <div className='owl-carousel owl-theme' >
-                        <div className='instruction-container'></div>
-                        <div className='image-container'></div>
-                        <div className='state-container'></div>
-                    </div>
-                </div>
+                {this.state.open_state &&
+                    <div className='state-section'>
+                        <div className='owl-carousel owl-theme' >
+                            <div className='instruction-container'></div>
+                            <div className='image-container'></div>
+                            <div className='state-container'>
+                                <div className='state-outer'>
+                                    <div className='state-button'>
+                                        <div className='front'>
+                                            Front
+                                        </div>
+                                        <div className='back'>
+                                            Back
+                                        </div>
+                                    </div>
+                                </div>
+                                <button className='change-name' onClick={this.changeName}>Change Name</button>
+                            </div>
+                        </div>
+                    </div>}
             </div>
         )
     }

@@ -38,6 +38,10 @@ const user = io.of('/player').on('connection', function (socket) {
 		}
 	})
 
+	socket.on('change-name', function() {
+		admin.emit('leaving', { id: socket.client.id })
+	})
+
 	socket.on('status', function (obj) {
 		admin.emit('status', obj)
 	})

@@ -67,7 +67,6 @@
       }
     }
     .state-section {
-      display: none;
       position: fixed;
       top: 0;
       left: 0;
@@ -90,6 +89,28 @@
                 height: 100%;
                 border-radius: 20px;
                 background-color: #fff;
+                .state-outer {
+                  position: absolute;
+                  width: 13rem;
+                  height: 13rem;
+                  top: 50%;
+                  left: 65%;
+                  transform: translateY(-33%);
+                  background-color: #fff;
+                  border-radius: 110px;
+                  border: 8px solid #ffac57;
+                  .state-button {
+                    position: absolute;
+                    width: 11.5rem;
+                    height: 11.5rem;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: #000;
+                    border-radius: 110px;
+                    border: 6px solid #ffac57;
+                  }
+                }
               }
             }
           }
