@@ -99,6 +99,8 @@
                   background-color: #fff;
                   border-radius: 110px;
                   border: 8px solid #ffac57;
+                  text-align: center;
+                  line-height: 13rem;
                   .state-button {
                     position: absolute;
                     width: 11.5rem;
@@ -107,8 +109,6 @@
                     left: 50%;
                     border-radius: 110px;
                     transform: translate(-50%, -50%);
-                    text-align: center;
-                    line-height: 12rem;
                   }
                 }
               }

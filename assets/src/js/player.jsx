@@ -71,6 +71,7 @@ class InitContainer extends React.Component {
             open_state: false,
         }
         this.changeName = this.changeName.bind(this)
+        this.toggleState = this.toggleState.bind(this)
     }
 
     componentDidMount() {
@@ -95,6 +96,18 @@ class InitContainer extends React.Component {
         $('.name-input').focus()
     }
 
+    toggleState() {
+        var state = $('#state').text()
+        var id = $('#UserID').data('id')
+        if (state == 'ready') {
+            $('#state').text('not ready')
+            socket.emit('status', { id: id, status: 'not' })
+        } else {
+            $('#state').text('ready')
+            socket.emit('status', { id: id, status: 'ready' })
+        }
+    }
+
     openStatus() {
         this.setState({ open_state: true })
 
@@ -105,9 +118,6 @@ class InitContainer extends React.Component {
             margin: 20,
             center: true,
         })
-
-        // socket.emit('status', { id: id, status: 'ready' })
-        // socket.emit('status', { id: id, status: 'not' })
     }
 
     render() {
@@ -139,8 +149,10 @@ class InitContainer extends React.Component {
                             <div className='instruction-container'></div>
                             <div className='image-container'></div>
                             <div className='state-container'>
-                                <div className='state-outer'>
-                                    <div className='state-button'>Ready</div>
+                                <div className='state-outer' onClick={this.toggleState}>
+                                    {/* <div className='state-button'> */}
+                                    <p id='state'>not ready</p>
+                                    {/* </div> */}
                                 </div>
                                 <button className='change-name' onClick={this.changeName}>Change Name</button>
                             </div>

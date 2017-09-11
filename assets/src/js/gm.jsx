@@ -41,6 +41,9 @@ $(document).ready(function () {
                     reactComponent.setState({ list: list })
 
                     if (Object.keys(list).length == 0) {
+                        $('.countdown-container').hide()
+                        $('#countdown-timer').removeClass()
+                        $('.countdown-modal').hide()
                         var countdown = 5
                         clearInterval(timer)
                         timer = setInterval(function () {
