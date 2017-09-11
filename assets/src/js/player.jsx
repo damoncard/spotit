@@ -67,6 +67,7 @@ class InitContainer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            name: '',
             status: false,
             open_state: false,
         }
@@ -75,6 +76,7 @@ class InitContainer extends React.Component {
     }
 
     componentDidMount() {
+        var react = this
         $('.form-name').submit(function (e) {
             e.preventDefault()
             var name = $('.name-input').val().trim()
@@ -84,6 +86,7 @@ class InitContainer extends React.Component {
                 var id = $('#UserID').data('id')
                 $('.name-input').attr('placeholder', name)
                 $('#UserName').data('name', name)
+                react.setState({ name: name })
                 socket.emit('enter', { id: id, name: name })
             }
         })
@@ -97,23 +100,35 @@ class InitContainer extends React.Component {
     }
 
     toggleState() {
-        var state = $('#state').text()
         var id = $('#UserID').data('id')
-        if (state == 'ready') {
-            $('#state').text('not ready')
-            socket.emit('status', { id: id, status: 'not' })
+        var status = this.state.status
+        if (status) {
+            $('.state-button').css('transform', 'rotateY(-180deg)')
+            this.setState({ status: false })
         } else {
-            $('#state').text('ready')
-            socket.emit('status', { id: id, status: 'ready' })
+            $('.state-button').css('transform', 'rotateY(0deg)')
+            this.setState({ status: true })
         }
+        // if ($('.state').hasClass('fa-check')) {
+        //     $('.state').removeClass('fa-check')
+        //     $('.state').addClass('fa-times')
+        //     $('.state').css('color', 'red')
+        //     socket.emit('status', { id: id, status: 'not' })
+        // } else {
+        //     $('.state').removeClass('fa-times')
+        //     $('.state').addClass('fa-check')
+        //     $('.state').css('color', 'green')
+        //     socket.emit('status', { id: id, status: 'ready' })
+        // }
     }
 
     openStatus() {
+        $('.name-input').blur()
         this.setState({ open_state: true })
 
         $('.owl-carousel').owlCarousel({
             items: 1,
-            stagePadding: 30,
+            stagePadding: 45,
             dots: true,
             margin: 20,
             center: true,
@@ -149,12 +164,34 @@ class InitContainer extends React.Component {
                             <div className='instruction-container'></div>
                             <div className='image-container'></div>
                             <div className='state-container'>
-                                <div className='state-outer' onClick={this.toggleState}>
-                                    {/* <div className='state-button'> */}
-                                    <p id='state'>not ready</p>
-                                    {/* </div> */}
+                                <div className='state-header'>
+                                    <span className='player-name' >{this.state.name}</span>
+                                    <button className='change-name' onClick={this.changeName}>
+                                        <i className='fa fa-pencil' aria-hidden='true'></i>
+                                    </button>
                                 </div>
-                                <button className='change-name' onClick={this.changeName}>Change Name</button>
+                                <div className='state-detail'>
+                                    <div className='game-rule-container'>
+                                        <div className='game-rule'>
+                                            <p className='rule-header'>Be Careful!!</p>
+                                            <p className='rule-detail'>
+                                                If you picking wrong <span className='rule-mark-1'>3</span> times
+                                                You will get <span className='rule-mark-2'>BAN</span> for 10 seconds
+                                            </p>
+                                            <i className='fa fa-gamepad' aria-hidden='true'></i>
+                                        </div>
+                                    </div>
+                                    <div className='state-button-container' onClick={this.toggleState}>
+                                        <div className='state-button'>
+                                            <div className='state-not'>
+                                                <i className='state fa fa-times' aria-hidden='true' style={{ 'color': 'red' }}></i>
+                                            </div>
+                                            <div className='state-ready'>
+                                                <i className='state fa fa-check' aria-hidden='true' style={{ 'color': 'green' }}></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>}

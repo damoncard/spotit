@@ -88,27 +88,114 @@
               div {
                 height: 100%;
                 border-radius: 20px;
-                background-color: #fff;
-                .state-outer {
-                  position: absolute;
-                  width: 13rem;
-                  height: 13rem;
-                  top: 50%;
-                  left: 65%;
-                  transform: translateY(-33%);
-                  background-color: #fff;
-                  border-radius: 110px;
-                  border: 8px solid #ffac57;
+                background-color: #ffac57;
+              }
+              .state-container {
+                .state-header {
                   text-align: center;
-                  line-height: 13rem;
-                  .state-button {
+                  padding-top: 1rem;
+                  height: 15%;
+                  .player-name {
+                    font-family: 'Typo-Round';
+                    font-size: 2.5rem;
+                  }
+                  .change-name {
                     position: absolute;
-                    width: 11.5rem;
-                    height: 11.5rem;
+                    outline: none;
+                    text-shadow: none;
+                    height: 28px;
+                    width: 28px;
+                    text-align: center;
+                    border-radius: 40px;
+                    background: #fff;
+                    border: 2px solid green;
+                    color: green;
+                    font-size: 16px;
+                    margin: 5px 0px 0px 5px;
+                  }
+                }
+                .state-detail {
+                  height: 78%;
+                  padding-top: 0.5rem;
+                  .game-rule-container {
+                    width: 60%;
+                    padding: 1rem 0rem 1rem 1rem;
+                    box-sizing: border-box;
+                    .game-rule {
+                      position: relative;
+                      border: 2px solid #ff4848;
+                      background-color: #fff;
+                      border-radius: 20px;
+                      .rule-header {
+                        text-align: center;
+                        font-size: 3rem;
+                        color: #ff4848;
+                        margin: 0.5rem 0rem;
+                      }
+                      .rule-detail {
+                        font-size: 1.5rem;
+                        padding: 0.5rem 1rem;
+                        color: #2dc800;
+                        line-height: 40px;
+                        span {
+                          font-size: 2.5rem;
+                          margin: 0rem 0.5rem;
+                          color: #000;
+                        }
+                      }
+                      i {
+                        font-size: 4rem;
+                        position: absolute;
+                        top: 67%;
+                        right: 5%;
+                        color: #000;
+                        transform: rotate(-26deg);
+                      }
+                    }
+                  }
+                  .state-button-container {
+                    position: absolute;
+                    width: 13rem;
+                    height: 13rem;
                     top: 50%;
-                    left: 50%;
+                    left: 63%;
+                    margin-top: -11%;
                     border-radius: 110px;
-                    transform: translate(-50%, -50%);
+                    border: 8px solid #fff;
+                    text-align: center;
+                    line-height: 13rem;
+                    perspective: 1000px;
+                    .state-button, .state-not, .state-ready {
+                      width: 11.5rem;
+                      height: 11.5rem;
+                      border-radius: 110px;
+                      background: #fff;
+                      .state {
+                        font-size: 9rem;
+                      }
+                    }
+                    .state-button {
+                      position: relative;
+                      left: 6%;
+                      top: 6%;
+                      line-height: 17rem;                      
+                      transition: 0.6s;
+                      transform-style: preserve-3d;
+                    }
+                    .state-not, .state-ready {
+                      backface-visibility: hidden;
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                    }
+                    .state-not {
+                      z-index: 2;
+                      transform: rotateY(0deg);
+                    }
+                    
+                    .state-ready {
+                      transform: rotateY(180deg);
+                    }
                   }
                 }
               }
