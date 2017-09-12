@@ -93,23 +93,30 @@
               .image-container {
                 background-color: #fff;
                 .image-header {
-                  height: 20%;
+                  height: 17%;
                   text-align: center;
                   line-height: 4rem;
                   background-color: #fff;
+                  .header {
+                    display: inline-block;
+                    font-size: 2rem;
+                  }
                 }
                 .image-showcase {
-                  height: 80%;
+                  height: 74%;
                   background-color: #fff;
+                  overflow-y: auto;
                   .image-block {
                     display: inline-block;
                     text-align: center;
                     background-color: #fff;
-                    padding-left: 1rem;
+                    padding-left: 0.5rem;
+                    margin-top: 1rem;
                     height: auto;
+                    width: 11%;
                     img {
                       width: 50px;
-                      margin-bottom: 5px;
+                      margin: 0px auto 3px;
                     }
                     .image-indicator {
                       font-family: 'Typo-Round';
