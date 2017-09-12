@@ -64,8 +64,93 @@ export const patterns = [
 	{ top: '14', left: '13', height: '24' },
 	{ top: '55', left: '50', height: '24' },
 	{ top: '52', left: '9', height: '29' },
-	{ top: '15', left: '61', height: '38.5' }]
+	{ top: '15', left: '61', height: '38.5' }
+	],
+
+	[
+	{ top: '14', left: '13', height:  '38.5' },
+	{ top: '8', left: '40', height: '19.5' },
+	{ top: '15', left: '61', height: '24' },
+	{ top: '37', left: '35', height: '24' },
+	{ top: '52', left: '9', height: '19.5' },
+	{ top: '55', left: '50', height: '19.5' },
+	{ top: '74', left: '34', height: '29' },
+	{ top: '67', left: '72', height: '19.5' }
+	],
+
+	[
+	{ top: '14', left: '13', height:  '19.5' },
+	{ top: '8', left: '40', height: '38.5' },
+	{ top: '15', left: '61', height: '24' },
+	{ top: '37', left: '35', height: '19.5' },
+	{ top: '52', left: '9', height: '19.5' },
+	{ top: '55', left: '50', height: '24' },
+	{ top: '74', left: '34', height: '19.5' },
+	{ top: '67', left: '72', height: '29' }
+	],
+
+	[
+	{ top: '14', left: '13', height:  '29' },
+	{ top: '8', left: '40', height: '19.5' },
+	{ top: '15', left: '61', height: '38.5' },
+	{ top: '37', left: '35', height: '19.5' },
+	{ top: '52', left: '9', height: '24' },
+	{ top: '55', left: '50', height: '19.5' },
+	{ top: '74', left: '34', height: '19.5' },
+	{ top: '67', left: '72', height: '24' }
+	],
+
+
+	[
+	{ top: '14', left: '13', height:  '19.5' },
+	{ top: '8', left: '40', height: '24' },
+	{ top: '15', left: '61', height: '19.5' },
+	{ top: '37', left: '35', height: '38.5' },
+	{ top: '52', left: '9', height: '29' },
+	{ top: '55', left: '50', height: '19.5' },
+	{ top: '74', left: '34', height: '24' },
+	{ top: '67', left: '72', height: '19.5' }
+	],
+
+	[
+	{ top: '14', left: '13', height:  '19.5' },
+	{ top: '8', left: '40', height: '19.5' },
+	{ top: '15', left: '61', height: '24' },
+	{ top: '37', left: '35', height: '24' },
+	{ top: '52', left: '9', height: '38.5' },
+	{ top: '55', left: '50', height: '19.5' },
+	{ top: '74', left: '34', height: '19.5' },
+	{ top: '67', left: '72', height: '29' }
+	],
+
+	[
+	{ top: '14', left: '13', height:  '19.5' },
+	{ top: '8', left: '40', height: '19.5' },
+	{ top: '15', left: '61', height: '24' },
+	{ top: '37', left: '35', height: '29' },
+	{ top: '52', left: '9', height: '19.5' },
+	{ top: '55', left: '50', height: '38.5' },
+	{ top: '74', left: '34', height: '24' },
+	{ top: '67', left: '72', height: '19.5' }
+	],
+
+
+	[
+	{ top: '14', left: '13', height:  '24' },
+	{ top: '8', left: '40', height: '29' },
+	{ top: '15', left: '61', height: '19.5' },
+	{ top: '37', left: '35', height: '24' },
+	{ top: '52', left: '9', height: '19.5' },
+	{ top: '55', left: '50', height: '19.5' },
+	{ top: '74', left: '34', height: '38.5' },
+	{ top: '67', left: '72', height: '19.5' }
+	],
+
 ]
+
+
+
+
 
 export function initGame() {
 	shuffle()
