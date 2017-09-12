@@ -33,13 +33,13 @@ After finish installing, now you good to go
 For bundle js files go to `assets/src/js` and run command
 
 ```
-webpack --watch
+webpack
 ```
 
 For minimize css files go to `assets/src/sass` and run command
 
 ```
-sass --watch main.scss:../../prod/app.min.css
+sass --style compressed main.scss:../../prod/app.min.css
 ```
 
 Run this command at root folder to run server

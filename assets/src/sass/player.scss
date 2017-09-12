@@ -90,6 +90,33 @@
                 border-radius: 20px;
                 background-color: #ffac57;
               }
+              .image-container {
+                background-color: #fff;
+                .image-header {
+                  height: 20%;
+                  text-align: center;
+                  line-height: 4rem;
+                  background-color: #fff;
+                }
+                .image-showcase {
+                  height: 80%;
+                  background-color: #fff;
+                  .image-block {
+                    display: inline-block;
+                    text-align: center;
+                    background-color: #fff;
+                    padding-left: 1rem;
+                    height: auto;
+                    img {
+                      width: 50px;
+                      margin-bottom: 5px;
+                    }
+                    .image-indicator {
+                      font-family: 'Typo-Round';
+                    }
+                  }
+                }
+              }
               .state-container {
                 .state-header {
                   text-align: center;

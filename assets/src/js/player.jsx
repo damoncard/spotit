@@ -5,6 +5,8 @@ var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 var reactComponent
 
+import { images } from './pile.jsx'
+
 $(document).ready(function () {
 
     socket.on('*', function (obj) {
@@ -16,9 +18,9 @@ $(document).ready(function () {
             case 'id':
                 if (value != null) {
                     $('#UserID').attr('data-id', value)
-                    reactComponent = ReactDOM.render(<InitContainer />, document.querySelector('.player-container'))
+                    reactComponent = ReactDOM.render(<InitContainer images={images} />, document.querySelector('.player-container'))
                 } else {
-                    reRenderComponent(<InitContainer />)
+                    reRenderComponent(<InitContainer images={images} />)
                 }
                 break
             case 'status':
@@ -153,7 +155,21 @@ class InitContainer extends React.Component {
                     <div className='state-section'>
                         <div className='owl-carousel owl-theme' >
                             <div className='instruction-container'></div>
-                            <div className='image-container'></div>
+                            <div className='image-container'>
+                                <div className='image-header'>
+                                    <p className='header'>Images In the game</p>
+                                </div>
+                                <div className='image-showcase'>
+                                    {this.props.images.map((name) => {
+                                        return (
+                                            <div className='image-block'>
+                                                <img src={'static/pic/' + name + '.svg'} />
+                                                <span className='image-indicator'>{name}</span>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
                             <div className='state-container'>
                                 <div className='state-header'>
                                     <span className='player-name' >{this.state.name}</span>
