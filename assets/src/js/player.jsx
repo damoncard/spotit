@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var socket = io.connect('/player', { reconnection: false })
+var socket = io.connect('/player')
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 var reactComponent
@@ -87,7 +87,7 @@ class InitContainer extends React.Component {
             } else {
                 var id = $('#UserID').data('id')
                 $('.name-input').attr('placeholder', name)
-                $('#UserName').data('name', name)
+                $('#UserName').attr('data-name', name)
                 react.setState({ name: name })
                 socket.emit('enter', { id: id, name: name })
             }
@@ -154,10 +154,36 @@ class InitContainer extends React.Component {
                 {this.state.open_state &&
                     <div className='state-section'>
                         <div className='owl-carousel owl-theme' >
-                            <div className='instruction-container'></div>
-                            <div className='image-container'>
+                            <div className='instruction-container container'>
+                                <div className='instruction-header'>
+                                    <p>About Game</p>
+                                </div>
+                                <div className='instruction-detail'>
+                                    <div className='instruction-about'>
+                                        <p>This game was inspired by using Spot-IT</p>
+                                    </div>
+                                    <div className='instruction-item'>
+                                        <p className='item-header'>Items</p>
+                                        <p className='item-detail'>
+                                            This game contains up to <span>55</span> illustrated cards
+                                            With <span>8</span> symbols per each
+                                        </p>
+                                    </div>
+                                    <div className='instruction-card'>
+                                        <img src='static/pic/sword.svg' style={{ 'position': 'absolute', 'top': '11%', 'left': '16%', 'width': '20%' }} />
+                                        <img src='static/pic/tree.svg' style={{ 'position': 'absolute', 'top': '7%', 'left': '43%', 'width': '20%' }} />
+                                        <img src='static/pic/milk.svg' style={{ 'position': 'absolute', 'top': '41%', 'left': '5%', 'width': '30%' }} />
+                                        <img src='static/pic/computer.svg' style={{ 'position': 'absolute', 'top': '20%', 'left': '61%', 'width': '30%' }} />
+                                        <img src='static/pic/ace.svg' style={{ 'position': 'absolute', 'top': '72%', 'left': '30%', 'width': '25%' }} />
+                                        <img src='static/pic/guitar.svg' style={{ 'position': 'absolute', 'top': '65%', 'left': '64%', 'width': '25%' }} />
+                                        <img src='static/pic/mouse.svg' style={{ 'position': 'absolute', 'top': '53%', 'left': '48%', 'width': '20%' }} />
+                                        <img src='static/pic/trophy.svg' style={{ 'position': 'absolute', 'top': '32%', 'left': '30%', 'width': '20%' }} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='image-container container'>
                                 <div className='image-header'>
-                                    <p className='header'>Images In the game</p>
+                                    <p>Images In the game</p>
                                 </div>
                                 <div className='image-showcase'>
                                     {this.props.images.map((name) => {
@@ -170,7 +196,7 @@ class InitContainer extends React.Component {
                                     })}
                                 </div>
                             </div>
-                            <div className='state-container'>
+                            <div className='state-container container'>
                                 <div className='state-header'>
                                     <span className='player-name' >{this.state.name}</span>
                                     <button className='change-name' onClick={this.changeName}>
@@ -182,8 +208,8 @@ class InitContainer extends React.Component {
                                         <div className='game-rule'>
                                             <p className='rule-header'>Be Careful!!</p>
                                             <p className='rule-detail'>
-                                                If you picking wrong <span className='rule-mark-1'>3</span> times
-                                                You will get <span className='rule-mark-2'>BAN</span> for 10 seconds
+                                                If you picking wrong <span>3</span> times
+                                                You will get <span>BAN</span> for 10 seconds
                                             </p>
                                             <i className='fa fa-gamepad' aria-hidden='true'></i>
                                         </div>
