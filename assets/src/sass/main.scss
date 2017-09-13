@@ -13,6 +13,62 @@
     src: url("/static/font/typo_round/Typo_Round_Regular_Demo.otf");
 }
 
+@font-face {
+    font-family: 'caveman';
+    src: url("/static/font/caveman.TTF");
+}
+
+@font-face {
+    font-family: 'degaws';
+    src: url("/static/font/degawsdemo.otf");
+}
+
+@font-face {
+    font-family: 'housePaint';
+    src: url("/static/font/housePaint.ttf");
+}
+
+@font-face {
+    font-family: 'london';
+    src: url("/static/font/london.TTF");
+}
+
+@font-face {
+    font-family: 'northFace';
+    src: url("/static/font/NorthFace.ttf");
+}
+
+@font-face {
+    font-family: 'saucer';
+    src: url("/static/font/SaucerBB.ttf");
+}
+@font-face {
+    font-family: 'shadser';
+    src: url("/static/font/SHADSER.TTF");
+}
+@font-face {
+    font-family: 'signPain';
+    src: url("/static/font/SignPain.ttf");
+}
+@font-face {
+    font-family: 'skirm';
+    src: url("/static/font/skirmisher.ttf");
+}
+@font-face {
+    font-family: 'theline';
+    src: url("/static/font/theline.ttf");
+}
+@font-face {
+    font-family: 'walto';
+    src: url("/static/font/waltographUI.ttf");
+}
+@font-face {
+    font-family: 'winter';
+    src: url("/static/font/winter.ttf");
+}
+
+
+
 @keyframes rotating-front {
     to {
         transform: rotate(360deg);
