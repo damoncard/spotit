@@ -337,8 +337,9 @@ function startCountdown() {
                 initGame()
 
                 for (var id in list) {
+                    var selected = Math.floor(Math.random() * 7)
                     var card = pile[remain--]
-                    var pattern = patterns[0]
+                    var pattern = patterns[selected]
                     var set = []
                     for (var i in card) {
                         set[i] = {
