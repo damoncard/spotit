@@ -40,7 +40,7 @@ $(document).ready(function () {
                 }
                 break
             // ################## Playing Phase ################## //
-            case 'callback':
+            case 'result':
                 var userID = $('#UserID').attr('data-id')
                 if (userID == value['id']) {
                     switch (value['result']) {
@@ -62,6 +62,8 @@ $(document).ready(function () {
                 break
         }
     })
+
+    socket.emit('ready')
 })
 
 class InitContainer extends React.Component {

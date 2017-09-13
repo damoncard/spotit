@@ -107,7 +107,7 @@ $(document).ready(function () {
                         reactComponent.trophyTaken(value['id'])
                     }
                     if (nextPic()) {
-                        socket.emit('callback', { id: value['id'], card: answer, result: 'true' })
+                        socket.emit('result', { id: value['id'], card: answer, result: 'true' })
                     } else {
                         var trophy = $('#trophy-pos').data('pos')
                         if (trophy != 0) {
@@ -118,13 +118,13 @@ $(document).ready(function () {
                         var sorted_list = Object.keys(list).sort(function (a, b) { return list[b].score - list[a].score })
 
                         for (var i in sorted_list) {
-                            socket.emit('callback', { id: sorted_list[i], rank: parseInt(i) + 1, result: 'end' })
+                            socket.emit('result', { id: sorted_list[i], rank: parseInt(i) + 1, result: 'end' })
                         }
 
                         reRenderComponent(<RankContainer list={sorted_list} />)
                     }
                 } else {
-                    socket.emit('callback', { id: value['id'], card: null, result: 'false' })
+                    socket.emit('result', { id: value['id'], card: null, result: 'false' })
                 }
                 break
         }
@@ -352,7 +352,7 @@ function startCountdown() {
                             height: pattern[i].height
                         }
                     }
-                    socket.emit('callback', { id: id, card: set, result: 'none' })
+                    socket.emit('result', { id: id, card: set, result: 'none' })
                 }
 
                 reRenderComponent(<StageContainer list={list} remain={remain} />)
