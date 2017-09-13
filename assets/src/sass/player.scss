@@ -1,7 +1,6 @@
 .player-container {
 	height: 100%;
 	width: 100%;
-	overflow: hidden;
   .init-container {
 		height: 100%;
     background-color: #ffac57;
@@ -9,33 +8,33 @@
       height: 100%;
       .introduction-container {
         text-align: center;
-        top: 15%;
         position: relative;
+        padding-top: 8%;
         .introduction-header {
           padding: 0rem 2rem;
           font-size: 5rem;
           color: #fff;
           text-shadow: 3px 4px 10px #000;
-          @media screen and (max-width: 425px) {
+          @media screen and (max-width: 525px) {
             font-size: 4rem;
           }
-          @media screen and (max-width: 360px) {
+          @media screen and (max-width: 400px) {
             font-size: 3rem;
           }
         }
       }
       .form-name {
         position: relative;
-        top: 25%;
         text-align: center;
+        padding-top: 2rem;
         .name-label {
           padding: 0rem 1rem;
           font-size: 2.5rem;
-          margin-bottom: 3rem;
-          @media screen and (max-width: 425px) {
+          margin-bottom: 1rem;
+          @media screen and (max-width: 525px) {
             font-size: 2rem;
           }
-          @media screen and (max-width: 360px) {
+          @media screen and (max-width: 400px) {
             font-size: 1.5rem;
           }
         }
