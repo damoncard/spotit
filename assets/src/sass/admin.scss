@@ -24,15 +24,16 @@
 				font-size: 4rem;
 			}
 			.lobby-list {
-				padding: 1.5rem 0rem 0rem 35%;
+				padding: 1rem 0rem 0rem 16.7%;
 				.list-header {
 					font-size: 2rem;
 				}
 				.list-box {
 					width: 500px;
 					height: 500px;
-					border: 1px solid black;
-					margin: 1rem 0rem 0rem 2rem;
+					padding:1rem;
+					border: 0.3rem dashed black;
+					margin: 0rem 0rem 0rem 0rem;
 					.player-name {
 						position: relative;
 						font-size: 2rem;

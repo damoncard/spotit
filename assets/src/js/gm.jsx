@@ -9,7 +9,7 @@ import { pile, patterns, initGame } from './pile.jsx'
 var reactComponent
 var timer
 var list = {}
-var remain = 2 // default: 55
+var remain = 5 // default: 55
 var all_ready = false
 
 $(document).ready(function () {
@@ -149,8 +149,9 @@ class InitContainer extends React.Component {
                             <div className='lobby-header'>
                                 <p>Lobby</p>
                             </div>
+                            <p className='list-header' style={{ 'font-size': '2rem' }}>Player List</p>
                             <div className='lobby-list'>
-                                <p className='list-header'>Player List</p>
+                                
                                 <div className='list-box'>
                                     {Object.keys(this.state.list).map((player) => {
                                         return (
@@ -338,7 +339,10 @@ function startCountdown() {
                 initGame()
 
                 for (var id in list) {
-                    var selected = Math.floor(Math.random() * 7)
+                    var selected = Math.floor(
+                        // Math.random() * 7
+                        1
+                        )
                     var card = pile[remain--]
                     var pattern = patterns[selected]
                     var set = []

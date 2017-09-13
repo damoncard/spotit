@@ -69,13 +69,13 @@ export const patterns = [
 
 	[
 	{ top: '14', left: '13', height:  '38.5' },
-	{ top: '8', left: '40', height: '19.5' },
-	{ top: '15', left: '61', height: '24' },
-	{ top: '37', left: '35', height: '24' },
-	{ top: '52', left: '9', height: '19.5' },
-	{ top: '55', left: '50', height: '19.5' },
-	{ top: '74', left: '34', height: '29' },
-	{ top: '67', left: '72', height: '19.5' }
+	{ top: '8', left: '45', height: '19.5' },
+	{ top: '15', left: '65', height: '24' },
+	{ top: '40', left: '48', height: '24' },
+	{ top: '60', left: '15', height: '19.5' },
+	{ top: '41', left: '80', height: '19.5' },
+	{ top: '68', left: '34', height: '29' },
+	{ top: '72', left: '65', height: '19.5' }
 	],
 
 	[
