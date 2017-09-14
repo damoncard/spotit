@@ -157,12 +157,12 @@ class InitContainer extends React.Component {
                     <div className='state-section'>
                         <div className='owl-carousel owl-theme' >
                             <div className='instruction-container container'>
-                                <div className='instruction-header'>
+                                <div className='header'>
                                     <p>About Game</p>
                                 </div>
                                 <div className='instruction-detail'>
                                     <div className='instruction-about'>
-                                        <p>This game was inspired by using Spot-IT</p>
+                                        <p>This game was inspired by Spot-IT</p>
                                     </div>
                                     <div className='instruction-item'>
                                         <p className='item-header'>Items</p>
@@ -191,7 +191,7 @@ class InitContainer extends React.Component {
                                 <img src='static/pic/arrow.svg' className='arrow-pic' />
                             </div>
                             <div className='how-container container'>
-                                <div className='how-header'>
+                                <div className='header'>
                                     <p>How To Play</p>
                                 </div>
                                 <img src='static/pic/arrow.svg' className='arrow-pic-2' />
@@ -208,7 +208,7 @@ class InitContainer extends React.Component {
                                     </div>
                                     <div className='how-box'>
                                         <p className='how-goal'>
-                                            <span>Objective: </span>To collect the most cards
+                                            <span>Objective: </span>To collect as many cards as possible
                                         </p>
                                         <p className='how-rule'>
                                             <span>Rule: </span>
@@ -218,13 +218,13 @@ class InitContainer extends React.Component {
                                             <img src='static/pic/megaphone.svg' />
                                         </p>
                                         <p className='how-note'>
-                                            <span>Note: </span>Play continues until there are no cards remaining in the draw pile
+                                            <span>Note: </span>The game continues until there are no cards remaining in the draw pile
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <div className='special-container container'>
-                                <div className='special-header'>
+                                <div className='header'>
                                     <p>How To Play</p>
                                 </div>
                                 <div className='special-detail'>
@@ -232,13 +232,13 @@ class InitContainer extends React.Component {
                                         <p>
                                             Special Case: 
                                             <img src='static/pic/trophy.svg' />
-                                            Trophy can worth <span>5</span> points
+                                            Trophy worth <span>5</span> points
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <div className='image-container container'>
-                                <div className='image-header'>
+                                <div className='header'>
                                     <p>Images In the game</p>
                                 </div>
                                 <div className='image-showcase'>
@@ -253,19 +253,21 @@ class InitContainer extends React.Component {
                                 </div>
                             </div>
                             <div className='state-container container'>
-                                <div className='state-header'>
-                                    <span className='player-name' >{this.state.name}</span>
+                                <div className='header'>
+                                    <p>
+                                    {this.state.name}
                                     <button className='change-name' onClick={this.changeName}>
                                         <i className='fa fa-pencil' aria-hidden='true'></i>
                                     </button>
+                                    </p>
                                 </div>
                                 <div className='state-detail'>
                                     <div className='game-rule-container'>
                                         <div className='game-rule'>
                                             <p className='rule-header'>Be Careful!!</p>
                                             <p className='rule-detail'>
-                                                If you picking wrong <span>3</span> times
-                                                You will get <span>BAN</span> for 10 seconds
+                                                If you picked wrong <span>3</span> times<br />
+                                                You will get <span>BANNED</span> for 10 seconds
                                             </p>
                                             <i className='fa fa-gamepad' aria-hidden='true'></i>
                                         </div>
