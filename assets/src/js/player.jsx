@@ -336,7 +336,7 @@ class StageContainer extends React.Component {
                 }
                 {this.state.ban ? (
                     <div className='ban-container'>
-                        <p className='ban-label'>You got TEMPORALLY <span className='ban-word'>banned</span></p>
+                        <p className='ban-label'>You got TEMPORALLY <br /><span className='ban-word'>banned</span></p>
                         <p className='ban-countdown'>for <span className='ban-second'>10</span> seconds</p>
                     </div>
                 ) : (
