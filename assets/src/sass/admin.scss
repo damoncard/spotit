@@ -1,7 +1,7 @@
 .admin-container {
 	height: 100%;
 	width: 100%;
-	overflow: hidden;
+	// overflow: hidden;
 	.init-container {
 		height: 100%;
 		
@@ -50,6 +50,7 @@
 				float: right;
 				font-size: 1.75rem;
 				padding: 0.5rem;
+				color:black;
 			}
 		}
 	}

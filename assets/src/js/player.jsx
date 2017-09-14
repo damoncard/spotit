@@ -119,7 +119,7 @@ class StateContainer extends React.Component {
         var text = $('.btn-ready').text()
         var id = $('#UserID').attr('data-id')
         if (text == 'Click to Ready') {
-            $('.btn-ready').text('Click to Not Ready')
+            $('.btn-ready').text('Click to Unready')
             socket.emit('status', { id: id, status: 'ready' })
         } else {
             $('.btn-ready').text('Click to Ready')

@@ -9,7 +9,7 @@ import { pile, patterns, initGame } from './pile.jsx'
 var reactComponent
 var timer
 var list = {}
-var remain = 5 // default: 55
+var remain = 2 // default: 55
 var all_ready = false
 
 $(document).ready(function () {
