@@ -183,7 +183,7 @@ class InitContainer extends React.Component {
                                         <img src='static/pic/milk.svg' style={{ 'position': 'absolute', 'top': '41%', 'left': '5%', 'width': '30%' }} />
                                         <img src='static/pic/computer.svg' style={{ 'position': 'absolute', 'top': '20%', 'left': '61%', 'width': '30%' }} />
                                         <img src='static/pic/ace.svg' style={{ 'position': 'absolute', 'top': '72%', 'left': '28%', 'width': '25%' }} />
-                                        <img src='static/pic/tree.svg' style={{ 'position': 'absolute', 'top': '65%', 'left': '63%', 'width': '20%' }} />
+                                        <img src='static/pic/tree.svg' style={{ 'position': 'absolute', 'top': '65%', 'left': '65%', 'width': '20%' }} />
                                         <img src='static/pic/mouse.svg' style={{ 'position': 'absolute', 'top': '53%', 'left': '46%', 'width': '20%' }} />
                                         <img src='static/pic/trophy.svg' style={{ 'position': 'absolute', 'top': '32%', 'left': '30%', 'width': '20%' }} />
                                     </div>
@@ -212,13 +212,27 @@ class InitContainer extends React.Component {
                                         </p>
                                         <p className='how-rule'>
                                             <span>Rule: </span>
-                                            Players have to try to spot the one symbol that appears both on the 
-                                            center card and on their own cards. If you are the first player to do so 
+                                            Players have to try to spot the one symbol that appears both on the
+                                            center card and on their own cards. If you are the first player to do so
                                             call it out
                                             <img src='static/pic/megaphone.svg' />
                                         </p>
                                         <p className='how-note'>
                                             <span>Note: </span>Play continues until there are no cards remaining in the draw pile
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='special-container container'>
+                                <div className='special-header'>
+                                    <p>How To Play</p>
+                                </div>
+                                <div className='special-detail'>
+                                    <div className='special-case-1'>
+                                        <p>
+                                            Special Case: 
+                                            <img src='static/pic/trophy.svg' />
+                                            Trophy can worth <span>5</span> points
                                         </p>
                                     </div>
                                 </div>
