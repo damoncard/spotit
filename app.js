@@ -24,8 +24,10 @@ app.get('/tunnel', function (req, res) {
 
 // Socket.io
 const user = io.of('/player').on('connection', function (socket) {
-	socket.emit('id', socket.client.id)
-	player++
+	socket.on('ready', function () {
+		socket.emit('id', socket.client.id)
+		player++
+	})
 
 	socket.on('enter', function (obj) {
 		if (player <= 8) {
@@ -38,13 +40,16 @@ const user = io.of('/player').on('connection', function (socket) {
 		}
 	})
 
+	socket.on('change-name', function () {
+		admin.emit('leaving', { id: socket.client.id })
+	})
+
 	socket.on('status', function (obj) {
 		admin.emit('status', obj)
 	})
 
 	socket.on('submit', function (obj) {
 		admin.emit('submit', obj)
-
 	})
 
 	socket.on('disconnect', function () {
@@ -56,8 +61,8 @@ const user = io.of('/player').on('connection', function (socket) {
 const admin = io.of('/admin').on('connection', function (socket) {
 	status = 'online'
 
-	socket.on('callback', function (obj) {
-		user.emit('callback', obj)
+	socket.on('result', function (obj) {
+		user.emit('result', obj)
 	})
 
 	socket.on('status', function (obj) {
@@ -69,7 +74,7 @@ const admin = io.of('/admin').on('connection', function (socket) {
 		}
 	})
 
-	socket.on('disconnect', function() {
+	socket.on('disconnect', function () {
 		status = 'offline'
 		user.emit('id')
 	})
