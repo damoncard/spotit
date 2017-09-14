@@ -150,7 +150,7 @@ class InitContainer extends React.Component {
                     <div>
                         <div className='lobby-room'>
                             <div className='lobby-header'>
-                                <p>Lobby</p>
+                                <p style={{ 'font-size': '8rem' }}>Lobby</p>
                             </div>
                             <p className='list-header' style={{ 'font-size': '2rem' }}>Player List</p>
                             <div className='lobby-list'>
@@ -240,10 +240,10 @@ class StageContainer extends React.Component {
     render() {
         return (
             <div className='stage-container'>
-                <div className='remain-indicator'>
+               {/*} <div className='remain-indicator'>
                     <p className='remain-header'>Remaining Cards</p>
                     <p className='remain-no'>{this.props.remain}</p>
-                </div>
+                </div> */}
                 <div className='player-panel'>
                     <p className='player-header'>
                         <span>L</span>
@@ -332,7 +332,7 @@ class RankContainer extends React.Component {
 }
 
 function startCountdown() {
-    var second = 1
+    var second = 5
     clearInterval(timer)
     timer = setInterval(function () {
         if (all_ready) {
@@ -356,6 +356,7 @@ function startCountdown() {
                             top: pattern[i].top,
                             left: pattern[i].left,
                             height: pattern[i].height
+
                         }
                     }
                     socket.emit('result', { id: id, card: set, result: 'none' })
