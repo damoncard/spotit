@@ -170,16 +170,56 @@ class InitContainer extends React.Component {
                                             This game contains up to <span>55</span> illustrated cards
                                             With <span>8</span> symbols per each
                                         </p>
+                                        <img src='static/pic/cage.svg' className='item-image-header item-image' />
+                                        <img src='static/pic/chicken.svg' style={{ 'width': '5%' }} className='item-image' />
+                                        <img src='static/pic/chicken.svg' style={{ 'width': '9%' }} className='item-image' />
+                                        <img src='static/pic/chicken.svg' style={{ 'width': '12%' }} className='item-image' />
+                                        <img src='static/pic/chicken.svg' style={{ 'width': '15%' }} className='item-image' />
+                                        <img src='static/pic/chicken.svg' style={{ 'width': '18%' }} className='item-image' />
                                     </div>
                                     <div className='instruction-card'>
                                         <img src='static/pic/sword.svg' style={{ 'position': 'absolute', 'top': '11%', 'left': '16%', 'width': '20%' }} />
-                                        <img src='static/pic/tree.svg' style={{ 'position': 'absolute', 'top': '7%', 'left': '43%', 'width': '20%' }} />
+                                        <img src='static/pic/guitar.svg' style={{ 'position': 'absolute', 'top': '7%', 'left': '43%', 'width': '20%' }} />
                                         <img src='static/pic/milk.svg' style={{ 'position': 'absolute', 'top': '41%', 'left': '5%', 'width': '30%' }} />
                                         <img src='static/pic/computer.svg' style={{ 'position': 'absolute', 'top': '20%', 'left': '61%', 'width': '30%' }} />
-                                        <img src='static/pic/ace.svg' style={{ 'position': 'absolute', 'top': '72%', 'left': '30%', 'width': '25%' }} />
-                                        <img src='static/pic/guitar.svg' style={{ 'position': 'absolute', 'top': '65%', 'left': '64%', 'width': '25%' }} />
-                                        <img src='static/pic/mouse.svg' style={{ 'position': 'absolute', 'top': '53%', 'left': '48%', 'width': '20%' }} />
+                                        <img src='static/pic/ace.svg' style={{ 'position': 'absolute', 'top': '72%', 'left': '28%', 'width': '25%' }} />
+                                        <img src='static/pic/tree.svg' style={{ 'position': 'absolute', 'top': '65%', 'left': '63%', 'width': '20%' }} />
+                                        <img src='static/pic/mouse.svg' style={{ 'position': 'absolute', 'top': '53%', 'left': '46%', 'width': '20%' }} />
                                         <img src='static/pic/trophy.svg' style={{ 'position': 'absolute', 'top': '32%', 'left': '30%', 'width': '20%' }} />
+                                    </div>
+                                </div>
+                                <img src='static/pic/arrow.svg' className='arrow-pic' />
+                            </div>
+                            <div className='how-container container'>
+                                <div className='how-header'>
+                                    <p>How To Play</p>
+                                </div>
+                                <img src='static/pic/arrow.svg' className='arrow-pic-2' />
+                                <div className='how-detail'>
+                                    <div className='how-card'>
+                                        <img src='static/pic/clip.svg' style={{ 'position': 'absolute', 'top': '16%', 'left': '16%', 'width': '20%' }} />
+                                        <img src='static/pic/balloon.svg' style={{ 'position': 'absolute', 'top': '7%', 'left': '41%', 'width': '20%' }} />
+                                        <img src='static/pic/tree.svg' style={{ 'position': 'absolute', 'top': '41%', 'left': '7%', 'width': '30%' }} />
+                                        <img src='static/pic/doll.svg' style={{ 'position': 'absolute', 'top': '16%', 'left': '65%', 'width': '20%' }} />
+                                        <img src='static/pic/fox.svg' style={{ 'position': 'absolute', 'top': '72%', 'left': '30%', 'width': '20%' }} />
+                                        <img src='static/pic/rocket.svg' style={{ 'position': 'absolute', 'top': '68%', 'left': '61%', 'width': '20%' }} />
+                                        <img src='static/pic/trumpet.svg' style={{ 'position': 'absolute', 'top': '39%', 'left': '75%', 'width': '20%' }} />
+                                        <img src='static/pic/lollipop.svg' style={{ 'position': 'absolute', 'top': '36%', 'left': '40%', 'width': '30%' }} />
+                                    </div>
+                                    <div className='how-box'>
+                                        <p className='how-goal'>
+                                            <span>Objective: </span>To collect the most cards
+                                        </p>
+                                        <p className='how-rule'>
+                                            <span>Rule: </span>
+                                            Players have to try to spot the one symbol that appears both on the 
+                                            center card and on their own cards. If you are the first player to do so 
+                                            call it out
+                                            <img src='static/pic/megaphone.svg' />
+                                        </p>
+                                        <p className='how-note'>
+                                            <span>Note: </span>Play continues until there are no cards remaining in the draw pile
+                                        </p>
                                     </div>
                                 </div>
                             </div>
