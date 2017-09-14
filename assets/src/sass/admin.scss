@@ -38,6 +38,7 @@
 						position: relative;
 						font-size: 2rem;
 						padding-left: 1rem;
+						font-family: 'walto';
 					}
 				}
 			}
@@ -128,7 +129,7 @@
 		.cards-panel {
 			position: relative;
 			top: 50%;
-			left: 50%;
+			left: 46%;
 			transform: translate(-60%, -50%);
 			width: 75%;
 			height: 105%;
@@ -142,31 +143,33 @@
 		.rank-header {
 			font-size: 6rem;
 			text-align: center;
+			font-family: 'signPain';
+
 		}
 		.player-list {
 			// spadding-left: 42%;
 			.rank-profile {
-				margin-top: 1rem;
+				margin-top: 5rem;
 				.trophy-token {
 					height: 40px;
 					position: absolute;
 					left: 39%;
 				}
 				.rank-label {
-					margin-right: 1rem;
+					margin-right: 9rem;
 					padding: 5px 12px 5px 12px;
 					color: #fff;
-					background-color: #e95488;
+					background-color: #ff0015;
 					border-radius: 15px;
-					font-size: 1.5rem;
+					font-size: 4rem;
 				}
 				.player-name {
-					font-family: 'Typo-Round';
-					font-size: 2rem;
+					font-family: 'walto';
+					font-size: 4.5rem;
 				}
 				.player-score {
 					margin-left: 10rem;
-					font-size: 1.5rem;
+					font-size: 4rem;
 				}
 			}
 		}
@@ -186,7 +189,7 @@
 	.countdown-background {
 		position: relative;
 		border-radius: 100px;
-		background-color: #ff0000;
+		background:linear-gradient(330deg, #e05252 0%, #99e052 25%, #52e0e0 50%, #9952e0 75%, #e05252 100%);
 		height: 400px;
 		width: 400px;
 		top: 50%;
@@ -258,7 +261,7 @@ $gradients: (
   font-family: Lato, sans-serif;
   font-weight: 300;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, .4);
-  border-bottom: solid 5px white;
+  // border-bottom: solid 5px white;
  
   @each $index, $gradient in $gradients {
     &--#{$index} {
