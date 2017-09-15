@@ -131,7 +131,7 @@ class InitContainer extends React.Component {
 
         $('.owl-carousel').on('changed.owl.carousel', function (event) {
             var currentPage = event.item.index
-            if (currentPage == 3) {
+            if (currentPage == 2) {
                 $('.name-box').addClass('inverted')
                 $('.ready-box').addClass('inverted')
             } else {
@@ -234,7 +234,7 @@ class InitContainer extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className='special-container container'>
+                            {/* <div className='special-container container'>
                                 <div className='header'>
                                     <p>How To Play</p>
                                 </div>
@@ -257,7 +257,7 @@ class InitContainer extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className='image-container container'>
                                 <div className='header'>
                                     <p>Images</p>
