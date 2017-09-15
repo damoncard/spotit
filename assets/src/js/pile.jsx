@@ -1,6 +1,6 @@
 export const pile = [
 	['santa', 'rabbit', 'dumbbell', 'guitar', 'diamond', 'badge', 'key', 'trophy'],
-	['trophy', 'camera', 'starfish', 'shovel', 'mouse', 'racecar', 'penguin', 'knife'],
+	['trophy', 'camera', 'starfish', 'shovel', 'mouse', 'racecar', 'penguin', 'parrot'],
 	['guitar', 'trumpet', 'owl', 'sword', 'tree', 'balloon', 'dynamite', 'racecar'],
 	['bat', 'butterfly', 'phone', 'rocket', 'racecar', 'acorn', 'fox', 'badge'],
 	['penguin', 'clip', 'phone', 'key', 'duck', 'clover', 'trumpet', 'apple'],
@@ -23,20 +23,20 @@ export const pile = [
 	['bat', 'doll', 'apple', 'earth', 'balloon', 'santa', 'ace', 'shovel'],
 	['well', 'duck', 'starfish', 'binky', 'owl', 'bat', 'diamond', 'scorpion'],
 	['scooter', 'starfish', 'snail', 'chicken', 'lollipop', 'balloon', 'phone', 'dumbbell'],
-	['earth', 'trumpet', 'rabbit', 'banana', 'rocket', 'scooter', 'knife', 'binky'],
+	['earth', 'trumpet', 'rabbit', 'banana', 'rocket', 'scooter', 'parrot', 'binky'],
 	['bullet', 'balloon', 'penguin', 'acorn', 'wheel', 'banana', 'computer', 'diamond'],
-	['owl', 'egg', 'knife', 'clover', 'chicken', 'hydrant', 'acorn', 'santa'],
+	['owl', 'egg', 'parrot', 'clover', 'chicken', 'hydrant', 'acorn', 'santa'],
 	['orange', 'diamond', 'clover', 'tape', 'rocket', 'lollipop', 'dynamite', 'shovel'],
 	['well', 'trumpet', 'chicken', 'milk', 'computer', 'shovel', 'badge', 'fire'],
 	['rabbit', 'egg', 'balloon', 'milk', 'duck', 'butterfly', 'tape', 'camera'],
-	['balloon', 'orange', 'knife', 'scorpion', 'comb', 'fire', 'fox', 'key'],
+	['balloon', 'orange', 'parrot', 'scorpion', 'comb', 'fire', 'fox', 'key'],
 	['rocket', 'comb', 'owl', 'hourglass', 'penguin', 'dumbbell', 'milk', 'ace'],
 	['lollipop', 'mouse', 'computer', 'hammer', 'apple', 'owl', 'rabbit', 'fox'],
-	['apple', 'knife', 'dumbbell', 'butterfly', 'cloud', 'bullet', 'dynamite', 'well'],
+	['apple', 'parrot', 'dumbbell', 'butterfly', 'cloud', 'bullet', 'dynamite', 'well'],
 	['rabbit', 'bullet', 'phone', 'hydrant', 'hourglass', 'shovel', 'tree', 'scorpion'],
 	['well', 'fox', 'santa', 'penguin', 'tape', 'tree', 'cupcake', 'scooter'],
 	['dumbbell', 'banana', 'hammer', 'fire', 'camera', 'clover', 'tree', 'bat'],
-	['doll', 'sword', 'cupcake', 'phone', 'diamond', 'hammer', 'milk', 'knife'],
+	['doll', 'sword', 'cupcake', 'phone', 'diamond', 'hammer', 'milk', 'parrot'],
 	['wheel', 'sword', 'shovel', 'egg', 'clip', 'binky', 'fox', 'dumbbell'],
 	['banana', 'clip', 'milk', 'santa', 'racecar', 'lollipop', 'cloud', 'scorpion'],
 	['cloud', 'chicken', 'rabbit', 'penguin', 'sword', 'bear', 'orange', 'bat'],
@@ -49,101 +49,101 @@ export const pile = [
 	['butterfly', 'mouse', 'clip', 'comb', 'diamond', 'earth', 'chicken', 'tree'],
 	['duck', 'fire', 'rocket', 'mouse', 'bullet', 'snail', 'santa', 'sword'],
 	['rabbit', 'starfish', 'ace', 'clip', 'acorn', 'cupcake', 'fire', 'dynamite'],
-	['wheel', 'badge', 'tree', 'bear', 'duck', 'ace', 'lollipop', 'knife'],
+	['wheel', 'badge', 'tree', 'bear', 'duck', 'ace', 'lollipop', 'parrot'],
 	['guitar', 'hydrant', 'doll', 'lollipop', 'fire', 'penguin', 'binky', 'butterfly'],
 	['santa', 'starfish', 'butterfly', 'wheel', 'hourglass', 'trumpet', 'orange', 'hammer'],
 	['santa', 'phone', 'camera', 'comb', 'computer', 'bear', 'dynamite', 'binky'],
-	['snail', 'knife', 'bat', 'clip', 'guitar', 'tape', 'hourglass', 'computer']
+	['snail', 'parrot', 'bat', 'clip', 'guitar', 'tape', 'hourglass', 'computer']
 ]
 
 export const patterns = [
-	[{ top: '8', left: '40', height: '19.5' },
-	{ top: '37', left: '35', height: '19.5' },
-	{ top: '67', left: '72', height: '19.5' },
-	{ top: '74', left: '34', height: '19.5' },
-	{ top: '14', left: '13', height: '24' },
-	{ top: '55', left: '50', height: '24' },
-	{ top: '52', left: '9', height: '29' },
-	{ top: '15', left: '61', height: '38.5' }
+	[{ top: '8', left: '40', width: '14' },
+	{ top: '37', left: '35', width: '14' },
+	{ top: '72', left: '72', width: '14' },
+	{ top: '76', left: '34', width: '14' },
+	{ top: '14', left: '13', width: '18' },
+	{ top: '55', left: '48', width: '18' },
+	{ top: '51', left: '8', width: '23' },
+	{ top: '16', left: '63', width: '28' }
 	],
 
 	[
-	{ top: '14', left: '13', height:  '38.5' },
-	{ top: '8', left: '45', height: '19.5' },
-	{ top: '15', left: '65', height: '24' },
-	{ top: '40', left: '48', height: '24' },
-	{ top: '60', left: '15', height: '19.5' },
-	{ top: '41', left: '80', height: '19.5' },
-	{ top: '68', left: '34', height: '29' },
-	{ top: '72', left: '65', height: '19.5' }
+	{ top: '14', left: '13', width:  '38.5' },
+	{ top: '8', left: '45', width: '19.5' },
+	{ top: '15', left: '65', width: '24' },
+	{ top: '40', left: '48', width: '24' },
+	{ top: '60', left: '15', width: '19.5' },
+	{ top: '41', left: '80', width: '19.5' },
+	{ top: '68', left: '34', width: '29' },
+	{ top: '72', left: '65', width: '19.5' }
 	],
 
 	[
-	{ top: '14', left: '13', height:  '19.5' },
-	{ top: '8', left: '40', height: '38.5' },
-	{ top: '15', left: '61', height: '24' },
-	{ top: '37', left: '35', height: '19.5' },
-	{ top: '52', left: '9', height: '19.5' },
-	{ top: '55', left: '50', height: '24' },
-	{ top: '74', left: '34', height: '19.5' },
-	{ top: '67', left: '72', height: '29' }
+	{ top: '14', left: '13', width:  '19.5' },
+	{ top: '8', left: '40', width: '38.5' },
+	{ top: '15', left: '61', width: '24' },
+	{ top: '37', left: '35', width: '19.5' },
+	{ top: '52', left: '9', width: '19.5' },
+	{ top: '55', left: '50', width: '24' },
+	{ top: '74', left: '34', width: '19.5' },
+	{ top: '67', left: '72', width: '29' }
 	],
 
 	[
-	{ top: '14', left: '13', height:  '29' },
-	{ top: '8', left: '40', height: '19.5' },
-	{ top: '15', left: '61', height: '38.5' },
-	{ top: '37', left: '35', height: '19.5' },
-	{ top: '52', left: '9', height: '24' },
-	{ top: '55', left: '50', height: '19.5' },
-	{ top: '74', left: '34', height: '19.5' },
-	{ top: '67', left: '72', height: '24' }
-	],
-
-
-	[
-	{ top: '14', left: '13', height:  '19.5' },
-	{ top: '8', left: '40', height: '24' },
-	{ top: '15', left: '61', height: '19.5' },
-	{ top: '37', left: '35', height: '38.5' },
-	{ top: '52', left: '9', height: '29' },
-	{ top: '55', left: '50', height: '19.5' },
-	{ top: '74', left: '34', height: '24' },
-	{ top: '67', left: '72', height: '19.5' }
-	],
-
-	[
-	{ top: '14', left: '13', height:  '19.5' },
-	{ top: '8', left: '40', height: '19.5' },
-	{ top: '15', left: '61', height: '24' },
-	{ top: '37', left: '35', height: '24' },
-	{ top: '52', left: '9', height: '38.5' },
-	{ top: '55', left: '50', height: '19.5' },
-	{ top: '74', left: '34', height: '19.5' },
-	{ top: '67', left: '72', height: '29' }
-	],
-
-	[
-	{ top: '14', left: '13', height:  '19.5' },
-	{ top: '8', left: '40', height: '19.5' },
-	{ top: '15', left: '61', height: '24' },
-	{ top: '37', left: '35', height: '29' },
-	{ top: '52', left: '9', height: '19.5' },
-	{ top: '55', left: '50', height: '38.5' },
-	{ top: '74', left: '34', height: '24' },
-	{ top: '67', left: '72', height: '19.5' }
+	{ top: '14', left: '13', width:  '29' },
+	{ top: '8', left: '40', width: '19.5' },
+	{ top: '15', left: '61', width: '38.5' },
+	{ top: '37', left: '35', width: '19.5' },
+	{ top: '52', left: '9', width: '24' },
+	{ top: '55', left: '50', width: '19.5' },
+	{ top: '74', left: '34', width: '19.5' },
+	{ top: '67', left: '72', width: '24' }
 	],
 
 
 	[
-	{ top: '14', left: '13', height:  '24' },
-	{ top: '8', left: '40', height: '29' },
-	{ top: '15', left: '61', height: '19.5' },
-	{ top: '37', left: '35', height: '24' },
-	{ top: '52', left: '9', height: '19.5' },
-	{ top: '55', left: '50', height: '19.5' },
-	{ top: '74', left: '34', height: '38.5' },
-	{ top: '67', left: '72', height: '19.5' }
+	{ top: '14', left: '13', width:  '19.5' },
+	{ top: '8', left: '40', width: '24' },
+	{ top: '15', left: '61', width: '19.5' },
+	{ top: '37', left: '35', width: '38.5' },
+	{ top: '52', left: '9', width: '29' },
+	{ top: '55', left: '50', width: '19.5' },
+	{ top: '74', left: '34', width: '24' },
+	{ top: '67', left: '72', width: '19.5' }
+	],
+
+	[
+	{ top: '14', left: '13', width:  '19.5' },
+	{ top: '8', left: '40', width: '19.5' },
+	{ top: '15', left: '61', width: '24' },
+	{ top: '37', left: '35', width: '24' },
+	{ top: '52', left: '9', width: '38.5' },
+	{ top: '55', left: '50', width: '19.5' },
+	{ top: '74', left: '34', width: '19.5' },
+	{ top: '67', left: '72', width: '29' }
+	],
+
+	[
+	{ top: '14', left: '13', width:  '19.5' },
+	{ top: '8', left: '40', width: '19.5' },
+	{ top: '15', left: '61', width: '24' },
+	{ top: '37', left: '35', width: '29' },
+	{ top: '52', left: '9', width: '19.5' },
+	{ top: '55', left: '50', width: '38.5' },
+	{ top: '74', left: '34', width: '24' },
+	{ top: '67', left: '72', width: '19.5' }
+	],
+
+
+	[
+	{ top: '14', left: '13', width:  '24' },
+	{ top: '8', left: '40', width: '29' },
+	{ top: '15', left: '61', width: '19.5' },
+	{ top: '37', left: '35', width: '24' },
+	{ top: '52', left: '9', width: '19.5' },
+	{ top: '55', left: '50', width: '19.5' },
+	{ top: '74', left: '34', width: '38.5' },
+	{ top: '67', left: '72', width: '19.5' }
 	],
 
 ]
@@ -182,12 +182,12 @@ export const images = [
 	'hourglass',
 	'hydrant',
 	'key',
-	'knife',
 	'lollipop',
 	'milk',
 	'mouse',
 	'orange',
 	'owl',
+	'parrot',
 	'penguin',
 	'phone',
 	'plane',

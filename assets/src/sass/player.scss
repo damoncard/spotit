@@ -5,36 +5,52 @@
 		height: 100%;
     background-color: #ffac57;
     .input-section {
-      height: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      transform: translate(-50%, -50%);
       .introduction-container {
         text-align: center;
         position: relative;
-        padding-top: 10%;
         .introduction-header {
           padding: 0rem 2rem;
-          font-size: 11rem;
+          font-size: 10rem;
           color: #fff;
           text-shadow: 3px 4px 10px #000;
-          @media screen and (max-width: 525px) {
-            font-size: 4rem;
+          @media screen and (max-width: 1025px) {
+            font-size: 8rem;
           }
-          @media screen and (max-width: 400px) {
-            font-size: 3rem;
+          @media screen and (max-width: 800px) {
+            font-size: 6rem;
+          }
+          @media screen and (max-width: 580px) {
+            font-size: 5rem;
+          }
+          @media screen and (max-width: 500px) {
+            font-size: 4rem;
           }
         }
       }
       .form-name {
         position: relative;
         text-align: center;
-        padding-top: 4rem;
+        padding-top: 2rem;
+        @media screen and (max-width: 800px) {
+          padding-top: 1rem;
+        }
         .name-label {
           padding: 1rem;
           font-size: 3.5rem;
           margin-bottom: 1rem;
-          @media screen and (max-width: 525px) {
+          @media screen and (max-width: 800px) {
+            font-size: 2.5rem;
+            margin-bottom: auto;
+          }
+          @media screen and (max-width: 580px) {
             font-size: 2rem;
           }
-          @media screen and (max-width: 400px) {
+          @media screen and (max-width: 500px) {
             font-size: 1.5rem;
           }
         }
@@ -45,8 +61,8 @@
           padding: 6px 15px;
           border: 3px solid #c0c0c0;
           border-radius: 15px;
-          @media screen and (max-width: 320px) {
-            font-size: 0.8rem;
+          @media screen and (max-width: 800px) {
+            font-size: 1rem;
           }
         }
         .name-input:focus {
@@ -62,6 +78,9 @@
           color: #fff;
           box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
           cursor: pointer;
+          @media screen and (max-width: 800px) {
+            font-size: 1rem;
+          }
         }
       }
     }
@@ -419,7 +438,6 @@
       }
     }
   }
-
   .stage-container {
     height: 100%;
     background-color: #ffbe7d;
@@ -433,11 +451,36 @@
         margin-right: 0.5rem;
         -webkit-text-stroke: 1px;
         -webkit-text-stroke-color: #a4c8f0;
+        @media screen and (max-width: 1025px) {
+          font-size: 4rem;            
+        }
+        @media screen and (max-width: 800px) {
+          font-size: 2.5rem;            
+        }
+        @media screen and (max-width: 600px) {
+          font-size: 2rem;            
+        }
+        @media screen and (max-width: 500px) {
+          font-size: 1.5rem;            
+        }
       }
       .score-no {
         font-size: 7rem;
         margin-right: 2rem;
         color: #fff;
+        @media screen and (max-width: 1025px) {
+          font-size: 6rem;            
+        }
+        @media screen and (max-width: 800px) {
+          font-size: 5rem;            
+        }
+        @media screen and (max-width: 600px) {
+          font-size: 4.5rem;            
+        }
+        @media screen and (max-width: 500px) {
+          font-size: 4rem;
+          margin-right: 1rem;
+        }
       }
     }
     .ban-container {
@@ -450,21 +493,57 @@
         transform: translate(-50%, -45%);
         width: 100%;
         text-align: center;
-        font-size: 7rem;
+        font-size: 5rem;
+        @media screen and (max-width: 1025px) {
+          font-size: 4rem;            
+        }
+        @media screen and (max-width: 800px) {
+          font-size: 3rem;            
+        }
+        @media screen and (max-width: 500px) {
+          font-size: 2rem;            
+        }
         .ban-word {
           color: #ff0000;
           font-size: 17rem;
+          @media screen and (max-width: 1025px) {
+            font-size: 13rem;            
+          }
+          @media screen and (max-width: 800px) {
+            font-size: 9rem;            
+          }
+          @media screen and (max-width: 500px) {
+            font-size: 7rem;            
+          }
         }
       }
       .ban-countdown {
         position: absolute;
         right: 0;
         bottom: 0;
-        font-size: 2rem;
+        font-size: 3rem;
         padding: 5px 10px;
+        @media screen and (max-width: 1025px) {
+          font-size: 2rem;            
+        }
+        @media screen and (max-width: 800px) {
+          font-size: 1.5rem;            
+        }
+        @media screen and (max-width: 500px) {
+          font-size: 1rem;            
+        }
         .ban-second {
-          font-size: 3rem;
+          font-size: 5rem;
           color: #fff;
+          @media screen and (max-width: 1025px) {
+            font-size: 4rem;            
+          }
+          @media screen and (max-width: 800px) {
+            font-size: 3.5rem;            
+          }
+          @media screen and (max-width: 500px) {
+            font-size: 3rem;            
+          }
         }
       }
     }
@@ -482,7 +561,7 @@
       position: absolute;
       bottom: 3%;
       right: 2%;
-      height: 20%;
+      width: 15%;
       background-color: #fff;
       border-radius: 20px;
       padding: 0.5rem 1rem 0.5rem 1rem;
@@ -502,11 +581,30 @@
       font-size: 8rem;
       color: #fff;
       transform: translate(-50%, -50%);
+      @media screen and (max-width: 1025px) {
+        font-size: 6rem;
+      }
+      @media screen and (max-width: 800px) {
+        font-size: 4rem;
+      }
+      @media screen and (max-width: 500px) {
+        font-size: 2rem;
+      }
       .rank-no {
-        font-size: 19rem;
+        font-size: 16rem;
         display: table-cell;
         vertical-align: middle;
         padding-left: 3rem;
+        @media screen and (max-width: 1025px) {
+          font-size: 14rem;
+        }
+        @media screen and (max-width: 800px) {
+          font-size: 12rem;
+        }
+        @media screen and (max-width: 500px) {
+          font-size: 7rem;
+          padding-left: 1rem;
+        }
       }
     }
   }

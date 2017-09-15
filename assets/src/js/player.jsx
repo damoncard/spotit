@@ -347,7 +347,7 @@ class StageContainer extends React.Component {
                                     position: 'absolute',
                                     top: card.top + '%',
                                     left: card.left + '%',
-                                    height: card.height + '%',
+                                    width: card.width + '%',
                                     animation: animation + ((Math.random() * 10) + 1) + 's linear infinite'
                                 }
                                 return (

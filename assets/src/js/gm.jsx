@@ -154,7 +154,7 @@ class InitContainer extends React.Component {
                             </div>
                             <p className='list-header' style={{ 'font-size': '2rem' }}>Player List</p>
                             <div className='lobby-list'>
-                                
+
                                 <div className='list-box'>
                                     {Object.keys(this.state.list).map((player) => {
                                         return (
@@ -186,7 +186,7 @@ class InitContainer extends React.Component {
                     </div>
                 ) : (
                         <div className='center'>
-                            
+
                             <p className='game-label'>Spot It</p>
                         </div>
                     )}
@@ -211,19 +211,6 @@ class StageContainer extends React.Component {
     updatePic(cards) {
         this.props.remain--
         this.setState({ cards: cards })
-        $('.cards-panel > img').each(function () {
-            var top = $(this).data('top')
-            var left = $(this).data('left')
-            var height = $(this).data('height')
-            var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back '
-            $(this).css({
-                position: 'absolute',
-                top: top + '%',
-                left: left + '%',
-                height: height + '%',
-                animation: animation + ((Math.random() * 10) + 1) + 's linear infinite'
-            })
-        })
     }
 
     trophyTaken(id) {
@@ -240,7 +227,7 @@ class StageContainer extends React.Component {
     render() {
         return (
             <div className='stage-container'>
-               {/*} <div className='remain-indicator'>
+                {/* <div className='remain-indicator'>
                     <p className='remain-header'>Remaining Cards</p>
                     <p className='remain-no'>{this.props.remain}</p>
                 </div> */}
@@ -281,8 +268,16 @@ class StageContainer extends React.Component {
                 </div>
                 <div className='cards-panel'>
                     {this.state.cards.map((card) => {
+                        var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back '
+                        var style = {
+                            position: 'absolute',
+                            top: card.top + '%',
+                            left: card.left + '%',
+                            width: card.width + '%',
+                            animation: animation + ((Math.random() * 10) + 1) + 's linear infinite'
+                        }
                         return (
-                            <img src={'static/pic/' + card.name + '.svg'} data-top={card.top} data-left={card.left} data-height={card.height} value={card.name} />
+                            <img src={'static/pic/' + card.name + '.svg'} style={style} value={card.name} />
                         )
                     })}
                 </div>
@@ -332,7 +327,7 @@ class RankContainer extends React.Component {
 }
 
 function startCountdown() {
-    var second = 5
+    var second = 1
     clearInterval(timer)
     timer = setInterval(function () {
         if (all_ready) {
@@ -343,20 +338,16 @@ function startCountdown() {
                 initGame()
 
                 for (var id in list) {
-                    var selected = Math.floor(
-                        // Math.random() * 7
-                        1
-                        )
+                    // var selected = Math.floor(Math.random() * 7)
                     var card = pile[remain--]
-                    var pattern = patterns[selected]
+                    var pattern = patterns[0]
                     var set = []
                     for (var i in card) {
                         set[i] = {
                             name: card[i],
                             top: pattern[i].top,
                             left: pattern[i].left,
-                            height: pattern[i].height
-
+                            width: pattern[i].width
                         }
                     }
                     socket.emit('result', { id: id, card: set, result: 'none' })
@@ -390,7 +381,7 @@ function nextPic() {
                 name: card[i],
                 top: pattern[i].top,
                 left: pattern[i].left,
-                height: pattern[i].height
+                width: pattern[i].width
             }
         }
 
