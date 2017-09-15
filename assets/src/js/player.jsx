@@ -128,6 +128,17 @@ class InitContainer extends React.Component {
             margin: 20,
             center: true,
         })
+
+        $('.owl-carousel').on('changed.owl.carousel', function (event) {
+            var currentPage = event.item.index
+            if (currentPage == 3) {
+                $('.name-box').addClass('inverted')
+                $('.ready-box').addClass('inverted')
+            } else {
+                $('.name-box').removeClass('inverted')
+                $('.ready-box').removeClass('inverted')
+            }
+        })
     }
 
     render() {
@@ -230,16 +241,26 @@ class InitContainer extends React.Component {
                                 <div className='special-detail'>
                                     <div className='special-case-1'>
                                         <p>
-                                            Special Case: 
+                                            Special Case:
                                             <img src='static/pic/trophy.svg' />
                                             Trophy worth <span>5</span> points
                                         </p>
+                                    </div>
+                                    <div className='special-rule-container'>
+                                        <div className='special-rule'>
+                                            <p className='rule-header'>Be Careful!!</p>
+                                            <p className='rule-detail'>
+                                                If you picked wrong <span>3</span> times<br />
+                                                You will get <span>BANNED</span> for 10 seconds
+                                            </p>
+                                            <i className='fa fa-gamepad' aria-hidden='true'></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div className='image-container container'>
                                 <div className='header'>
-                                    <p>Images In the game</p>
+                                    <p>Images</p>
                                 </div>
                                 <div className='image-showcase'>
                                     {this.props.images.map((name) => {
@@ -252,35 +273,23 @@ class InitContainer extends React.Component {
                                     })}
                                 </div>
                             </div>
-                            <div className='state-container container'>
-                                <div className='header'>
-                                    <p>
-                                    {this.state.name}
-                                    <button className='change-name' onClick={this.changeName}>
-                                        <i className='fa fa-pencil' aria-hidden='true'></i>
-                                    </button>
-                                    </p>
-                                </div>
-                                <div className='state-detail'>
-                                    <div className='game-rule-container'>
-                                        <div className='game-rule'>
-                                            <p className='rule-header'>Be Careful!!</p>
-                                            <p className='rule-detail'>
-                                                If you picked wrong <span>3</span> times<br />
-                                                You will get <span>BANNED</span> for 10 seconds
-                                            </p>
-                                            <i className='fa fa-gamepad' aria-hidden='true'></i>
-                                        </div>
+                        </div>
+                        <div className='name-box'>
+                            <p>
+                                {this.state.name}
+                                <button className='change-name' onClick={this.changeName}>
+                                    <i className='fa fa-pencil' aria-hidden='true'></i>
+                                </button>
+                            </p>
+                        </div>
+                        <div className='ready-box'>
+                            <div className='state-button-container'>
+                                <div className='state-button' onClick={this.toggleState}>
+                                    <div className='state-not'>
+                                        <p>Not Ready</p>
                                     </div>
-                                    <div className='state-button-container' onClick={this.toggleState}>
-                                        <div className='state-button'>
-                                            <div className='state-not'>
-                                                <i className='state fa fa-times' aria-hidden='true' style={{ 'color': 'red' }}></i>
-                                            </div>
-                                            <div className='state-ready'>
-                                                <i className='state fa fa-check' aria-hidden='true' style={{ 'color': 'green' }}></i>
-                                            </div>
-                                        </div>
+                                    <div className='state-ready'>
+                                        <p>Ready</p>
                                     </div>
                                 </div>
                             </div>
