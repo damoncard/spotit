@@ -171,7 +171,7 @@ class InitContainer extends React.Component {
                                 <div className='header'>
                                     <p>About Game</p>
                                 </div>
-                                <div className='instruction-detail'>
+                                <div className='instruction-detail detail'>
                                     <div className='instruction-about'>
                                         <p>This game was inspired by Spot-IT</p>
                                     </div>
@@ -206,7 +206,7 @@ class InitContainer extends React.Component {
                                     <p>How To Play</p>
                                 </div>
                                 <img src='static/pic/arrow.svg' className='arrow-pic-2' />
-                                <div className='how-detail'>
+                                <div className='how-detail detail'>
                                     <div className='how-card'>
                                         <img src='static/pic/clip.svg' style={{ 'position': 'absolute', 'top': '16%', 'left': '16%', 'width': '20%' }} />
                                         <img src='static/pic/balloon.svg' style={{ 'position': 'absolute', 'top': '7%', 'left': '41%', 'width': '20%' }} />
@@ -238,7 +238,7 @@ class InitContainer extends React.Component {
                                 <div className='header'>
                                     <p>How To Play</p>
                                 </div>
-                                <div className='special-detail'>
+                                <div className='special-detail detail'>
                                     <div className='special-case-1'>
                                         <p>
                                             Special Case:
@@ -262,7 +262,7 @@ class InitContainer extends React.Component {
                                 <div className='header'>
                                     <p>Images</p>
                                 </div>
-                                <div className='image-showcase'>
+                                <div className='image-showcase detail'>
                                     {this.props.images.map((name) => {
                                         return (
                                             <div className='image-block'>
