@@ -9,7 +9,7 @@ import { pile, patterns, initGame } from './pile.jsx'
 var reactComponent
 var timer
 var list = {}
-var remain = 2 // default: 55
+var remain = 15 // default: 55
 var all_ready = false
 
 $(document).ready(function () {
@@ -207,10 +207,10 @@ class StageContainer extends React.Component {
     render() {
         return (
             <div className='stage-container'>
-                {/* <div className='remain-indicator'>
+                <div className='remain-indicator'>
                     <p className='remain-header'>Remaining Cards</p>
                     <p className='remain-no'>{this.props.remain}</p>
-                </div> */}
+                </div>
                 <div className='player-panel'>
                     <p className='player-header'>
                         <span>L</span>
@@ -277,12 +277,12 @@ class RankContainer extends React.Component {
     }
 
     componentDidMount() {
-        // setTimeout(function () {
-        //     socket.emit('status', 'end')
-        //     list = {}
-        //     remain = 20
-        //     reRenderComponent(<InitContainer />)
-        // }, 10000)
+        setTimeout(function () {
+            socket.emit('status', 'end')
+            list = {}
+            remain = 20
+            reRenderComponent(<InitContainer />)
+        }, 10000)
     }
 
     render() {
