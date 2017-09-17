@@ -14,7 +14,6 @@
 			.game-label {
 				font-family: 'signPain';
 				font-size: 15rem;
-				color: #fff;
 			}
 		}
 		.lobby-room {
@@ -27,6 +26,7 @@
 				padding: 1rem 0rem 0rem 16.7%;
 				.list-header {
 					font-size: 2rem;
+					padding-left: 27rem;
 				}
 				.list-box {
 					width: 500px;
@@ -73,6 +73,7 @@
 				font-size: 7rem;
 				color: #FFF;
 				margin-left: 2rem;
+				text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.6);
 			}
 		}
 		.player-panel {
@@ -129,7 +130,7 @@
 		.cards-panel {
 			position: relative;
 			top: 50%;
-			left: 46%;
+			left: 50%;
 			transform: translate(-60%, -50%);
 			width: 75%;
 			height: 105%;
