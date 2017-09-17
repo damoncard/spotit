@@ -167,7 +167,7 @@ class InitContainer extends React.Component {
                 {this.state.open_state &&
                     <div className='state-section'>
                         <div className='owl-carousel owl-theme' >
-                            <div className='instruction-container container'>
+                            {/* <div className='instruction-container container'>
                                 <div className='header'>
                                     <p>About Game</p>
                                 </div>
@@ -233,7 +233,7 @@ class InitContainer extends React.Component {
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             {/* <div className='special-container container'>
                                 <div className='header'>
                                     <p>How To Play</p>
@@ -274,7 +274,7 @@ class InitContainer extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className='name-box'>
+                        <div className='name-box inverted'>
                             <p>
                                 {this.state.name}
                                 <button className='change-name' onClick={this.changeName}>
@@ -282,7 +282,7 @@ class InitContainer extends React.Component {
                                 </button>
                             </p>
                         </div>
-                        <div className='ready-box'>
+                        <div className='ready-box inverted'>
                             <div className='state-button-container'>
                                 <div className='state-button' onClick={this.toggleState}>
                                     <div className='state-not'>

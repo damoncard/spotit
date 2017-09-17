@@ -225,11 +225,12 @@
                   .how-card {
                     display: inline-block;
                     position: relative;
-                    width: 600px;
-                    height: 600px;
-                    margin-left: 5rem;
+                    width: 35%;
+                    height: auto;
+                    padding-top: 35%;
+                    margin-left: 2rem;
                     background-color: #fff;
-                    border-radius: 310px;
+                    border-radius: 50%;
                     box-shadow: 10px 5px 10px rgba(0, 0, 0, 0.6);
                   }
                   .how-box {
@@ -244,7 +245,7 @@
                     p {
                       position: relative;
                       &.how-rule {
-                        margin: 2rem auto 2rem;
+                        margin: 2rem auto 4rem;
                       }
                       span {
                         display: block;
@@ -253,7 +254,6 @@
                       }
                       img {
                         position: absolute;
-                        top: 80%;
                         left: 73%;
                         width: 15%;
                         transform: rotate(330deg);
@@ -432,7 +432,7 @@
           height: 35px;
           width: 35px;
           text-align: center;
-          border-radius: 40px;
+          border-radius: 50%;
           background-color: #fff;
           border: 2px solid #000;
           color: #000;

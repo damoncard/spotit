@@ -41,9 +41,7 @@ $(document).ready(function () {
                     reactComponent.setState({ list: list })
 
                     if (Object.keys(list).length == 0) {
-                        $('.countdown-container').hide()
-                        $('#countdown-timer').removeClass()
-                        $('.countdown-modal').hide()
+                        // checkStatus()
                         var countdown = 5
                         clearInterval(timer)
                         timer = setInterval(function () {
@@ -71,25 +69,7 @@ $(document).ready(function () {
                 var status = value['status'] == 'ready' ? true : false
                 list[id].status = status
                 $('#' + id).css('color', status ? 'green' : 'red')
-
-                for (var i in list) {
-                    if (list[i].status) {
-                        all_ready = true
-                        continue
-                    }
-                    all_ready = false
-                    break
-                }
-
-                if (all_ready) {
-                    $('.countdown-container').show()
-                    $('.countdown-modal').show()
-                    startCountdown()
-                } else {
-                    $('.countdown-container').hide()
-                    $('#countdown-timer').removeClass()
-                    $('.countdown-modal').hide()
-                }
+                checkStatus()                
                 break
             // ################ Playing Phase ################ //
             case 'submit':
@@ -391,11 +371,26 @@ function nextPic() {
     return false
 }
 
+function checkStatus() {
+    for (var i in list) {
+        if (list[i].status) {
+            all_ready = true
+            continue
+        }
+        all_ready = false
+        break
+    }
 
-
-
-
-
+    if (all_ready) {
+        $('.countdown-container').show()
+        $('.countdown-modal').show()
+        startCountdown()
+    } else {
+        $('.countdown-container').hide()
+        $('#countdown-timer').removeClass()
+        $('.countdown-modal').hide()
+    }
+}
 
 function reRenderComponent(component) {
     ReactDOM.unmountComponentAtNode(document.querySelector('.admin-container'))
