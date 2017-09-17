@@ -69,7 +69,7 @@ $(document).ready(function () {
                 var status = value['status'] == 'ready' ? true : false
                 list[id].status = status
                 $('#' + id).css('color', status ? 'green' : 'red')
-                checkStatus()                
+                checkStatus()
                 break
             // ################ Playing Phase ################ //
             case 'submit':
@@ -127,21 +127,18 @@ class InitContainer extends React.Component {
         return (
             <div className='init-container'>
                 {this.state.active ? (
-                    <div>
-                        <div className='lobby-room'>
+                    <div className='lobby-room'>
+                        <div className='lobby-board'>
                             <div className='lobby-header'>
-                                <p style={{ 'font-size': '8rem' }}>Lobby</p>
+                                <p>Lobby</p>
+                                <p className='list-header'>Player List</p>
                             </div>
-                            <p className='list-header' style={{ 'font-size': '2rem' }}>Player List</p>
-                            <div className='lobby-list'>
-
-                                <div className='list-box'>
-                                    {Object.keys(this.state.list).map((player) => {
-                                        return (
-                                            <p id={player} className='player-name' style={{ 'color': 'red' }}>{this.state.list[player].name}</p>
-                                        )
-                                    })}
-                                </div>
+                            <div className='list-box'>
+                                {Object.keys(this.state.list).map((player) => {
+                                    return (
+                                        <p id={player} className='player-name' style={{ 'color': 'red' }}>{this.state.list[player].name}</p>
+                                    )
+                                })}
                             </div>
                         </div>
 
@@ -307,7 +304,7 @@ class RankContainer extends React.Component {
 }
 
 function startCountdown() {
-    var second = 1
+    var second = 5
     clearInterval(timer)
     timer = setInterval(function () {
         if (all_ready) {
