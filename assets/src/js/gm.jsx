@@ -9,7 +9,7 @@ import { pile, patterns, initGame } from './pile.jsx'
 var reactComponent
 var timer
 var list = {}
-var remain = 1 // default: 55 - player
+var remain = 20 // default: 55 - player
 var all_ready = false
 
 $(document).ready(function () {
@@ -273,12 +273,12 @@ class RankContainer extends React.Component {
     }
 
     componentDidMount() {
-        // setTimeout(function () {
-        //     socket.emit('status', 'end')
-        //     list = {}
-        //     remain = 20
-        //     reRenderComponent(<InitContainer />)
-        // }, 10000)
+        setTimeout(function () {
+            socket.emit('status', 'end')
+            list = {}
+            remain = 20
+            reRenderComponent(<InitContainer />)
+        }, 10000)
     }
 
     render() {
