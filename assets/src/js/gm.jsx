@@ -306,7 +306,7 @@ class RankContainer extends React.Component {
 }
 
 function startCountdown() {
-    var second = 1
+    var second = 5
     clearInterval(timer)
     timer = setInterval(function () {
         if (all_ready) {
@@ -314,7 +314,7 @@ function startCountdown() {
             $('#countdown-timer').addClass('second-' + second)
             if (second-- < 0) {
                 $('.countdown-modal').hide()
-                remain += Object.keys(list).length
+                remain = Math.ceil(Object.keys(list).length * 6.8)
                 initGame()
 
                 for (var id in list) {
