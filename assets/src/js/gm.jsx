@@ -9,7 +9,7 @@ import { pile, patterns, initGame } from './pile.jsx'
 var reactComponent
 var timer
 var list = {}
-var remain = 2 // default: 55
+var remain = 1 // default: 55 - player
 var all_ready = false
 
 $(document).ready(function () {
@@ -41,9 +41,7 @@ $(document).ready(function () {
                     reactComponent.setState({ list: list })
 
                     if (Object.keys(list).length == 0) {
-                        $('.countdown-container').hide()
-                        $('#countdown-timer').removeClass()
-                        $('.countdown-modal').hide()
+                        // checkStatus()
                         var countdown = 5
                         clearInterval(timer)
                         timer = setInterval(function () {
@@ -71,25 +69,7 @@ $(document).ready(function () {
                 var status = value['status'] == 'ready' ? true : false
                 list[id].status = status
                 $('#' + id).css('color', status ? 'green' : 'red')
-
-                for (var i in list) {
-                    if (list[i].status) {
-                        all_ready = true
-                        continue
-                    }
-                    all_ready = false
-                    break
-                }
-
-                if (all_ready) {
-                    $('.countdown-container').show()
-                    $('.countdown-modal').show()
-                    startCountdown()
-                } else {
-                    $('.countdown-container').hide()
-                    $('#countdown-timer').removeClass()
-                    $('.countdown-modal').hide()
-                }
+                checkStatus()                
                 break
             // ################ Playing Phase ################ //
             case 'submit':
@@ -147,24 +127,20 @@ class InitContainer extends React.Component {
         return (
             <div className='init-container'>
                 {this.state.active ? (
-                    <div>
-                        <div className='lobby-room'>
+                    <div className='lobby-room'>
+                        <div className='lobby-board'>
                             <div className='lobby-header'>
-                                <p style={{ 'font-size': '8rem' }}>Lobby</p>
+                                <p>Lobby</p>
+                                <p className='list-header'>Player List</p>
                             </div>
-                            <p className='list-header' style={{ 'font-size': '2rem' }}>Player List</p>
-                            <div className='lobby-list'>
-                                
-                                <div className='list-box'>
-                                    {Object.keys(this.state.list).map((player) => {
-                                        return (
-                                            <p id={player} className='player-name' style={{ 'color': 'red' }}>{this.state.list[player].name}</p>
-                                        )
-                                    })}
-                                </div>
+                            <div className='list-box'>
+                                {Object.keys(this.state.list).map((player) => {
+                                    return (
+                                        <p id={player} className='player-name' style={{ 'color': 'red' }}>{this.state.list[player].name}</p>
+                                    )
+                                })}
                             </div>
                         </div>
-
                         <div className='countdown-container' style={{ 'display': 'none' }}>
                             <div id='countdown-timer'>
                                 <div className='c'></div>
@@ -186,7 +162,7 @@ class InitContainer extends React.Component {
                     </div>
                 ) : (
                         <div className='center'>
-                            
+
                             <p className='game-label'>Spot It</p>
                         </div>
                     )}
@@ -211,19 +187,6 @@ class StageContainer extends React.Component {
     updatePic(cards) {
         this.props.remain--
         this.setState({ cards: cards })
-        $('.cards-panel > img').each(function () {
-            var top = $(this).data('top')
-            var left = $(this).data('left')
-            var height = $(this).data('height')
-            var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back '
-            $(this).css({
-                position: 'absolute',
-                top: top + '%',
-                left: left + '%',
-                height: height + '%',
-                animation: animation + ((Math.random() * 10) + 1) + 's linear infinite'
-            })
-        })
     }
 
     trophyTaken(id) {
@@ -240,10 +203,10 @@ class StageContainer extends React.Component {
     render() {
         return (
             <div className='stage-container'>
-               {/*} <div className='remain-indicator'>
+                <div className='remain-indicator'>
                     <p className='remain-header'>Remaining Cards</p>
                     <p className='remain-no'>{this.props.remain}</p>
-                </div> */}
+                </div>
                 <div className='player-panel'>
                     <p className='player-header'>
                         <span>L</span>
@@ -281,8 +244,16 @@ class StageContainer extends React.Component {
                 </div>
                 <div className='cards-panel'>
                     {this.state.cards.map((card) => {
+                        var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back '
+                        var style = {
+                            position: 'absolute',
+                            top: card.top + '%',
+                            left: card.left + '%',
+                            width: card.width + '%',
+                            animation: animation + ((Math.random() * 10) + 1) + 's linear infinite'
+                        }
                         return (
-                            <img src={'static/pic/' + card.name + '.svg'} data-top={card.top} data-left={card.left} data-height={card.height} value={card.name} />
+                            <img src={'static/pic/' + card.name + '.svg'} style={style} value={card.name} />
                         )
                     })}
                 </div>
@@ -312,17 +283,20 @@ class RankContainer extends React.Component {
 
     render() {
         return (
+
             <div className='rank-container'>
                 <p className='rank-header'>Leaderboard</p>
                 <div className='player-list'>
                     {this.state.list.map((player, index) => {
                         return (
+                            
                             <div className='rank-profile'>
                                 {list[player].trophy && <img src='static/pic/trophy.svg' className='trophy-token' />}
                                 <span className='rank-label'>{index + 1}</span>
                                 <span className='player-name'>{list[player].name}</span>
                                 <span className='player-score'>{list[player].score}</span>
                             </div>
+                            
                         )
                     })}
                 </div>
@@ -332,7 +306,7 @@ class RankContainer extends React.Component {
 }
 
 function startCountdown() {
-    var second = 5
+    var second = 1
     clearInterval(timer)
     timer = setInterval(function () {
         if (all_ready) {
@@ -340,23 +314,20 @@ function startCountdown() {
             $('#countdown-timer').addClass('second-' + second)
             if (second-- < 0) {
                 $('.countdown-modal').hide()
+                remain += Object.keys(list).length
                 initGame()
 
                 for (var id in list) {
-                    var selected = Math.floor(
-                        // Math.random() * 7
-                        1
-                        )
+                    // var selected = Math.floor(Math.random() * 7)
                     var card = pile[remain--]
-                    var pattern = patterns[selected]
+                    var pattern = patterns[0]
                     var set = []
                     for (var i in card) {
                         set[i] = {
                             name: card[i],
                             top: pattern[i].top,
                             left: pattern[i].left,
-                            height: pattern[i].height
-
+                            width: pattern[i].width
                         }
                     }
                     socket.emit('result', { id: id, card: set, result: 'none' })
@@ -390,7 +361,7 @@ function nextPic() {
                 name: card[i],
                 top: pattern[i].top,
                 left: pattern[i].left,
-                height: pattern[i].height
+                width: pattern[i].width
             }
         }
 
@@ -400,11 +371,26 @@ function nextPic() {
     return false
 }
 
+function checkStatus() {
+    for (var i in list) {
+        if (list[i].status) {
+            all_ready = true
+            continue
+        }
+        all_ready = false
+        break
+    }
 
-
-
-
-
+    if (all_ready) {
+        $('.countdown-container').show()
+        $('.countdown-modal').show()
+        startCountdown()
+    } else {
+        $('.countdown-container').hide()
+        $('#countdown-timer').removeClass()
+        $('.countdown-modal').hide()
+    }
+}
 
 function reRenderComponent(component) {
     ReactDOM.unmountComponentAtNode(document.querySelector('.admin-container'))

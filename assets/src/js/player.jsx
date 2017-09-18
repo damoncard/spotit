@@ -128,6 +128,17 @@ class InitContainer extends React.Component {
             margin: 20,
             center: true,
         })
+
+        $('.owl-carousel').on('changed.owl.carousel', function (event) {
+            var currentPage = event.item.index
+            if (currentPage == 2) {
+                $('.name-box').addClass('inverted')
+                $('.ready-box').addClass('inverted')
+            } else {
+                $('.name-box').removeClass('inverted')
+                $('.ready-box').removeClass('inverted')
+            }
+        })
     }
 
     render() {
@@ -156,11 +167,11 @@ class InitContainer extends React.Component {
                 {this.state.open_state &&
                     <div className='state-section'>
                         <div className='owl-carousel owl-theme' >
-                            <div className='instruction-container container'>
+                            {/* <div className='instruction-container container'>
                                 <div className='header'>
                                     <p>About Game</p>
                                 </div>
-                                <div className='instruction-detail'>
+                                <div className='instruction-detail detail'>
                                     <div className='instruction-about'>
                                         <p>This game was inspired by Spot-IT</p>
                                     </div>
@@ -195,7 +206,7 @@ class InitContainer extends React.Component {
                                     <p>How To Play</p>
                                 </div>
                                 <img src='static/pic/arrow.svg' className='arrow-pic-2' />
-                                <div className='how-detail'>
+                                <div className='how-detail detail'>
                                     <div className='how-card'>
                                         <img src='static/pic/clip.svg' style={{ 'position': 'absolute', 'top': '16%', 'left': '16%', 'width': '20%' }} />
                                         <img src='static/pic/balloon.svg' style={{ 'position': 'absolute', 'top': '7%', 'left': '41%', 'width': '20%' }} />
@@ -222,26 +233,36 @@ class InitContainer extends React.Component {
                                         </p>
                                     </div>
                                 </div>
-                            </div>
-                            <div className='special-container container'>
+                            </div> */}
+                            {/* <div className='special-container container'>
                                 <div className='header'>
                                     <p>How To Play</p>
                                 </div>
-                                <div className='special-detail'>
+                                <div className='special-detail detail'>
                                     <div className='special-case-1'>
                                         <p>
-                                            Special Case: 
+                                            Special Case:
                                             <img src='static/pic/trophy.svg' />
                                             Trophy worth <span>5</span> points
                                         </p>
                                     </div>
+                                    <div className='special-rule-container'>
+                                        <div className='special-rule'>
+                                            <p className='rule-header'>Be Careful!!</p>
+                                            <p className='rule-detail'>
+                                                If you picked wrong <span>3</span> times<br />
+                                                You will get <span>BANNED</span> for 10 seconds
+                                            </p>
+                                            <i className='fa fa-gamepad' aria-hidden='true'></i>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className='image-container container'>
                                 <div className='header'>
-                                    <p>Images In the game</p>
+                                    <p>Images</p>
                                 </div>
-                                <div className='image-showcase'>
+                                <div className='image-showcase detail'>
                                     {this.props.images.map((name) => {
                                         return (
                                             <div className='image-block'>
@@ -252,35 +273,23 @@ class InitContainer extends React.Component {
                                     })}
                                 </div>
                             </div>
-                            <div className='state-container container'>
-                                <div className='header'>
-                                    <p>
-                                    {this.state.name}
-                                    <button className='change-name' onClick={this.changeName}>
-                                        <i className='fa fa-pencil' aria-hidden='true'></i>
-                                    </button>
-                                    </p>
-                                </div>
-                                <div className='state-detail'>
-                                    <div className='game-rule-container'>
-                                        <div className='game-rule'>
-                                            <p className='rule-header'>Be Careful!!</p>
-                                            <p className='rule-detail'>
-                                                If you picked wrong <span>3</span> times<br />
-                                                You will get <span>BANNED</span> for 10 seconds
-                                            </p>
-                                            <i className='fa fa-gamepad' aria-hidden='true'></i>
-                                        </div>
+                        </div>
+                        <div className='name-box inverted'>
+                            <p>
+                                {this.state.name}
+                                <button className='change-name' onClick={this.changeName}>
+                                    <i className='fa fa-pencil' aria-hidden='true'></i>
+                                </button>
+                            </p>
+                        </div>
+                        <div className='ready-box inverted'>
+                            <div className='state-button-container'>
+                                <div className='state-button' onClick={this.toggleState}>
+                                    <div className='state-not'>
+                                        <p>Not Ready</p>
                                     </div>
-                                    <div className='state-button-container' onClick={this.toggleState}>
-                                        <div className='state-button'>
-                                            <div className='state-not'>
-                                                <i className='state fa fa-times' aria-hidden='true' style={{ 'color': 'red' }}></i>
-                                            </div>
-                                            <div className='state-ready'>
-                                                <i className='state fa fa-check' aria-hidden='true' style={{ 'color': 'green' }}></i>
-                                            </div>
-                                        </div>
+                                    <div className='state-ready'>
+                                        <p>Ready</p>
                                     </div>
                                 </div>
                             </div>
@@ -342,13 +351,16 @@ class StageContainer extends React.Component {
                 ) : (
                         <div className='cards-panel'>
                             {this.state.cards.map((card) => {
-                                var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back '
+                                {/* var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back' */}
+                                {/* animation: animation + ((Math.random() * 10) + 1) + 's linear infinite' */}
+                                var rotate = Math.random() * 10 > 5 ? '1' : '-1'
+                                var degree = Math.random() * 360
                                 var style = {
                                     position: 'absolute',
                                     top: card.top + '%',
                                     left: card.left + '%',
-                                    height: card.height + '%',
-                                    animation: animation + ((Math.random() * 10) + 1) + 's linear infinite'
+                                    width: card.width + '%',
+                                    transform: 'scaleX(' + rotate + ') rotate(' + degree + 'deg)'
                                 }
                                 return (
                                     <img src={'static/pic/' + card.name + '.svg'} style={style} value={card.name} onClick={() => this.sendResult(card.name)} />

@@ -1,44 +1,51 @@
 .admin-container {
 	height: 100%;
 	width: 100%;
-	// overflow: hidden;
 	.init-container {
 		height: 100%;
-		
+		background: linear-gradient(to left, rgba(252, 92, 125, 0.8), rgba(106, 130, 251, 0.8));
 		.center {
 			text-align: center;
 			position: absolute;
 			width: 100%;
 			top: 50%;
-			margin-top: -132px;
+			transform: translateY(-50%);
 			.game-label {
 				font-family: 'signPain';
 				font-size: 15rem;
-				color: #fff;
+				color: white;
+				text-shadow: 1px 1px 40px rgba(255, 255, 255, 0.6);
 			}
 		}
 		.lobby-room {
-			padding-top: 6rem;
-			.lobby-header {
-				text-align: center;
-				font-size: 4rem;
-			}
-			.lobby-list {
-				padding: 1rem 0rem 0rem 16.7%;
-				.list-header {
-					font-size: 2rem;
+			height: 100%;
+			.lobby-board {
+				position: relative;
+				top: 5%;
+				.lobby-header {
+					text-align: center;
+					font-size: 6rem;
+					color: #fff;
+					text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.8);
+					.list-header {
+						font-size: 2rem;
+						margin: 4rem 25% 1rem 0%;
+						text-shadow: none;
+					}
 				}
 				.list-box {
+					position: absolute;
 					width: 500px;
 					height: 500px;
-					padding:1rem;
-					border: 0.3rem dashed black;
-					margin: 0rem 0rem 0rem 16.5%;
+					border: 0.3rem dotted rgba(0, 0, 0, 0.8);
+					left: 50%;
+					transform: translateX(-50%);
 					.player-name {
 						position: relative;
+						font-family: 'Typo-Round';
 						font-size: 2rem;
-						padding-left: 1rem;
-						font-family: 'walto';
+						font-weight: 600;
+						padding: 1rem 2rem 0rem;
 					}
 				}
 			}
@@ -49,9 +56,9 @@
 			width: 100%;
 			.credit {
 				float: right;
-				font-size: 1.75rem;
-				padding: 0.5rem;
-				color:black;
+				font-size: 2rem;
+				padding: 0.5rem 1rem;
+				color: #fff;
 			}
 		}
 	}
@@ -73,6 +80,7 @@
 				font-size: 7rem;
 				color: #FFF;
 				margin-left: 2rem;
+				text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.6);
 			}
 		}
 		.player-panel {
@@ -129,7 +137,7 @@
 		.cards-panel {
 			position: relative;
 			top: 50%;
-			left: 46%;
+			left: 50%;
 			transform: translate(-60%, -50%);
 			width: 75%;
 			height: 105%;
@@ -138,18 +146,21 @@
 		}
 	}
 	.rank-container {
-		position: relative;
-		top: 5%;
+		height: 100%;
+		background: linear-gradient(to left, rgba(252, 92, 125, 0.8), rgba(106, 130, 251, 0.8));
 		.rank-header {
+			padding-top: 5%;
 			font-size: 6rem;
 			text-align: center;
 			font-family: 'signPain';
-
+			color: white;
+			text-shadow: 1px 1px 40px rgba(255, 255, 255, 0.6);
 		}
 		.player-list {
-			// spadding-left: 42%;
+			padding-top: 4rem;
 			.rank-profile {
-				margin-top: 5rem;
+				margin-top: 1rem;
+				text-align: center;
 				.trophy-token {
 					height: 40px;
 					position: absolute;
@@ -161,15 +172,15 @@
 					color: #fff;
 					background-color: #ff0015;
 					border-radius: 15px;
-					font-size: 4rem;
+					font-size: 2rem;
 				}
 				.player-name {
 					font-family: 'walto';
-					font-size: 4.5rem;
+					font-size: 2.5rem;
 				}
 				.player-score {
 					margin-left: 10rem;
-					font-size: 4rem;
+					font-size: 2rem;
 				}
 			}
 		}
@@ -198,44 +209,3 @@
 		margin-left: -200px;
 	}
 }
-
-.hero {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  
-  color: white;
-  // text-align: center;
-  font-family: Lato, sans-serif;
-  font-weight: 300;
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, .4);
-  // border-bottom: solid 5px white;
- 
-  @each $index, $gradient in $gradients {
-    &--#{$index} {
-      background: linear-gradient(
-        135deg,
-        map-get($gradient, 'from') 20%,
-        map-get($gradient, 'to') 80%
-      );
-    }
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
