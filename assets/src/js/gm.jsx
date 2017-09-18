@@ -92,7 +92,7 @@ $(document).ready(function () {
                         var trophy = $('#trophy-pos').data('pos')
                         if (trophy != 0) {
                             var id = $('ul > li:nth-child(' + trophy + ') > .player-no').data('id')
-                            list[id].score += 3
+                            list[id].score += 5
                             list[id].trophy = true
                         }
                         var sorted_list = Object.keys(list).sort(function (a, b) { return list[b].score - list[a].score })
