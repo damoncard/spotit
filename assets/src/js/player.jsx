@@ -108,10 +108,12 @@ class InitContainer extends React.Component {
         var status = this.state.status
         if (status) {
             $('.state-button').css('transform', 'rotateY(0deg)')
+            $('.change-name').show()
             socket.emit('status', { id: id, status: 'not' })
             this.setState({ status: false })
         } else {
             $('.state-button').css('transform', 'rotateY(-180deg)')
+            $('.change-name').hide()
             socket.emit('status', { id: id, status: 'ready' })
             this.setState({ status: true })
         }
