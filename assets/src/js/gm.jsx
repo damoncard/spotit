@@ -9,7 +9,7 @@ import { pile, patterns, initGame } from './pile.jsx'
 var reactComponent
 var timer
 var list = {}
-var remain = 2 // default: 55
+var remain = 1 // default: 55 - player
 var all_ready = false
 
 $(document).ready(function () {
@@ -127,27 +127,20 @@ class InitContainer extends React.Component {
         return (
             <div className='init-container'>
                 {this.state.active ? (
-                    <div>
-                        <div className='lobby-room'>
+                    <div className='lobby-room'>
+                        <div className='lobby-board'>
                             <div className='lobby-header'>
-                                <p style={{ 'font-size': '8rem','text-align':'center' }}>Lobby</p>
+                                <p>Lobby</p>
+                                <p className='list-header'>Player List</p>
                             </div>
-                            <p className='list-header' style={{ 'font-size': '2rem','text-align':'center' }}>Player List</p>
-                            <div className='lobby-list'>
-
-                                <div className='list-box'>
-                                    {Object.keys(this.state.list).map((player) => {
-                                        return (
-//                                             <table class="container">
-    
-// </table>
-                                            <p id={player} className='player-name' style={{ 'color': 'red','text-align':'center' }}>{this.state.list[player].name}</p>
-                                        )
-                                    })}
-                                </div>
+                            <div className='list-box'>
+                                {Object.keys(this.state.list).map((player) => {
+                                    return (
+                                        <p id={player} className='player-name' style={{ 'color': 'red' }}>{this.state.list[player].name}</p>
+                                    )
+                                })}
                             </div>
                         </div>
-
                         <div className='countdown-container' style={{ 'display': 'none' }}>
                             <div id='countdown-timer'>
                                 <div className='c'></div>
@@ -280,12 +273,12 @@ class RankContainer extends React.Component {
     }
 
     componentDidMount() {
-        setTimeout(function () {
-            socket.emit('status', 'end')
-            list = {}
-            remain = 20
-            reRenderComponent(<InitContainer />)
-        }, 10000)
+        // setTimeout(function () {
+        //     socket.emit('status', 'end')
+        //     list = {}
+        //     remain = 20
+        //     reRenderComponent(<InitContainer />)
+        // }, 10000)
     }
 
     render() {
@@ -321,6 +314,7 @@ function startCountdown() {
             $('#countdown-timer').addClass('second-' + second)
             if (second-- < 0) {
                 $('.countdown-modal').hide()
+                remain += Object.keys(list).length
                 initGame()
 
                 for (var id in list) {

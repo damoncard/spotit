@@ -1,7 +1,6 @@
 .admin-container {
 	height: 100%;
 	width: 100%;
-	// overflow: hidden;
 	.init-container {
 		height: 100%;
 		background: linear-gradient(to left, rgba(252, 92, 125, 0.8), rgba(106, 130, 251, 0.8));
@@ -147,18 +146,20 @@
 		}
 	}
 	.rank-container {
-		position: relative;
-		top: 5%;
+		height: 100%;
+		background: linear-gradient(to left, rgba(252, 92, 125, 0.8), rgba(106, 130, 251, 0.8));
 		.rank-header {
+			padding-top: 5%;
 			font-size: 6rem;
 			text-align: center;
 			font-family: 'signPain';
-
+			color: white;
+			text-shadow: 1px 1px 40px rgba(255, 255, 255, 0.6);
 		}
 		.player-list {
-			// spadding-left: 42%;
+			padding-top: 4rem;
 			.rank-profile {
-				margin-top: 5rem;
+				margin-top: 1rem;
 				text-align: center;
 				.trophy-token {
 					height: 40px;
@@ -208,89 +209,3 @@
 		margin-left: -200px;
 	}
 }
-
-$row-color: #333333;
-
-html,body {
-  width: 100%;
-  height: 100%;
-}
-
-body {
-  font: 1.2em/1.4 'Oswald', sans-serif;
- 
-  text-align: right;
-}
-
-.rolldown-list {
-  text-align: left;
-  padding: 0;
-  margin: 0;
-}
-
-.rolldown-list li {
-  padding: 1em;
-  margin-bottom: .125em;
-  display: block;
-  list-style: none;
-  text-transform: uppercase;
-}
-
-
-
-
-.rolldown-list li:nth-child(2n) {
-  background-color: lighten($row-color, 10%);
-  
-}
-.rolldown-list li:nth-child(2n+1) {
-  background-color: $row-color;
-}
-
-
-#myList {
-  position: absolute;
-  width: 50%; 
-  left: 50%;
-  margin-left: -25%;
-}
-
-
-.firework{
-  background:url('https://media.giphy.com/media/6qQqn2IOHD5vO/source.gif');
-    background-size:cover;
-  background-color:lighten(peachpuff,4%);
-  background-blend-mode:overlay;
-  
-  &::after {
-    position:absolute;
-    top:0;
-    left:0;
-    height:100%;
-    width:100%;
-    background: -webkit-linear-gradient(-45deg, #1e5799 0%,#bc67bf 100%); /* Chrome10+,Safari5.1+ */
-    display:block;
-    content:"";
-    opacity:0.6;
-  }
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
