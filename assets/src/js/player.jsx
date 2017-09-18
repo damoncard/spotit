@@ -286,10 +286,10 @@ class InitContainer extends React.Component {
                             <div className='state-button-container'>
                                 <div className='state-button' onClick={this.toggleState}>
                                     <div className='state-not'>
-                                        <p>Not Ready</p>
+                                        <p>Ready</p>
                                     </div>
                                     <div className='state-ready'>
-                                        <p>Ready</p>
+                                        <p>Not Ready</p>
                                     </div>
                                 </div>
                             </div>
