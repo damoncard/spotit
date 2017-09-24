@@ -57,6 +57,7 @@ export const pile = [
 ]
 
 export const patterns = [
+// pattern0
 	[{ top: '8', left: '40', width: '14' },
 	{ top: '37', left: '35', width: '14' },
 	{ top: '72', left: '72', width: '14' },
@@ -66,84 +67,88 @@ export const patterns = [
 	{ top: '51', left: '8', width: '23' },
 	{ top: '16', left: '63', width: '28' }
 	],
-
+// pattern1
 	[
-	{ top: '14', left: '13', width:  '38.5' },
-	{ top: '8', left: '45', width: '19.5' },
-	{ top: '15', left: '65', width: '24' },
-	{ top: '40', left: '48', width: '24' },
-	{ top: '60', left: '15', width: '19.5' },
-	{ top: '41', left: '80', width: '19.5' },
-	{ top: '68', left: '34', width: '29' },
-	{ top: '72', left: '65', width: '19.5' }
+	{ top: '14', left: '13', width:  '28' },
+	{ top: '8', left: '45', width: '14' },
+	{ top: '15', left: '65', width: '18' },
+	{ top: '40', left: '48', width: '18' },
+	{ top: '60', left: '15', width: '14' },
+	{ top: '41', left: '80', width: '14' },
+	{ top: '68', left: '34', width: '23' },
+	{ top: '72', left: '65', width: '14' }
 	],
 
+// pattern2
 	[
-	{ top: '14', left: '13', width:  '19.5' },
-	{ top: '8', left: '40', width: '38.5' },
-	{ top: '15', left: '61', width: '24' },
-	{ top: '37', left: '35', width: '19.5' },
-	{ top: '52', left: '9', width: '19.5' },
-	{ top: '55', left: '50', width: '24' },
-	{ top: '74', left: '34', width: '19.5' },
-	{ top: '67', left: '72', width: '29' }
+	{ top: '14', left: '13', width:  '14' },
+	{ top: '5', left: '38', width: '28' },
+	{ top: '21', left: '75', width: '18' },
+	{ top: '47', left: '46', width: '14' },
+	{ top: '49', left: '9', width: '14' },
+	{ top: '55', left: '74', width: '18' },
+	{ top: '68', left: '23', width: '23' },
+	{ top: '77', left: '56', width: '14' }
 	],
 
+// pattern3
+
 	[
-	{ top: '14', left: '13', width:  '29' },
-	{ top: '8', left: '40', width: '19.5' },
-	{ top: '15', left: '61', width: '38.5' },
-	{ top: '37', left: '35', width: '19.5' },
-	{ top: '52', left: '9', width: '24' },
-	{ top: '55', left: '50', width: '19.5' },
-	{ top: '74', left: '34', width: '19.5' },
-	{ top: '67', left: '72', width: '24' }
+	{ top: '13', left: '13', width:  '23' },
+	{ top: '8', left: '40', width: '14' },
+	{ top: '15', left: '61', width: '28' },
+	{ top: '44', left: '35', width: '14' },
+	{ top: '56', left: '12', width: '18' },
+	{ top: '59', left: '50', width: '14' },
+	{ top: '79', left: '32', width: '14' },
+	{ top: '65', left: '72', width: '18' }
 	],
 
-
+// pattern4
 	[
-	{ top: '14', left: '13', width:  '19.5' },
-	{ top: '8', left: '40', width: '24' },
-	{ top: '15', left: '61', width: '19.5' },
-	{ top: '37', left: '35', width: '38.5' },
-	{ top: '52', left: '9', width: '29' },
-	{ top: '55', left: '50', width: '19.5' },
-	{ top: '74', left: '34', width: '24' },
-	{ top: '67', left: '72', width: '19.5' }
+	{ top: '14', left: '13', width:  '14' },
+	{ top: '6', left: '41', width: '18' },
+	{ top: '15', left: '70', width: '14' },
+	{ top: '35', left: '35', width: '28' },
+	{ top: '52', left: '8', width: '23' },
+	{ top: '40', left: '77', width: '14' },
+	{ top: '76', left: '40', width: '18' },
+	{ top: '70', left: '68', width: '14' }
+	],
+// pattern5
+	[
+	{ top: '14', left: '13', width:  '14' },
+	{ top: '6', left: '42', width: '14' },
+	{ top: '15', left: '72', width: '18' },
+	{ top: '33', left: '46', width: '18' },
+	{ top: '42', left: '5', width: '28' },
+	{ top: '46', left: '79', width: '14' },
+	{ top: '75', left: '33', width: '14' },
+	{ top: '65', left: '55', width: '23' }
+	],
+// pattern6
+	[
+	{ top: '14', left: '13', width:  '14' },
+	{ top: '7', left: '40', width: '14' },
+	{ top: '11', left: '61', width: '18' },
+	{ top: '33', left: '32', width: '23' },
+	{ top: '43', left: '9', width: '14' },
+	{ top: '59', left: '55', width: '28' },
+	{ top: '71', left: '23', width: '18' },
+	{ top: '36', left: '78', width: '14' }
 	],
 
-	[
-	{ top: '14', left: '13', width:  '19.5' },
-	{ top: '8', left: '40', width: '19.5' },
-	{ top: '15', left: '61', width: '24' },
-	{ top: '37', left: '35', width: '24' },
-	{ top: '52', left: '9', width: '38.5' },
-	{ top: '55', left: '50', width: '19.5' },
-	{ top: '74', left: '34', width: '19.5' },
-	{ top: '67', left: '72', width: '29' }
-	],
+// pattern7
 
 	[
-	{ top: '14', left: '13', width:  '19.5' },
-	{ top: '8', left: '40', width: '19.5' },
-	{ top: '15', left: '61', width: '24' },
-	{ top: '37', left: '35', width: '29' },
-	{ top: '52', left: '9', width: '19.5' },
-	{ top: '55', left: '50', width: '38.5' },
-	{ top: '74', left: '34', width: '24' },
-	{ top: '67', left: '72', width: '19.5' }
-	],
-
-
-	[
-	{ top: '14', left: '13', width:  '24' },
-	{ top: '8', left: '40', width: '29' },
-	{ top: '15', left: '61', width: '19.5' },
-	{ top: '37', left: '35', width: '24' },
-	{ top: '52', left: '9', width: '19.5' },
-	{ top: '55', left: '50', width: '19.5' },
-	{ top: '74', left: '34', width: '38.5' },
-	{ top: '67', left: '72', width: '19.5' }
+	{ top: '14', left: '13', width:  '18' },
+	{ top: '8', left: '63', width: '23' },
+	{ top: '7', left: '41', width: '14' },
+	{ top: '43', left: '74', width: '18' },
+	{ top: '52', left: '9', width: '14' },
+	{ top: '35', left: '42', width: '14' },
+	{ top: '60', left: '29', width: '28' },
+	{ top: '73', left: '72', width: '14' }
 	],
 
 ]

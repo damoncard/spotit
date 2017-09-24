@@ -353,8 +353,8 @@ class StageContainer extends React.Component {
                 ) : (
                         <div className='cards-panel'>
                             {this.state.cards.map((card) => {
-                                {/* var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back' */}
-                                {/* animation: animation + ((Math.random() * 10) + 1) + 's linear infinite' */}
+                                 var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back' 
+                                 animation: animation + ((Math.random() * 10) + 1) + 's linear infinite' 
                                 var rotate = Math.random() * 10 > 5 ? '1' : '-1'
                                 var degree = Math.random() * 360
                                 var style = {

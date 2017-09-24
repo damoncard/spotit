@@ -163,7 +163,7 @@ class InitContainer extends React.Component {
                 ) : (
                         <div className='center'>
 
-                            <p className='game-label'>192.168.2.15:3333/play</p>
+                            <p className='game-label'>Spot it</p>
                         </div>
                     )}
                 <div className='footer'>
@@ -306,7 +306,7 @@ class RankContainer extends React.Component {
 }
 
 function startCountdown() {
-    var second = 5
+    var second = 1
     clearInterval(timer)
     timer = setInterval(function () {
         if (all_ready) {
@@ -318,9 +318,9 @@ function startCountdown() {
                 initGame()
 
                 for (var id in list) {
-                    // var selected = Math.floor(Math.random() * 7)
+                    var selected = Math.floor(Math.random() * 7)
                     var card = pile[remain--]
-                    var pattern = patterns[0]
+                    var pattern = patterns[selected]
                     var set = []
                     for (var i in card) {
                         set[i] = {
