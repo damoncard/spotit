@@ -130,7 +130,7 @@ class InitContainer extends React.Component {
                     <div className='lobby-room'>
                         <div className='lobby-board'>
                             <div className='lobby-header'>
-                                <p>Lobby</p>
+                               <p>Lobby</p>
                                 <p className='list-header'>Player List</p>
                             </div>
                             <div className='list-box'>
@@ -163,7 +163,7 @@ class InitContainer extends React.Component {
                 ) : (
                         <div className='center'>
 
-                            <p className='game-label'>Spot It</p>
+                            <p className='game-label'>192.168.2.15:3333/play</p>
                         </div>
                     )}
                 <div className='footer'>
