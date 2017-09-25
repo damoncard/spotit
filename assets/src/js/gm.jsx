@@ -9,7 +9,7 @@ import { pile, patterns, initGame } from './pile.jsx'
 var reactComponent
 var timer
 var list = {}
-var remain = 20 // default: 55 - player
+var remain = 2 // default: 55 - player
 var all_ready = false
 
 $(document).ready(function () {
@@ -306,7 +306,7 @@ class RankContainer extends React.Component {
 }
 
 function startCountdown() {
-    var second = 1
+    var second = 5
     clearInterval(timer)
     timer = setInterval(function () {
         if (all_ready) {
