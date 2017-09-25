@@ -167,7 +167,7 @@ class InitContainer extends React.Component {
                 {this.state.open_state &&
                     <div className='state-section'>
                         <div className='owl-carousel owl-theme' >
-                            {/* <div className='instruction-container container'>
+                            <div className='instruction-container container'>
                                 <div className='header'>
                                     <p>About Game</p>
                                 </div>
@@ -175,18 +175,21 @@ class InitContainer extends React.Component {
                                     <div className='instruction-about'>
                                         <p>This game was inspired by Spot-IT</p>
                                     </div>
-                                    <div className='instruction-item'>
-                                        <p className='item-header'>Items</p>
-                                        <p className='item-detail'>
-                                            This game contains up to <span>55</span> illustrated cards
-                                            With <span>8</span> symbols per each
+                                    <div className='instruction-goal'>
+                                        <p>
+                                            <span>Objective: </span>To collect as many cards as possible
                                         </p>
-                                        <img src='static/pic/cage.svg' className='item-image-header item-image' />
-                                        <img src='static/pic/chicken.svg' style={{ 'width': '5%' }} className='item-image' />
-                                        <img src='static/pic/chicken.svg' style={{ 'width': '9%' }} className='item-image' />
-                                        <img src='static/pic/chicken.svg' style={{ 'width': '12%' }} className='item-image' />
-                                        <img src='static/pic/chicken.svg' style={{ 'width': '15%' }} className='item-image' />
-                                        <img src='static/pic/chicken.svg' style={{ 'width': '18%' }} className='item-image' />
+                                    </div>
+                                    <div className='instruction-illustration'>
+                                        <img src='static/pic/megaphone.svg' className='megaphone' />
+                                    </div>
+                                    <div className='instruction-rule'>
+                                        <p>
+                                            <span>Rule: </span>
+                                            Players have to try to spot the one symbol that appears both on the
+                                            center card and on their own cards. If you are the first player to do so
+                                            call it out
+                                        </p>
                                     </div>
                                     <div className='instruction-card'>
                                         <img src='static/pic/sword.svg' style={{ 'position': 'absolute', 'top': '11%', 'left': '16%', 'width': '20%' }} />
@@ -199,13 +202,12 @@ class InitContainer extends React.Component {
                                         <img src='static/pic/trophy.svg' style={{ 'position': 'absolute', 'top': '32%', 'left': '30%', 'width': '20%' }} />
                                     </div>
                                 </div>
-                                <img src='static/pic/arrow.svg' className='arrow-pic' />
                             </div>
                             <div className='how-container container'>
                                 <div className='header'>
                                     <p>How To Play</p>
                                 </div>
-                                <img src='static/pic/arrow.svg' className='arrow-pic-2' />
+                                <img src='static/pic/arrow.svg' className='arrow-pic' />
                                 <div className='how-detail detail'>
                                     <div className='how-card'>
                                         <img src='static/pic/clip.svg' style={{ 'position': 'absolute', 'top': '16%', 'left': '16%', 'width': '20%' }} />
@@ -217,47 +219,23 @@ class InitContainer extends React.Component {
                                         <img src='static/pic/trumpet.svg' style={{ 'position': 'absolute', 'top': '39%', 'left': '75%', 'width': '20%' }} />
                                         <img src='static/pic/lollipop.svg' style={{ 'position': 'absolute', 'top': '36%', 'left': '40%', 'width': '30%' }} />
                                     </div>
-                                    <div className='how-box'>
-                                        <p className='how-goal'>
-                                            <span>Objective: </span>To collect as many cards as possible
-                                        </p>
-                                        <p className='how-rule'>
-                                            <span>Rule: </span>
-                                            Players have to try to spot the one symbol that appears both on the
-                                            center card and on their own cards. If you are the first player to do so
-                                            call it out
-                                            <img src='static/pic/megaphone.svg' />
-                                        </p>
-                                        <p className='how-note'>
-                                            <span>Note: </span>The game continues until there are no cards remaining in the draw pile
+                                    <div className='how-rule'>
+                                        <p className='rule-header'>Be Careful!! </p>
+                                        <i className='fa fa-gamepad' aria-hidden='true'></i>
+                                        <p className='rule-detail'>
+                                            If you picked wrong <span>3</span> times<br />
+                                            You will get <span>BANNED</span> for 10 seconds
                                         </p>
                                     </div>
-                                </div>
-                            </div> */}
-                            {/* <div className='special-container container'>
-                                <div className='header'>
-                                    <p>How To Play</p>
-                                </div>
-                                <div className='special-detail detail'>
-                                    <div className='special-case-1'>
+                                    <div className='how-special'>
                                         <p>
                                             Special Case:
-                                            <img src='static/pic/trophy.svg' />
+                                        <img src='static/pic/trophy.svg' />
                                             Trophy worth <span>5</span> points
-                                        </p>
-                                    </div>
-                                    <div className='special-rule-container'>
-                                        <div className='special-rule'>
-                                            <p className='rule-header'>Be Careful!!</p>
-                                            <p className='rule-detail'>
-                                                If you picked wrong <span>3</span> times<br />
-                                                You will get <span>BANNED</span> for 10 seconds
-                                            </p>
-                                            <i className='fa fa-gamepad' aria-hidden='true'></i>
-                                        </div>
+                                    </p>
                                     </div>
                                 </div>
-                            </div> */}
+                            </div>
                             <div className='image-container container'>
                                 <div className='header'>
                                     <p>Images</p>
@@ -274,7 +252,7 @@ class InitContainer extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className='name-box inverted'>
+                        <div className='name-box'>
                             <p>
                                 {this.state.name}
                                 <button className='change-name' onClick={this.changeName}>
@@ -282,7 +260,7 @@ class InitContainer extends React.Component {
                                 </button>
                             </p>
                         </div>
-                        <div className='ready-box inverted'>
+                        <div className='ready-box'>
                             <div className='state-button-container'>
                                 <div className='state-button' onClick={this.toggleState}>
                                     <div className='state-not'>
@@ -351,8 +329,8 @@ class StageContainer extends React.Component {
                 ) : (
                         <div className='cards-panel'>
                             {this.state.cards.map((card) => {
-                                {/* var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back' */}
-                                {/* animation: animation + ((Math.random() * 10) + 1) + 's linear infinite' */}
+                                {/* var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back' */ }
+                                {/* animation: animation + ((Math.random() * 10) + 1) + 's linear infinite' */ }
                                 var rotate = Math.random() * 10 > 5 ? '1' : '-1'
                                 var degree = Math.random() * 360
                                 var style = {
