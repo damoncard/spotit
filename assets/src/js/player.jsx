@@ -354,15 +354,16 @@ class StageContainer extends React.Component {
                         <div className='cards-panel'>
                             {this.state.cards.map((card) => {
                                  var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back' 
-                                 animation: animation + ((Math.random() * 10) + 1) + 's linear infinite' 
+                                 
                                 var rotate = Math.random() * 10 > 5 ? '1' : '-1'
                                 var degree = Math.random() * 360
                                 var style = {
+                                    animation: animation + ((Math.random() * 10) + 1) + 's linear infinite' ,
                                     position: 'absolute',
                                     top: card.top + '%',
                                     left: card.left + '%',
                                     width: card.width + '%',
-                                    transform: 'scaleX(' + rotate + ') rotate(' + degree + 'deg)'
+                                    // transform: 'scaleX(' + rotate + ') rotate(' + degree + 'deg)'
                                 }
                                 return (
                                     <img src={'static/pic/' + card.name + '.svg'} style={style} value={card.name} onClick={() => this.sendResult(card.name)} />
