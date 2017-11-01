@@ -249,22 +249,45 @@
                     border-radius: 20px;
                     padding: 0rem 2rem;
                     float: right;
-                    width: 57%;
+                    width: 55%;
+                    @media screen and (max-width: 1440px) {
+                      padding: 0rem 1rem;
+                    }
                     .rule-header {
                       text-align: center;
                       font-size: 4.5rem;
                       color: #ff4848;
                       margin: 1rem auto 0.5rem;
+                      @media screen and (max-width: 1440px) {
+                        font-size: 4rem; 
+                      }
+                      @media screen and (max-width: 1025px) {
+                        font-size: 3.5rem; 
+                      }
                     }
                     .rule-detail {
                       font-size: 3rem;
                       padding: 0rem 1rem 1rem;
                       color: #2dc800;
                       line-height: 4rem;
+                      @media screen and (max-width: 1440px) {
+                        font-size: 2.5rem;
+                        line-height: 3.5rem;
+                      }
+                      @media screen and (max-width: 1025px) {
+                        font-size: 2rem;
+                        line-height: 3rem;
+                      }
                       span {
                         font-size: 4rem;
                         margin: 0rem 0.5rem;
                         color: #000;
+                        @media screen and (max-width: 1440px) {
+                          font-size: 3.5rem;
+                        }
+                        @media screen and (max-width: 1025px) {
+                          font-size: 3rem;
+                        }                     
                       }
                     }
                     i {
@@ -273,7 +296,13 @@
                       bottom: 10px;
                       right: 10px;
                       color: #000;
-                      transform: rotate(-26deg)
+                      transform: rotate(-26deg);
+                      @media screen and (max-width: 1440px) {
+                        font-size: 6rem;
+                      }
+                      @media screen and (max-width: 1025px) {
+                        font-size: 4rem;
+                      }  
                     }
                   }
                   .how-special {
@@ -286,11 +315,17 @@
                     width: 55%;
                     p {
                       font-size: 2rem;
+                      @media screen and (max-width: 1025px) {
+                        font-size: 1.5rem;
+                      }
                       span {
                         font-size: 5.5rem;
                         padding: 0rem 0.5rem;
                         color: #ff2dff;
                         vertical-align: middle;
+                        @media screen and (max-width: 1025px) {
+                          font-size: 4rem;
+                        }
                       }
                       img {
                         width: 8%;
@@ -473,7 +508,7 @@
             height: 4.5rem;
           }
           @media screen and (max-width: 800px) {
-            width: 11rem;
+            width: 10rem;
             height: 3rem;
             border-width: 6px;
           }
@@ -496,9 +531,9 @@
               font-size: 2rem;
             }
             @media screen and (max-width: 800px) {
-              width: 8.25rem;
+              width: 7.5rem;
               height: 2.5rem;
-              font-size: 1.75rem;
+              font-size: 1.5rem;
             }
             @media screen and (max-width: 570px) {
               width: 5.5rem;

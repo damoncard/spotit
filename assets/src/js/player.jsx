@@ -221,11 +221,11 @@ class InitContainer extends React.Component {
                                     </div>
                                     <div className='how-rule'>
                                         <p className='rule-header'>Be Careful!! </p>
-                                        <i className='fa fa-gamepad' aria-hidden='true'></i>
                                         <p className='rule-detail'>
                                             If you picked wrong <span>3</span> times<br />
                                             You will get <span>BANNED</span> for 10 seconds
                                         </p>
+                                        <i className='fa fa-gamepad' aria-hidden='true'></i>
                                     </div>
                                     <div className='how-special'>
                                         <p>
