@@ -4,6 +4,7 @@ var socket = io.connect('/player')
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 var reactComponent
+var player_name = ''
 
 import { images } from './pile.jsx'
 
@@ -20,7 +21,8 @@ $(document).ready(function () {
                     $('#UserID').attr('data-id', value)
                     reactComponent = ReactDOM.render(<InitContainer images={images} />, document.querySelector('.player-container'))
                 } else {
-                    reRenderComponent(<InitContainer images={images} />)
+                    reRenderComponent(<InitContainer images={images} name={player_name} />)
+                    reactComponent.openStatus()
                 }
                 break
             case 'status':
@@ -71,7 +73,7 @@ class InitContainer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            name: '',
+            name: props.name,
             status: false,
             open_state: false,
         }
@@ -90,6 +92,7 @@ class InitContainer extends React.Component {
                 var id = $('#UserID').data('id')
                 $('.name-input').attr('placeholder', name)
                 $('#UserName').attr('data-name', name)
+                player_name = name
                 react.setState({ name: name })
                 socket.emit('enter', { id: id, name: name })
             }

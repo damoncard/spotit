@@ -5,7 +5,6 @@ var server = require('http').Server(app)
 var io = require('socket.io')(server)
 var path = require('path')
 var status = 'offline'
-var player = 0
 
 // Set environment
 app.use('/static', express.static(__dirname + '/assets/prod'))
@@ -26,18 +25,13 @@ app.get('/tunnel', function (req, res) {
 const user = io.of('/player').on('connection', function (socket) {
 	socket.on('ready', function () {
 		socket.emit('id', socket.client.id)
-		player++
 	})
 
 	socket.on('enter', function (obj) {
-		if (player <= 8) {
-			if (status == 'online') {
-				admin.emit('joining', obj)
-			}
-			socket.emit('status', { response: status })
-		} else {
-			socket.emit('status', { response: 'full' })
+		if (status == 'online') {
+			admin.emit('joining', obj)
 		}
+		socket.emit('status', { response: status })
 	})
 
 	socket.on('change-name', function () {
@@ -54,7 +48,6 @@ const user = io.of('/player').on('connection', function (socket) {
 
 	socket.on('disconnect', function () {
 		admin.emit('leaving', { id: socket.client.id })
-		player--
 	})
 })
 
@@ -67,10 +60,10 @@ const admin = io.of('/admin').on('connection', function (socket) {
 
 	socket.on('status', function (obj) {
 		if (obj == 'end') {
-			status = 'online'
 			user.emit('id')
+			status = 'online'
 		} else {
-			status = 'running'
+			status = obj
 		}
 	})
 
