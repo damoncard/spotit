@@ -180,9 +180,9 @@ class InitContainer extends React.Component {
                                             <span>Objective: </span>To collect as many cards as possible
                                         </p>
                                     </div>
-                                    <div className='instruction-illustration'>
+                                    {/* <div className='instruction-illustration'>
                                         <img src='static/pic/megaphone.svg' className='megaphone' />
-                                    </div>
+                                    </div> */}
                                     <div className='instruction-rule'>
                                         <p>
                                             <span>Rule: </span>
@@ -219,20 +219,19 @@ class InitContainer extends React.Component {
                                         <img src='static/pic/trumpet.svg' style={{ 'position': 'absolute', 'top': '39%', 'left': '75%', 'width': '20%' }} />
                                         <img src='static/pic/lollipop.svg' style={{ 'position': 'absolute', 'top': '36%', 'left': '40%', 'width': '30%' }} />
                                     </div>
-                                    <div className='how-rule'>
-                                        <p className='rule-header'>Be Careful!! </p>
-                                        <p className='rule-detail'>
-                                            If you picked wrong <span>3</span> times<br />
-                                            You will get <span>BANNED</span> for 10 seconds
-                                        </p>
-                                        <i className='fa fa-gamepad' aria-hidden='true'></i>
-                                    </div>
                                     <div className='how-special'>
                                         <p>
                                             Special Case:
                                         <img src='static/pic/trophy.svg' />
                                             Trophy worth <span>5</span> points
                                     </p>
+                                    </div>
+                                    <div className='how-rule'>
+                                        <p className='rule-header'>Be Careful!! </p>
+                                        <p className='rule-detail'>
+                                            If you picked wrong <span>3</span> times<br />
+                                            You will get <span>BANNED</span> for 10 seconds
+                                        </p>
                                     </div>
                                 </div>
                             </div>
