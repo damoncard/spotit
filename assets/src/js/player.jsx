@@ -84,8 +84,8 @@ class InitContainer extends React.Component {
         $('.form-name').submit(function (e) {
             e.preventDefault()
             var name = $('.name-input').val().trim()
-            if (name.length == 0 || name.length > 10) {
-                alert('Name must contain at least 1 up to 10 characters')
+            if (name.length == 0 || name.length > 8) {
+                alert('Name must contain at least 1 up to 8 characters')
             } else {
                 var id = $('#UserID').data('id')
                 $('.name-input').attr('placeholder', name)
