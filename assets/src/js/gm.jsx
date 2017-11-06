@@ -171,6 +171,18 @@ class InitContainer extends React.Component {
                             <p className='game-label'>Spot it</p>
                         </div>
                     )}
+                <ul className='bubbles'>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
                 <div className='footer'>
                     <p className='credit'>CS15@SIT-KMUTT</p>
                 </div>
@@ -285,7 +297,7 @@ class RankContainer extends React.Component {
 
             for (var id in list) {
                 if (list.hasOwnProperty(id)) {
-                    list[id].score =  0
+                    list[id].score = 0
                     list[id].status = false
                     list[id].trophy = false
                 }

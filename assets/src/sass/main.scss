@@ -25,6 +25,11 @@
     }
 }
 
+@keyframes bubble {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(calc(-100vh - 200px)); }
+  }
+
 html, body {
     height: 100%;
     margin: 0;
