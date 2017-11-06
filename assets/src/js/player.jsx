@@ -13,7 +13,6 @@ $(document).ready(function () {
     socket.on('*', function (obj) {
         var event = obj.data[0]
         var value = obj.data[1]
-        console.log(event, value)
         switch (event) {
             // ################# Initialize Phase ############### //
             case 'id':
@@ -345,7 +344,7 @@ class StageContainer extends React.Component {
                                     transform: 'scaleX(' + rotate + ') rotate(' + degree + 'deg)'
                                 }
                                 return (
-                                    <img src={'static/pic/' + card.name + '.svg'} style={style} value={card.name} onClick={() => this.sendResult(card.name)} />
+                                    <img src={'static/pic/' + card.name + '.svg'} style={style} name={card.name} onClick={() => this.sendResult(card.name)} />
                                 )
                             })}
                         </div>
