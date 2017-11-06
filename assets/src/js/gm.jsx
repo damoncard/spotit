@@ -9,7 +9,7 @@ import { pile, patterns, initGame } from './pile.jsx'
 var reactComponent
 var timer
 var list = {}
-var remain = 2 // default: 55 - player
+var remain
 var all_ready = false
 
 $(document).ready(function () {
@@ -21,6 +21,9 @@ $(document).ready(function () {
             // ################# Initialize Phase ############### //
             case 'joining':
                 if (value['id'] != null) {
+                    if (Object.keys(list).length == 7) {
+                        socket.emit('status', 'full')
+                    }
                     list[value['id']] = {
                         name: value['name'],
                         score: 0,
@@ -59,6 +62,8 @@ $(document).ready(function () {
                             }
                         }, 1000)
                     }
+
+                    socket.emit('status', 'online')
                 }
                 break
             case 'inactive':
@@ -69,7 +74,7 @@ $(document).ready(function () {
                 var status = value['status'] == 'ready' ? true : false
                 list[id].status = status
                 $('#' + id).css('color', status ? 'green' : 'red')
-                checkStatus()                
+                checkStatus()
                 break
             // ################ Playing Phase ################ //
             case 'submit':
@@ -130,7 +135,7 @@ class InitContainer extends React.Component {
                     <div className='lobby-room'>
                         <div className='lobby-board'>
                             <div className='lobby-header'>
-                               <p>Lobby</p>
+                                <p>Lobby</p>
                                 <p className='list-header'>Player List</p>
                             </div>
                             <div className='list-box'>
@@ -196,7 +201,9 @@ class StageContainer extends React.Component {
         if (pos == 0) {
             pixel += 14 // -70 for first player pos +56 for later player
         }
-        $('.trophy-token').css('transform', 'translateY(' + pixel + 'px)')
+        if (pixel != 0) {
+            $('.trophy-token').css('transform', 'translateY(' + pixel + 'px)')
+        }
         $('#trophy-pos').data('pos', player)
     }
 
@@ -275,9 +282,18 @@ class RankContainer extends React.Component {
     componentDidMount() {
         setTimeout(function () {
             socket.emit('status', 'end')
-            list = {}
-            remain = 20
+
+            for (var id in list) {
+                if (list.hasOwnProperty(id)) {
+                    list[id].score =  0
+                    list[id].status = false
+                    list[id].trophy = false
+                }
+            }
+
             reRenderComponent(<InitContainer />)
+            reactComponent.setState({ active: true })
+            reactComponent.setState({ list: list })
         }, 10000)
     }
 
@@ -289,14 +305,14 @@ class RankContainer extends React.Component {
                 <div className='player-list'>
                     {this.state.list.map((player, index) => {
                         return (
-                            
+
                             <div className='rank-profile'>
                                 {list[player].trophy && <img src='static/pic/trophy.svg' className='trophy-token' />}
                                 <span className='rank-label'>{index + 1}</span>
                                 <span className='player-name'>{list[player].name}</span>
                                 <span className='player-score'>{list[player].score}</span>
                             </div>
-                            
+
                         )
                     })}
                 </div>
@@ -335,7 +351,7 @@ function startCountdown() {
 
                 reRenderComponent(<StageContainer list={list} remain={remain} />)
                 nextPic()
-                socket.emit('status', 'start')
+                socket.emit('status', 'running')
                 clearInterval(timer)
             }
         }
