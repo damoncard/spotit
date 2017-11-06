@@ -5,6 +5,7 @@ var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 var reactComponent
 var player_name = ''
+//var animation
 
 import { images } from './pile.jsx'
 
@@ -333,18 +334,14 @@ class StageContainer extends React.Component {
                 ) : (
                         <div className='cards-panel'>
                             {this.state.cards.map((card) => {
-<<<<<<< HEAD
-                                 var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back' 
-                                 
-=======
                                 {/* var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back' */ }
                                 {/* animation: animation + ((Math.random() * 10) + 1) + 's linear infinite' */ }
->>>>>>> 5935647d3faf3e66b3e6817901f6dcfcd17e64eb
+                                
                                 var rotate = Math.random() * 10 > 5 ? '1' : '-1'
                                 var degree = Math.random() * 360
                                 var style = {
-                                    animation: animation + ((Math.random() * 10) + 1) + 's linear infinite' ,
-                                    position: 'absolute',
+                                    animation: ((Math.random() * 10) + 1) + 's linear infinite' ,
+                                    position: 'absolut',
                                     top: card.top + '%',
                                     left: card.left + '%',
                                     width: card.width + '%',
