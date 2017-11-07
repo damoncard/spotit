@@ -46,10 +46,13 @@ $(document).ready(function () {
                 if (userID == value['id']) {
                     switch (value['result']) {
                         case 'true':
+                            reactComponent.reactToAnswer(true)
                             reactComponent.props.score++
+                            reactComponent.props.count = 0
                             reactComponent.setState({ cards: value['card'] })
                             break
                         case 'false':
+                            reactComponent.reactToAnswer(false)
                             reactComponent.faultImage()
                             break
                         case 'end':
@@ -233,7 +236,7 @@ class InitContainer extends React.Component {
                                     <div className='how-rule'>
                                         <p className='rule-header'>Be Careful!! </p>
                                         <p className='rule-detail'>
-                                            If you picked wrong <span>3</span> times<br />
+                                            If you picked wrong <span>3</span> times on the card<br />
                                             You will get <span>BANNED</span> for 10 seconds
                                         </p>
                                     </div>
@@ -294,6 +297,20 @@ class StageContainer extends React.Component {
 
     sendResult(value) {
         socket.emit('submit', { id: $('#UserID').attr('data-id'), value: value })
+    }
+
+    reactToAnswer(result) {
+        if (result) {
+            $('.score-no').addClass('pass')
+            setTimeout(function() {
+                $('.score-no').removeClass('pass')
+            }, 200)
+        } else {
+            $('.score-no').addClass('fail')
+            setTimeout(function() {
+                $('.score-no').removeClass('fail')
+            }, 200)
+        }
     }
 
     faultImage() {
