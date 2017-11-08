@@ -340,15 +340,15 @@ class StageContainer extends React.Component {
                                 var rotate = Math.random() * 10 > 5 ? '1' : '-1'
                                 var degree = Math.random() * 360
                                 var style = {
-                                    animation: ((Math.random() * 10) + 1) + 's linear infinite' ,
-                                    position: 'absolut',
+                                    
+                                    position: 'absolute',
                                     top: card.top + '%',
                                     left: card.left + '%',
                                     width: card.width + '%',
-                                    // transform: 'scaleX(' + rotate + ') rotate(' + degree + 'deg)'
+                                    //transform: 'scaleX(' + rotate + ') rotate(' + degree + 'deg)'
                                 }
                                 return (
-                                    <img src={'static/pic/' + card.name + '.svg'} style={style} value={card.name} onClick={() => this.sendResult(card.name)} />
+                                    <img className="react" src={'static/pic/' + card.name + '.svg'} style={style} value={card.name} onClick={() => this.sendResult(card.name)} />
                                 )
                             })}
                         </div>
