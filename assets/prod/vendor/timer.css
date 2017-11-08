@@ -6,7 +6,7 @@
   width: 360px;
   height: 360px;
   filter: url("#filter"); 
-  z-index: 2;
+  z-index: 4;
 }
 
 .c,

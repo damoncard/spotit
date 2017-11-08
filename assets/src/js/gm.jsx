@@ -165,6 +165,26 @@ class InitContainer extends React.Component {
         }
     }
 
+    componentDidMount() {
+        var bubble = 0
+        var second = 0
+        $('.bubbles').append('<li></li>')
+        $('.bubbles').append('<li></li>')
+        $('.bubbles').append('<li></li>')
+        var launcher = setInterval(function() {
+            second++
+            if (second == 12) {
+                clearInterval(launcher)
+            }
+            if (second == 1 || second == 2 || second == 3 || second == 6 || second == 11) {
+                $('.bubbles').append('<li></li>')
+                if (second == 3 || second == 11) {
+                    $('.bubbles').append('<li></li>')
+                }
+            }
+         }, 1000)
+    }
+
     render() {
         return (
             <div className='init-container'>
@@ -236,6 +256,8 @@ class InitContainer extends React.Component {
                             <p className='game-label'>Spot it</p>
                         </div>
                     )}
+                <ul className='bubbles'>
+                </ul>
                 <div className='footer'>
                     <p className='credit'>CS15@SIT-KMUTT</p>
                 </div>
@@ -350,7 +372,7 @@ class RankContainer extends React.Component {
 
             for (var id in list) {
                 if (list.hasOwnProperty(id)) {
-                    list[id].score =  0
+                    list[id].score = 0
                     list[id].status = false
                     list[id].trophy = false
                 }
