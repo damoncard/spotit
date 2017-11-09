@@ -1,74 +1,89 @@
-// Import //
-var express = require('express')
-var app = express()
-var server = require('http').Server(app)
-var io = require('socket.io')(server)
-var path = require('path')
-var status = 'offline'
+var cluster = require('cluster');
+const numCPUs = require('os').cpus().length;
 
-// Set environment
-app.use('/static', express.static(__dirname + '/assets/prod'))
-app.disable('etag')
-server.listen(3333)
-console.log('Server starting on port: ' + 3333)
+if (cluster.isMaster) {
+	console.log(`Master ${process.pid} is running`);
+	for (var i = 0; i < numCPUs; i += 1) {
+		console.log(`Forking process number ${i}...`);
+		cluster.fork();
+	}
+	cluster.on('exit', function (worker) {
+		console.log('Worker %d died', worker.id);
+		cluster.fork();
+	});
+} else {
+	// Import //
+	var express = require('express')
+	var app = express()
+	var server = require('http').Server(app)
+	var io = require('socket.io')(server)
+	var path = require('path')
+	var status = 'offline'
 
-// Set route
-app.get('/play', function (req, res) {
-	res.sendFile(__dirname + '/views/player.html')
-})
+	// Set environment
+	app.use('/static', express.static(__dirname + '/assets/prod'))
+	app.disable('etag')
+	server.listen(3333)
+	console.log(`Worker ${process.pid} started and finished`);
 
-app.get('/tunnel', function (req, res) {
-	res.sendFile(__dirname + '/views/gm.html')
-})
-
-// Socket.io
-const user = io.of('/player').on('connection', function (socket) {
-	socket.on('ready', function () {
-		socket.emit('id', socket.client.id)
+	// Set route
+	app.get('/play', function (req, res) {
+		res.sendFile(__dirname + '/views/player.html')
 	})
 
-	socket.on('enter', function (obj) {
-		if (status == 'online') {
-			admin.emit('joining', obj)
-		}
-		socket.emit('status', { response: status })
+	app.get('/tunnel', function (req, res) {
+		res.sendFile(__dirname + '/views/gm.html')
 	})
 
-	socket.on('change-name', function () {
-		admin.emit('leaving', { id: socket.client.id })
+	// Socket.io
+	const user = io.of('/player').on('connection', function (socket) {
+		socket.on('ready', function () {
+			socket.emit('id', socket.client.id)
+		})
+
+		socket.on('enter', function (obj) {
+			if (status == 'online') {
+				admin.emit('joining', obj)
+			}
+			socket.emit('status', { response: status })
+		})
+
+		socket.on('change-name', function () {
+			admin.emit('leaving', { id: socket.client.id })
+		})
+
+		socket.on('status', function (obj) {
+			admin.emit('status', obj)
+		})
+
+		socket.on('submit', function (obj) {
+			admin.emit('submit', obj)
+		})
+
+		socket.on('disconnect', function () {
+			admin.emit('leaving', { id: socket.client.id })
+		})
 	})
 
-	socket.on('status', function (obj) {
-		admin.emit('status', obj)
-	})
+	const admin = io.of('/admin').on('connection', function (socket) {
+		status = 'online'
 
-	socket.on('submit', function (obj) {
-		admin.emit('submit', obj)
-	})
+		socket.on('result', function (obj) {
+			user.emit('result', obj)
+		})
 
-	socket.on('disconnect', function () {
-		admin.emit('leaving', { id: socket.client.id })
-	})
-})
+		socket.on('status', function (obj) {
+			if (obj == 'end') {
+				user.emit('id')
+				status = 'online'
+			} else {
+				status = obj
+			}
+		})
 
-const admin = io.of('/admin').on('connection', function (socket) {
-	status = 'online'
-
-	socket.on('result', function (obj) {
-		user.emit('result', obj)
-	})
-
-	socket.on('status', function (obj) {
-		if (obj == 'end') {
+		socket.on('disconnect', function () {
+			status = 'offline'
 			user.emit('id')
-			status = 'online'
-		} else {
-			status = obj
-		}
+		})
 	})
-
-	socket.on('disconnect', function () {
-		status = 'offline'
-		user.emit('id')
-	})
-})
+}
