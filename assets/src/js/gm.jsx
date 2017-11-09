@@ -11,6 +11,8 @@ var timer
 var list = {}
 var remain
 var all_ready = false
+var iconid
+
 
 $(document).ready(function () {
 
@@ -74,6 +76,41 @@ $(document).ready(function () {
                 var status = value['status'] == 'ready' ? true : false
                 list[id].status = status
                 $('#' + id).css('color', status ? 'green' : 'red')
+                
+
+                // if(status){
+                //     alert("first");
+                //     $('#'+id).addClass('whatthefuck');
+                //     // $('#' + id).removeClass('fa-times')
+                    
+
+                // }
+
+                // if (status) {
+                //     .removeClass('fa-times')
+                //    .addClass('fa-check')
+                // } else { 
+                //     .addClass('fa-times')
+                //     .removeClass('fa-check')
+                // }
+
+
+
+                // $('img')
+                // $('.fa-times')
+                // $('#')
+                // $('img[name=test]')
+
+
+
+
+
+
+
+
+
+
+
                 checkStatus()
                 break
             // ################ Playing Phase ################ //
@@ -159,11 +196,39 @@ class InitContainer extends React.Component {
                                 <p className='list-header'>Player List</p>
                             </div>
                             <div className='list-box'>
-                                {Object.keys(this.state.list).map((player) => {
-                                    return (
-                                        <p id={player} className='player-name' style={{ 'color': 'red' }}>{this.state.list[player].name}</p>
-                                    )
-                                })}
+                                <table>
+                                        <thead>
+                                        <tr>
+                                          <th scope="col">Player Name</th>
+                                          <th scope="col">Status</th>
+                                          
+                                        </tr>
+                                      </thead>
+                                      
+                                      <tbody>
+                                        {Object.keys(this.state.list).map((player) => {
+                                            return (
+                                                    <tr>
+                                                      <td scope="row"> 
+                                                            <p id={player} className='player-name' style={{ 'color': 'red' }}>{this.state.list[player].name}</p>
+                                                      </td>
+                                                      <td>
+                                                        {/*  <i class="fa fa-times" aria-hidden="true"></i> */}
+                                                        {/*   <img id={player} className="setimg" src="static/pic/check-mark.svg"></img> */}
+                                                         <i id='2' className='fa fa-times' style={{ 'color': 'red' , 'font-size':'2rem' }}></i>
+                                                        {/* <i id={player} className='fa fa-check' style={{ 'color': 'green' , 'font-size':'2rem' }}></i> */}
+                                                      </td>
+                                                      
+                                                    </tr>
+                                                    )
+                                        })}
+                                        
+                                      </tbody>
+                                </table>
+
+
+
+                                
                             </div>
                         </div>
                         <div className='countdown-container' style={{ 'display': 'none' }}>
@@ -352,7 +417,8 @@ function startCountdown() {
             $('#countdown-timer').addClass('second-' + second)
             if (second-- < 0) {
                 $('.countdown-modal').hide()
-                remain = Math.ceil(Object.keys(list).length * 6.8)
+                remain = 2
+                //Math.ceil(Object.keys(list).length * 6.8)
                 initGame()
 
                 for (var id in list) {
