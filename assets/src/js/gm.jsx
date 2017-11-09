@@ -155,6 +155,9 @@ $(document).ready(function () {
     reactComponent = ReactDOM.render(<InitContainer />, document.querySelector('.admin-container'))
 })
 
+
+
+
 class InitContainer extends React.Component {
 
     constructor(props) {
@@ -367,6 +370,12 @@ class RankContainer extends React.Component {
     }
 
     componentDidMount() {
+        $('.skillbar').each(function(){
+            $(this).find('.skillbar-bar').animate({
+                    width: $(this).attr('data-percent')
+                },6000);
+            })
+
         setTimeout(function () {
             socket.emit('status', 'end')
 
@@ -381,7 +390,7 @@ class RankContainer extends React.Component {
             reRenderComponent(<InitContainer />)
             reactComponent.setState({ active: true })
             reactComponent.setState({ list: list })
-        }, 10000)
+        }, 9999999)
     }
 
     render() {
@@ -389,16 +398,22 @@ class RankContainer extends React.Component {
 
             <div className='rank-container'>
                 <p className='rank-header'>Leaderboard</p>
-                <div className='player-list'>
+                <div className='player-list centerbox'>
                     {this.state.list.map((player, index) => {
+                        var cards = Math.ceil(Object.keys(list).length * 6.8) - Object.keys(list).length
+                        var percent = list[player].score / cards * 100
                         return (
 
-                            <div className='rank-profile'>
-                                {list[player].trophy && <img src='static/pic/trophy.svg' className='trophy-token' />}
-                                <span className='rank-label'>{index + 1}</span>
-                                <span className='player-name'>{list[player].name}</span>
-                                <span className='player-score'>{list[player].score}</span>
-                            </div>
+                                // {list[player].trophy && <img src='static/pic/trophy.svg' className='trophy-token' />}
+           
+                                <div className='rank-profile'>
+                                    <div className="skillbar clearfix " data-percent={percent + '%'}>
+                                      <div className="skillbar-title" ><span>{list[player].name}</span></div>
+                                      <div className="skillbar-bar"  ></div>
+                                      <div className="skill-bar-percent">{list[player].score}%</div>
+                                    </div>
+                                </div>
+                            // </div>
 
                         )
                     })}
@@ -417,8 +432,10 @@ function startCountdown() {
             $('#countdown-timer').addClass('second-' + second)
             if (second-- < 0) {
                 $('.countdown-modal').hide()
-                remain = 2
-                //Math.ceil(Object.keys(list).length * 6.8)
+
+                // set card remain
+
+                remain = Math.ceil(Object.keys(list).length * 6.8)
                 initGame()
 
                 for (var id in list) {
@@ -495,6 +512,24 @@ function checkStatus() {
         $('.countdown-modal').hide()
     }
 }
+
+
+// $(function() {
+//   $('.chart').easyPieChart({
+//     scaleColor: "#ecf0f1",
+//     lineWidth: 20,
+//     lineCap: 'butt',
+//     barColor: '#000',
+//     trackColor: "#ecf0f1",
+//     size: 190,
+//     animate: 2500
+//   });
+// });
+
+
+
+
+
 
 function reRenderComponent(component) {
     ReactDOM.unmountComponentAtNode(document.querySelector('.admin-container'))
