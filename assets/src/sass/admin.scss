@@ -14,7 +14,7 @@
 			.game-label {
 				font-family: 'signPain';
 				font-size: 15rem;
-				color: white;
+				color: #fff;
 				text-shadow: 1px 1px 40px rgba(255, 255, 255, 0.6);
 			}
 		}
@@ -22,40 +22,79 @@
 			height: 100%;
 			.lobby-board {
 				position: relative;
-				top: 5%;
+				top: 10%;
 				z-index: 2;
 				.lobby-header {
 					text-align: center;
-					font-size: 6rem;
-					color: #fff;
-					text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.8);
+					.lobby-text {
+						font-size: 7rem;
+						color: #fff;
+						text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.8);
+					}
 					.list-header {
 						font-size: 2rem;
-						
-						text-shadow: none;
+						color: #fff;
+						right: 11rem;
+						margin-top: 2rem;
+						position: relative;
 					}
 				}
 				.list-box {
 					position: absolute;
-					// width: 500px;
-					// height: 500px;
-					// border: 0.3rem dotted rgba(0, 0, 0, 0.8);
 					left: 50%;
 					transform: translateX(-50%);
-					.player-name {
-						position: relative;
-						font-family: 'Typo-Round';
-						font-size: 2rem;
-						font-weight: 600;
-						padding: 0.5rem 0rem 0.5rem 0rem;
+					table {
+						max-width: 960px;
+						margin: 0.5em auto;
+						width:500px;
+						th {
+							padding: 0.5rem;
+							background-color: #1b85ce;
+							span {
+								font-family: 'JuneGull';
+								font-size: 1.5rem;
+								font-weight: 400;
+								color: #fff;
+							}
+						}
+						td {
+							text-align: center;
+							&.player-pane {
+								.player-name {
+									position: relative;
+									font-family: 'Typo-Round';
+									font-size: 2rem;
+									font-weight: 600;
+									padding: 0.5rem 0rem 0.5rem 0rem;
+								}
+								&.ready {
+									background-color: #fff;
+									.player-name {
+										color: green;
+									}
+								}
+								&.non-ready {
+									background-color: #000;
+									.player-name {
+										color: red
+									}
+								}
+							}
+							&.status-pane {
+								&.ready {
+									background-color: green;
+								}
+								&.non-ready {
+									background-color: red;
+								}
+								i {
+									font-size: 2.5rem;
+									color: #fff;
+								}
+							}
+						}
 					}
 				}
-				// .table {
-				// 	i {
-				// 		font-size: 2rem;
-				// 		color: red;
-				// 	}
-				// }
 			}
 		}
 		.bubbles {
@@ -239,7 +278,7 @@
 			font-size: 6rem;
 			text-align: center;
 			font-family: 'signPain';
-			color: white;
+			color: #fff;
 			text-shadow: 1px 1px 40px rgba(255, 255, 255, 0.6);
 		}
 		.player-list {
@@ -294,67 +333,4 @@
 		margin-top: -200px;
 		margin-left: -200px;
 	}
-}
-
-//lobby table
-
-
-
-table {
-  max-width: 960px;
-  margin: 1rem auto;
-  width:500px;
-}
-
-caption {
-  font-size: 1.6em;
-  font-weight: 400;
-  padding: 10px 0;
-}
-
-thead th {
-  font-weight: 400;
-  background: #1b85ce;
-  color: #FFF;
-  font-size:1.5rem;
-}
-
-tr {
-  background: #f4f7f8;
-  border-bottom: 1px solid #FFF;
-  margin-bottom: 5px;
-}
-
-tr:nth-child(even) {
-  background: #e8eeef;
-}
-
-th{
-  text-align: center;
-  padding: 0.6rem;
-  font-weight: 300;
-}
-
-td {
-  text-align: center;
-  background:#2b2727;
-  font-weight: 300;
-}
-
-
-tfoot tr {
-  background: none;
-}
-
-tfoot td {
-  padding: 10px 2px;
-  font-size: 0.8em;
-  font-style: italic;
-  color: #8a97a0;
-}
-
-.setimg{
-	width:1.8rem;
-	
-
 }

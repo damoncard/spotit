@@ -1,16 +1,16 @@
 @font-face {
     font-family: 'JuneGull';
-    src: url("/static/font/junegull.ttf");
+    src: url('/static/font/junegull.ttf');
 }
 
 @font-face {
     font-family: 'Typo-Round';
-    src: url("/static/font/typo_round/Typo_Round_Regular_Demo.otf");
+    src: url('/static/font/typo_round/Typo_Round_Regular_Demo.otf');
 }
 
 @font-face {
     font-family: 'signPain';
-    src: url("/static/font/SignPain.ttf");
+    src: url('/static/font/SignPain.ttf');
 }
 
 @keyframes half-rotate {
@@ -47,5 +47,5 @@ p {
     margin: 0;
 }
 
-@import "player";
-@import "admin";
+@import 'player';
+@import 'admin';
