@@ -68,6 +68,18 @@ $(document).ready(function () {
         }
     })
 
+    $(window).on('orientationchange', function (event) {
+        if (window.innerHeight > window.innerWidth) {
+            $('.block-container').show()
+        } else {
+            $('.block-container').hide()
+        }
+    })
+
+    if (window.innerHeight > window.innerWidth) {
+        $('.block-container').show()
+    }
+
     socket.emit('ready')
 })
 
@@ -303,12 +315,12 @@ class StageContainer extends React.Component {
     reactToAnswer(result) {
         if (result) {
             $('.score-no').addClass('pass')
-            setTimeout(function() {
+            setTimeout(function () {
                 $('.score-no').removeClass('pass')
             }, 200)
         } else {
             $('.score-no').addClass('fail')
-            setTimeout(function() {
+            setTimeout(function () {
                 $('.score-no').removeClass('fail')
             }, 200)
         }
@@ -361,7 +373,7 @@ class StageContainer extends React.Component {
                                     top: card.top + '%',
                                     left: card.left + '%',
                                     width: card.width + '%',
-                                    //transform: 'scaleX(' + rotate + ') rotate(' + degree + 'deg)'
+                                    transform: 'scaleX(' + rotate + ') rotate(' + degree + 'deg)'
                                 }
                                 return (
 

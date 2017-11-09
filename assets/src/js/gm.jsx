@@ -75,42 +75,18 @@ $(document).ready(function () {
                 var id = value['id']
                 var status = value['status'] == 'ready' ? true : false
                 list[id].status = status
-                $('#' + id).css('color', status ? 'green' : 'red')
-                
-
-                // if(status){
-                //     alert("first");
-                //     $('#'+id).addClass('whatthefuck');
-                //     // $('#' + id).removeClass('fa-times')
-                    
-
-                // }
-
-                // if (status) {
-                //     .removeClass('fa-times')
-                //    .addClass('fa-check')
-                // } else { 
-                //     .addClass('fa-times')
-                //     .removeClass('fa-check')
-                // }
-
-
-
-                // $('img')
-                // $('.fa-times')
-                // $('#')
-                // $('img[name=test]')
-
-
-
-
-
-
-
-
-
-
-
+                var row = $('#' + id)
+                if (status) {
+                    row.find('td').each(function() {
+                        $(this).addClass('ready').removeClass('non-ready')
+                    })
+                    row.find('.fa').addClass('fa-check').removeClass('fa-times')
+                } else {
+                    row.find('td').each(function() {
+                        $(this).addClass('non-ready').removeClass('ready')
+                    })
+                    row.find('.fa').addClass('fa-times').removeClass('fa-check')
+                }
                 checkStatus()
                 break
             // ################ Playing Phase ################ //
@@ -174,7 +150,7 @@ class InitContainer extends React.Component {
         $('.bubbles').append('<li></li>')
         $('.bubbles').append('<li></li>')
         $('.bubbles').append('<li></li>')
-        var launcher = setInterval(function() {
+        var launcher = setInterval(function () {
             second++
             if (second == 12) {
                 clearInterval(launcher)
@@ -185,7 +161,7 @@ class InitContainer extends React.Component {
                     $('.bubbles').append('<li></li>')
                 }
             }
-         }, 1000)
+        }, 1000)
     }
 
     render() {
@@ -195,43 +171,30 @@ class InitContainer extends React.Component {
                     <div className='lobby-room'>
                         <div className='lobby-board'>
                             <div className='lobby-header'>
-                                <p>Lobby</p>
+                                <p className='lobby-text'>Lobby</p>
                                 <p className='list-header'>Player List</p>
                             </div>
                             <div className='list-box'>
                                 <table>
-                                        <thead>
-                                        <tr>
-                                          <th scope="col">Player Name</th>
-                                          <th scope="col">Status</th>
-                                          
-                                        </tr>
-                                      </thead>
-                                      
-                                      <tbody>
+                                    <thead>
+                                        <th><span>Player Name</span></th>
+                                        <th><span>Status</span></th>
+                                    </thead>
+                                    <tbody>
                                         {Object.keys(this.state.list).map((player) => {
                                             return (
-                                                    <tr>
-                                                      <td scope="row"> 
-                                                            <p id={player} className='player-name' style={{ 'color': 'red' }}>{this.state.list[player].name}</p>
-                                                      </td>
-                                                      <td>
-                                                        {/*  <i class="fa fa-times" aria-hidden="true"></i> */}
-                                                        {/*   <img id={player} className="setimg" src="static/pic/check-mark.svg"></img> */}
-                                                         <i id='2' className='fa fa-times' style={{ 'color': 'red' , 'font-size':'2rem' }}></i>
-                                                        {/* <i id={player} className='fa fa-check' style={{ 'color': 'green' , 'font-size':'2rem' }}></i> */}
-                                                      </td>
-                                                      
-                                                    </tr>
-                                                    )
+                                                <tr id={player}>
+                                                    <td className='player-pane non-ready'>
+                                                        <p className='player-name'>{this.state.list[player].name}</p>
+                                                    </td>
+                                                    <td className='status-pane non-ready'>
+                                                        <i className='fa fa-times'></i>
+                                                    </td>
+                                                </tr>
+                                            )
                                         })}
-                                        
-                                      </tbody>
+                                    </tbody>
                                 </table>
-
-
-
-                                
                             </div>
                         </div>
                         <div className='countdown-container' style={{ 'display': 'none' }}>
@@ -255,12 +218,10 @@ class InitContainer extends React.Component {
                     </div>
                 ) : (
                         <div className='center'>
-
                             <p className='game-label'>Spot it</p>
                         </div>
                     )}
-                <ul className='bubbles'>
-                </ul>
+                <ul className='bubbles'></ul>
                 <div className='footer'>
                     <p className='credit'>CS15@SIT-KMUTT</p>
                 </div>
@@ -354,7 +315,7 @@ class StageContainer extends React.Component {
                         )
                     })}
                 </div>
-                <input type='hidden' id='trophy-pos' data-pos='0' />>
+                <input type='hidden' id='trophy-pos' data-pos='0' />
             </div>
         )
     }
