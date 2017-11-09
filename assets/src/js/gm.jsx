@@ -286,7 +286,7 @@ class StageContainer extends React.Component {
                         )
                     })}
                 </div>
-                <input type='hidden' id='trophy-pos' data-pos='0' />>
+                <input type='hidden' id='trophy-pos' data-pos='0' />
             </div>
         )
     }
