@@ -98,6 +98,20 @@ class InitContainer extends React.Component {
 
     componentDidMount() {
         var react = this
+
+        $('.name-input').keypress(function(event){
+            var ew = event.which;
+            if(ew == 13 || ew == 32 || 
+               48 <= ew && ew <= 57 ||
+               65 <= ew && ew <= 90 ||
+               97 <= ew && ew <= 122) {
+                return true;
+            } else {
+                alert('Only english character and numbers are allow')
+                return false;
+            }
+        });
+
         $('.form-name').submit(function (e) {
             e.preventDefault()
             var name = $('.name-input').val().trim()
