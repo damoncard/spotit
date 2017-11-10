@@ -372,9 +372,7 @@ class RankContainer extends React.Component {
                         var percent = list[player].score / cards * 100
                         console.log(percent)
                         return (
-
                                 // {list[player].trophy && <img src='static/pic/trophy.svg' className='trophy-token' />}
-           
                                 <div className='rank-profile'>
                                     
                                     
@@ -384,8 +382,6 @@ class RankContainer extends React.Component {
                                       <div className="skill-bar-percent">{list[player].score}</div>
                                     </div>
                                 </div>
-                            // </div>
-
                         )
                     })}
                 </div>
@@ -404,12 +400,12 @@ function startCountdown() {
             if (second-- < 0) {
                 $('.countdown-modal').hide()
 
+
                 // set card remain
 
                 remain =  Math.ceil(Object.keys(list).length * 6.8)
                 console.log(remain);
                 initGame()
-
                 for (var id in list) {
                     var selected = Math.floor(Math.random() * 7)
                     var card = pile[remain--]
@@ -425,7 +421,6 @@ function startCountdown() {
                     }
                     socket.emit('result', { id: id, card: set, result: 'none' })
                 }
-
                 reRenderComponent(<StageContainer list={list} remain={remain} />)
                 nextPic()
                 socket.emit('status', 'running')
@@ -475,33 +470,18 @@ function checkStatus() {
     }
 
     if (all_ready) {
-        $('.countdown-container').show()
-        $('.countdown-modal').show()
-        startCountdown()
+        timer = setTimeout(function() {
+            $('.countdown-container').show()
+            $('.countdown-modal').show()
+            startCountdown()
+        }, 1000)
     } else {
+        clearTimeout(timer)
         $('.countdown-container').hide()
         $('#countdown-timer').removeClass()
         $('.countdown-modal').hide()
     }
 }
-
-
-// $(function() {
-//   $('.chart').easyPieChart({
-//     scaleColor: "#ecf0f1",
-//     lineWidth: 20,
-//     lineCap: 'butt',
-//     barColor: '#000',
-//     trackColor: "#ecf0f1",
-//     size: 190,
-//     animate: 2500
-//   });
-// });
-
-
-
-
-
 
 function reRenderComponent(component) {
     ReactDOM.unmountComponentAtNode(document.querySelector('.admin-container'))
