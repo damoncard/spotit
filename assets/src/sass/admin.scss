@@ -432,7 +432,7 @@
 						-moz-border-radius-bottomleft:3px;
 						border-top-left-radius:3px;
 						border-bottom-left-radius:3px;
-					}
+				}
 
 				.skillbar-title span {
 					display:block;
@@ -452,25 +452,52 @@
 					z-index: 3;
 				}
 
-				&:nth-child(1) {
+					&:nth-child(1) {
 						.skillbar-title span {
 							background:#3cc595 ;
 						}
+						.rank-profile{
+							
+							.skillbar-bar{
+								background:#74efc3;
+							}
+						}
+						
 						
 					}
 					&:nth-child(2) {
 						.skillbar-title span {
 							background:#d4d243 ;
 						}
+						.rank-profile{
+							
+							.skillbar-bar{
+								background:#fffe78;
+							}
+						}
+						
 					}
 					&:nth-child(3) {
 						.skillbar-title span {
 							background:#d03522 ;
 						}
+						.rank-profile{
+							
+							.skillbar-bar{
+								background:#f79f94;
+							}
+						}
+						
 					}
 					&:nth-child(4) {
 						.skillbar-title span {
 							background:#6922d0 ;
+						}
+						.rank-profile{
+							
+							.skillbar-bar{
+								background:#a173e4;
+							}
 						}
 						
 					}
@@ -478,11 +505,23 @@
 						.skillbar-title span {
 							background:#1124ce ;
 						}
+						.rank-profile{
+							
+							.skillbar-bar{
+								background:#3e7bde;
+							}
+						}
 						
 					}
 					&:nth-child(6) {
 						.skillbar-title span {
 							background:#f79a31 ;
+						}
+						.rank-profile{
+							
+							.skillbar-bar{
+								background:#fdb767;
+							}
 						}
 						
 					}
@@ -490,11 +529,23 @@
 						.skillbar-title span {
 							background:#444341 ;
 						}
+						.rank-profile{
+							
+							.skillbar-bar{
+								background:#868481;
+							}
+						}
 						
 					}
 					&:nth-child(8) {
 						.skillbar-title span {
 							background:#5f3f10 ;
+						}
+						.rank-profile{
+							
+							.skillbar-bar{
+								background:#8c5f1b;
+							}
 						}
 						
 					}
@@ -587,83 +638,10 @@
 					}
 
 
-					&:nth-child(1) {
-						.skillbar-title span {
-							background:#3cc595 ;
-						}
-						.skillbar-bar{
-							background:#74efc3;
+				}
 
-						}
-					}
-					&:nth-child(2) {
-						.skillbar-title span {
-							background:#d4d243 ;
-						}
-						.skillbar-bar{
-							background:#fffe78;
-
-						}
-					}
-					&:nth-child(3) {
-						.skillbar-title span {
-							background:#d03522 ;
-						}
-						.skillbar-bar{
-							background:#f79f94;
-
-						}
-					}
-					&:nth-child(4) {
-						.skillbar-title span {
-							background:#6922d0 ;
-						}
-						.skillbar-bar{
-							background:#a173e4;
-
-						}
-					}
-					&:nth-child(5) {
-						.skillbar-title span {
-							background:#1124ce ;
-						}
-						.skillbar-bar{
-							background:#3e7bde;
-
-						}
-					}
-					&:nth-child(6) {
-						.skillbar-title span {
-							background:#f79a31 ;
-						}
-						.skillbar-bar{
-							background:#fdb767;
-
-						}
-					}
-					&:nth-child(7) {
-						.skillbar-title span {
-							background:#444341 ;
-						}
-						.skillbar-bar{
-							background:#868481;
-
-						}
-					}
-					&:nth-child(8) {
-						.skillbar-title span {
-							background:#5f3f10 ;
-						}
-						.skillbar-bar{
-							background:#8c5f1b;
-
-						}
-					}
+			}	
 			
-			}
-
-
-			}
 		}
 	}
 }
