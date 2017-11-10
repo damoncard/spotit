@@ -376,10 +376,11 @@ class RankContainer extends React.Component {
                                 // {list[player].trophy && <img src='static/pic/trophy.svg' className='trophy-token' />}
            
                                 <div className='rank-profile'>
-                                    <div className="skillbar-title" ><span>{list[player].name}</span></div>
+                                    
+                                    
                                     <div className="skillbar clearfix " data-percent={percent + '%'}>
-                                      
-                                      <div className="skillbar-bar"  ></div>
+                                      <div className="skillbar-title" ><span>{list[player].name}</span></div>
+                                      <div className="skillbar-bar"></div>
                                       <div className="skill-bar-percent">{list[player].score}</div>
                                     </div>
                                 </div>
