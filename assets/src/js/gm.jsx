@@ -373,15 +373,17 @@ class RankContainer extends React.Component {
                         console.log(percent)
                         return (
                                 // {list[player].trophy && <img src='static/pic/trophy.svg' className='trophy-token' />}
-                                <div className='rank-profile'>
-                                    
-                                    
-                                    <div className="skillbar clearfix " data-percent={percent + '%'}>
-                                      <div className="skillbar-title" ><span>{list[player].name}</span></div>
-                                      <div className="skillbar-bar"></div>
-                                      <div className="skill-bar-percent">{list[player].score}</div>
+                               <div className="outerbox">
+                                    <div className="skillbar-title" ><span>{list[player].name}</span></div>
+                                    <div className="rank-profile">
+                                        <div className="skillbar clearfix " data-percent={percent + '%'}>
+                                          
+                                          <div className="skillbar-bar"></div>
+                                          <div className="skill-bar-percent">{list[player].score}</div>
+                                        </div>
                                     </div>
                                 </div>
+                                
                         )
                     })}
                 </div>
@@ -403,7 +405,9 @@ function startCountdown() {
 
                 // set card remain
 
-                remain =  Math.ceil(Object.keys(list).length * 6.8)
+                remain =  
+                 4
+                //Math.ceil(Object.keys(list).length * 6.8)
                 console.log(remain);
                 initGame()
                 for (var id in list) {
