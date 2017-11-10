@@ -361,15 +361,25 @@ class RankContainer extends React.Component {
                 <p className='rank-header'>Leaderboard</p>
                 <div className='player-list centerbox'>
                     {this.state.list.map((player, index) => {
-                        var cards = Math.ceil(Object.keys(list).length * 6.8) - Object.keys(list).length
+                        var num = Object.keys(list).length
+                        var cards = Math.ceil(num * 6.8) - num
+                        for (var i in list) {
+                            if (list[i].trophy) {
+                                cards += 5
+                                break
+                            }
+                        }
                         var percent = list[player].score / cards * 100
+                        console.log(percent)
                         return (
                                 // {list[player].trophy && <img src='static/pic/trophy.svg' className='trophy-token' />}
                                 <div className='rank-profile'>
+                                    
+                                    
                                     <div className="skillbar clearfix " data-percent={percent + '%'}>
                                       <div className="skillbar-title" ><span>{list[player].name}</span></div>
-                                      <div className="skillbar-bar"  ></div>
-                                      <div className="skill-bar-percent">{list[player].score}%</div>
+                                      <div className="skillbar-bar"></div>
+                                      <div className="skill-bar-percent">{list[player].score}</div>
                                     </div>
                                 </div>
                         )
