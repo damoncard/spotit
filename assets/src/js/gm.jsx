@@ -402,15 +402,11 @@ function startCountdown() {
             if (second-- < 0) {
                 $('.countdown-modal').hide()
 
+                remain = Math.floor(Object.keys(list).length * 6.8)
 
-                // set card remain
-
-                remain =  
-                 4
-                //Math.ceil(Object.keys(list).length * 6.8)
-                console.log(remain);
                 initGame()
                 for (var id in list) {
+                    console.log(id)
                     var selected = Math.floor(Math.random() * 7)
                     var card = pile[remain--]
                     var pattern = patterns[selected]
@@ -475,15 +471,15 @@ function checkStatus() {
 
     if (all_ready) {
         timer = setTimeout(function() {
-            $('.countdown-container').show()
-            $('.countdown-modal').show()
+            $('.countdown-container').fadeIn(200)
+            $('.countdown-modal').fadeIn(200)
             startCountdown()
         }, 1000)
     } else {
         clearTimeout(timer)
-        $('.countdown-container').hide()
+        $('.countdown-container').fadeOut(200)
+        $('.countdown-modal').fadeOut(200)
         $('#countdown-timer').removeClass()
-        $('.countdown-modal').hide()
     }
 }
 
