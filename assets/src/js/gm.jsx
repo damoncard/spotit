@@ -13,7 +13,6 @@ var remain
 var all_ready = false
 var iconid
 
-
 $(document).ready(function () {
 
     socket.on('*', function (obj) {
@@ -77,12 +76,12 @@ $(document).ready(function () {
                 list[id].status = status
                 var row = $('#' + id)
                 if (status) {
-                    row.find('td').each(function() {
+                    row.find('td').each(function () {
                         $(this).addClass('ready').removeClass('non-ready')
                     })
                     row.find('.fa').addClass('fa-check').removeClass('fa-times')
                 } else {
-                    row.find('td').each(function() {
+                    row.find('td').each(function () {
                         $(this).addClass('non-ready').removeClass('ready')
                     })
                     row.find('.fa').addClass('fa-times').removeClass('fa-check')
@@ -246,15 +245,14 @@ class StageContainer extends React.Component {
     }
 
     trophyTaken(id) {
-        var pos = parseInt($('#trophy-pos').data('pos'))
         var player = parseInt($('#' + id).parent().children('.player-no').text())
-        var pixel = (player - pos) * 56
-        if (pos == 0) {
-            pixel += 14 // -70 for first player pos +56 for later player
+        var pixel = player * 60
+        if (player <= 3) {
+            pixel += 12
+        } else {
+            pixel += 17
         }
-        if (pixel != 0) {
-            $('.trophy-token').css('transform', 'translateY(' + pixel + 'px)')
-        }
+        $('.trophy-token').css('transform', 'translateY(' + pixel + 'px)')
         $('#trophy-pos').data('pos', player)
     }
 
@@ -331,11 +329,11 @@ class RankContainer extends React.Component {
     }
 
     componentDidMount() {
-        $('.skillbar').each(function(){
+        $('.skillbar').each(function () {
             $(this).find('.skillbar-bar').animate({
-                    width: $(this).attr('data-percent')
-                },6000);
-            })
+                width: $(this).attr('data-percent')
+            }, 6000);
+        })
 
         setTimeout(function () {
             socket.emit('status', 'end')
@@ -361,29 +359,28 @@ class RankContainer extends React.Component {
                 <p className='rank-header'>Leaderboard</p>
                 <div className='player-list centerbox'>
                     {this.state.list.map((player, index) => {
-                        var num = Object.keys(list).length
-                        var cards = Math.ceil(num * 6.8) - num
+                        var num_player = Object.keys(list).length
+                        var max_score = Math.floor(num_player * 6.8) - num_player
                         for (var i in list) {
                             if (list[i].trophy) {
-                                cards += 5
+                                max_score += 5
                                 break
                             }
                         }
-                        var percent = list[player].score / cards * 100
-                        console.log(percent)
+                        var percent = list[player].score / max_score * 100
                         return (
-                                // {list[player].trophy && <img src='static/pic/trophy.svg' className='trophy-token' />}
-                               <div className="outerbox">
-                                    <div className="skillbar-title" ><span>{list[player].name}</span></div>
-                                    <div className="rank-profile">
-                                        <div className="skillbar clearfix " data-percent={percent + '%'}>
-                                          
-                                          <div className="skillbar-bar"></div>
-                                          <div className="skill-bar-percent">{list[player].score}</div>
-                                        </div>
+                            // {list[player].trophy && <img src='static/pic/trophy.svg' className='trophy-token' />}
+                            <div className="outerbox">
+                                <div className="skillbar-title" ><span>{list[player].name}</span></div>
+                                <div className="rank-profile">
+                                    <div className="skillbar clearfix " data-percent={percent + '%'}>
+
+                                        <div className="skillbar-bar"></div>
+                                        <div className="skill-bar-percent">{list[player].score}</div>
                                     </div>
                                 </div>
-                                
+                            </div>
+
                         )
                     })}
                 </div>
@@ -401,15 +398,12 @@ function startCountdown() {
             $('#countdown-timer').addClass('second-' + second)
             if (second-- < 0) {
                 $('.countdown-modal').hide()
-
                 remain = Math.floor(Object.keys(list).length * 6.8)
-
                 initGame()
                 for (var id in list) {
-                    console.log(id)
-                    var selected = Math.floor(Math.random() * 7)
+                    // var selected = Math.floor(Math.random() * 7)
                     var card = pile[remain--]
-                    var pattern = patterns[selected]
+                    var pattern = patterns[0]
                     var set = []
                     for (var i in card) {
                         set[i] = {
@@ -470,7 +464,7 @@ function checkStatus() {
     }
 
     if (all_ready) {
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
             $('.countdown-container').fadeIn(200)
             $('.countdown-modal').fadeIn(200)
             startCountdown()
