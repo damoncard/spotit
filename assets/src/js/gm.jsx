@@ -349,7 +349,7 @@ class RankContainer extends React.Component {
             reRenderComponent(<InitContainer />)
             reactComponent.setState({ active: true })
             reactComponent.setState({ list: list })
-        }, 9999999)
+        }, 10000)
     }
 
     render() {
