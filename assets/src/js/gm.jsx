@@ -115,10 +115,11 @@ $(document).ready(function () {
                         var sorted_list = Object.keys(list).sort(function (a, b) { return list[b].score - list[a].score })
 
                         for (var i in sorted_list) {
-                            socket.emit('result', { id: sorted_list[i], rank: parseInt(i) + 1, result: 'end' })
+                            var color = $('#' + sorted_list[i]).parent().children('.player-no').css('background-color')
+                            socket.emit('result', { id: sorted_list[i], rank: parseInt(i) + 1, color: color, result: 'end' })
                         }
 
-                        reRenderComponent(<RankContainer list={sorted_list} />)
+                        reRenderComponent(<RankContainer list={list} />)
                     }
                 } else {
                     socket.emit('result', { id: value['id'], card: null, result: 'false' })
@@ -332,24 +333,24 @@ class RankContainer extends React.Component {
         $('.score-block').each(function () {
             $(this).find('.score-bar').animate({
                 width: $(this).attr('data-percent')
-            }, 6000);
+            }, 4000);
         })
 
-        // setTimeout(function () {
-        //     socket.emit('status', 'end')
+        setTimeout(function () {
+            socket.emit('status', 'end')
 
-        //     for (var id in list) {
-        //         if (list.hasOwnProperty(id)) {
-        //             list[id].score = 0
-        //             list[id].status = false
-        //             list[id].trophy = false
-        //         }
-        //     }
+            for (var id in list) {
+                if (list.hasOwnProperty(id)) {
+                    list[id].score = 0
+                    list[id].status = false
+                    list[id].trophy = false
+                }
+            }
 
-        //     reRenderComponent(<InitContainer />)
-        //     reactComponent.setState({ active: true })
-        //     reactComponent.setState({ list: list })
-        // }, 10000)
+            reRenderComponent(<InitContainer />)
+            reactComponent.setState({ active: true })
+            reactComponent.setState({ list: list })
+        }, 8000)
     }
 
     render() {
@@ -358,7 +359,7 @@ class RankContainer extends React.Component {
             <div className='rank-container'>
                 <p className='rank-header'>Leaderboard</p>
                 <div className='player-list centerbox'>
-                    {this.state.list.map((player, index) => {
+                    {Object.keys(this.state.list).map((player, index) => {
                         var num_player = Object.keys(list).length
                         var max_score = Math.floor(num_player * 6.8) - num_player
                         for (var i in list) {
@@ -398,8 +399,7 @@ function startCountdown() {
             $('#countdown-timer').addClass('second-' + second)
             if (second-- < 0) {
                 $('.countdown-modal').hide()
-                // remain =  Math.floor(Object.keys(list).length * 6.8)
-                remain = 9
+                remain =  Math.floor(Object.keys(list).length * 6.8)
                 initGame()
                 for (var id in list) {
                     // var selected = Math.floor(Math.random() * 7)

@@ -58,7 +58,7 @@ $(document).ready(function () {
                             reactComponent.faultImage()
                             break
                         case 'end':
-                            reRenderComponent(<RankContainer rank={value['rank']} />)
+                            reRenderComponent(<RankContainer rank={value['rank']} color={value['color']} />)
                             break
                         case 'none':
                             reRenderComponent(<StageContainer cards={value['card']} score={0} count={0} />)
@@ -411,6 +411,10 @@ class RankContainer extends React.Component {
         this.state = {
             rank: props.rank,
         }
+    }
+
+    componentDidMount() {
+        $('.rank-container').css('background-color', this.props.color)
     }
 
     render() {
