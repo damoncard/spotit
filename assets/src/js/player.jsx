@@ -70,14 +70,14 @@ $(document).ready(function () {
     })
 
     $(window).on('orientationchange', function (event) {
-        if (window.innerHeight > window.innerWidth) {
+        if (window.orientation != 90 && window.orientation != -90) {
             $('.block-container').show()
         } else {
             $('.block-container').hide()
         }
     })
 
-    if (window.innerHeight > window.innerWidth) {
+    if (window.orientation != 90 && window.orientation != -90) {
         $('.block-container').show()
     }
 

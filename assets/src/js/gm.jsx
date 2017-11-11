@@ -43,9 +43,7 @@ $(document).ready(function () {
                 if (list[value['id']] != null) {
                     delete list[value['id']]
                     reactComponent.setState({ list: list })
-
                     if (Object.keys(list).length == 0) {
-                        // checkStatus()
                         var countdown = 5
                         clearInterval(timer)
                         timer = setInterval(function () {
@@ -63,8 +61,6 @@ $(document).ready(function () {
                             }
                         }, 1000)
                     }
-
-                    socket.emit('status', 'online')
                 }
                 break
             case 'inactive':
