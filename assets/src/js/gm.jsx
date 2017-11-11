@@ -8,10 +8,10 @@ import { pile, patterns, initGame } from './pile.jsx'
 
 var reactComponent
 var timer
+var delay
 var list = {}
 var remain
 var all_ready = false
-var iconid
 
 $(document).ready(function () {
 
@@ -425,6 +425,9 @@ function startCountdown() {
                 socket.emit('status', 'running')
                 clearInterval(timer)
             }
+        } else {
+            $('#countdown-timer').removeClass()
+            clearInterval(timer)
         }
     }, 1000)
 }
@@ -469,13 +472,13 @@ function checkStatus() {
     }
 
     if (all_ready && Object.keys(list).length != 0) {
-        timer = setTimeout(function () {
+        delay = setTimeout(function () {
             $('.countdown-container').fadeIn(200)
             $('.countdown-modal').fadeIn(200)
             startCountdown()
         }, 1000)
     } else {
-        clearTimeout(timer)
+        clearTimeout(delay)
         $('.countdown-container').fadeOut(200)
         $('.countdown-modal').fadeOut(200)
         $('#countdown-timer').removeClass()
