@@ -5,7 +5,6 @@ var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 var reactComponent
 var player_name = ''
-//var animation
 
 import { images } from './pile.jsx'
 
@@ -16,13 +15,15 @@ $(document).ready(function () {
         var value = obj.data[1]
         switch (event) {
             // ################# Initialize Phase ############### //
-            case 'id':
-                if (value != null) {
-                    $('#UserID').attr('data-id', value)
+            case 'setup':
+                if (value['id'] != null) {
+                    $('#UserID').attr('data-id', value['id'])
                     reactComponent = ReactDOM.render(<InitContainer images={images} />, document.querySelector('.player-container'))
                 } else {
                     reRenderComponent(<InitContainer images={images} name={player_name} />)
-                    reactComponent.openStatus()
+                    if (value['refresh']) {
+                        reactComponent.openStatus()
+                    }
                 }
                 break
             case 'status':

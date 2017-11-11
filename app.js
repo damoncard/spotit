@@ -24,7 +24,7 @@ app.get('/tunnel', function (req, res) {
 // Socket.io
 const user = io.of('/player').on('connection', function (socket) {
 	socket.on('ready', function () {
-		socket.emit('id', socket.client.id)
+		socket.emit('setup', { id: socket.client.id, refresh: false})
 	})
 
 	socket.on('enter', function (obj) {
@@ -60,7 +60,11 @@ const admin = io.of('/admin').on('connection', function (socket) {
 
 	socket.on('status', function (obj) {
 		if (obj == 'end') {
-			user.emit('id')
+			user.emit('setup', { refresh: true })
+			status = 'online'
+		}
+		else if (obj == 'out') {
+			user.emit('setup', { refresh: false })
 			status = 'online'
 		} else {
 			status = obj
@@ -69,6 +73,6 @@ const admin = io.of('/admin').on('connection', function (socket) {
 
 	socket.on('disconnect', function () {
 		status = 'offline'
-		user.emit('id')
+		user.emit('setup', { refresh: false })
 	})
 })

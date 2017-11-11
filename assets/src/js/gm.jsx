@@ -53,7 +53,7 @@ $(document).ready(function () {
                                 countdown--
                                 if (countdown == 0) {
                                     if (reactComponent.state.active == null) {
-                                        socket.emit('status', 'end')
+                                        socket.emit('status', 'out')
                                         reRenderComponent(<InitContainer />)
                                     } else {
                                         reactComponent.setState({ active: false })
