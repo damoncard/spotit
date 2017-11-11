@@ -27,12 +27,12 @@
 				.lobby-header {
 					text-align: center;
 					.lobby-text {
-						font-size: 7rem;
+						font-size: 9rem;
 						color: #fff;
 						text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.8);
 					}
 					.list-header {
-						font-size: 2rem;
+						font-size: 4rem;
 						color: #fff;
 						right: 11rem;
 						margin-top: 2rem;
@@ -46,13 +46,13 @@
 					table {
 						max-width: 960px;
 						margin: 0.5em auto;
-						width:500px;
+						width: 650px;
 						th {
 							padding: 0.5rem;
 							background-color: #1b85ce;
 							span {
 								font-family: 'JuneGull';
-								font-size: 1.5rem;
+								font-size: 3rem;
 								font-weight: 400;
 								color: #fff;
 							}
@@ -63,9 +63,9 @@
 								.player-name {
 									position: relative;
 									font-family: 'Typo-Round';
-									font-size: 2rem;
+									font-size: 2.5rem;
 									font-weight: 600;
-									padding: 0.5rem 0rem 0.5rem 0rem;
+									padding: 0.25rem 0rem;
 								}
 								&.ready {
 									background-color: #fff;
@@ -88,7 +88,7 @@
 									background-color: red;
 								}
 								i {
-									font-size: 2.5rem;
+									font-size: 3rem;
 									color: #fff;
 								}
 							}
@@ -181,7 +181,7 @@
 			width: 100%;
 			.credit {
 				float: right;
-				font-size: 2rem;
+				font-size: 3rem;
 				padding: 0.5rem 1rem;
 				color: #fff;
 			}

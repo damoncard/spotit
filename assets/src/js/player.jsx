@@ -266,7 +266,7 @@ class InitContainer extends React.Component {
                                         <p className='rule-header'>Be Careful!! </p>
                                         <p className='rule-detail'>
                                             If you picked wrong <span>3</span> times on the card<br />
-                                            You will get <span>BANNED</span> for 10 seconds
+                                            You will get <span>BANNED</span> for 5 seconds
                                         </p>
                                     </div>
                                 </div>
@@ -355,9 +355,9 @@ class StageContainer extends React.Component {
             }, 100)
             setTimeout(function () {
                 clearInterval(timer)
-                $('.ban-second').text(10)
+                $('.ban-second').text(5)
                 react.setState({ ban: false })
-            }, 10000)
+            }, 5000)
         }
     }
 
@@ -373,7 +373,7 @@ class StageContainer extends React.Component {
                 {this.state.ban ? (
                     <div className='ban-container'>
                         <p className='ban-label'>You got TEMPORALLY <br /><span className='ban-word'>banned</span></p>
-                        <p className='ban-countdown'>for <span className='ban-second'>10</span> seconds</p>
+                        <p className='ban-countdown'>for <span className='ban-second'>5</span> seconds</p>
                     </div>
                 ) : (
                         <div className='cards-panel'>
