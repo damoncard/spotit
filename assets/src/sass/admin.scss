@@ -330,265 +330,128 @@
 			text-shadow: 1px 1px 40px rgba(255, 255, 255, 0.6);
 		}
 		.player-list {
-			//padding-top: 4rem;
-			// .rank-profile {
-			// 	margin-top: 1rem;
-			// 	text-align: center;
-			// 	.trophy-token {
-			// 		height: 40px;
-			// 		position: absolute;
-			// 		left: 39%;
-			// 	}
-			// 	.rank-label {
-			// 		margin-right: 9rem;
-			// 		padding: 5px 12px 5px 12px;
-			// 		color: #fff;
-			// 		background-color: #ff0015;
-			// 		border-radius: 15px;
-			// 		font-size: 2rem;
-			// 	}
-			// 	.player-name {
-			// 		font-family: 'walto';
-			// 		font-size: 2.5rem;
-			// 	}
-			// 	.player-score {
-			// 		margin-left: 10rem;
-			// 		font-size: 2rem;
-			// 	}
-			// }
-			
-
-			.outerbox{
-				position:relative;
-				display:block;
-				width:100%;
-
-
-				.skillbar-title {
-						position:absolute;
-						top:0;
-						left:0;
-						width:14%;
-						font-weight:bold;
-						font-size:1.5rem;
-						color:#ffffff;
-						background:#6adcfa;
-						-webkit-border-top-left-radius:3px;
-						-webkit-border-bottom-left-radius:4px;
-						-moz-border-radius-topleft:3px;
-						-moz-border-radius-bottomleft:3px;
-						border-top-left-radius:3px;
-						border-bottom-left-radius:3px;
+			position: absolute;
+			width: 55%;
+			left: 50%;
+			transform: translateX(-50%);
+			padding-top: 4rem;
+			.rank-profile {
+				margin-bottom: 2rem;
+				height: 3rem;
+				.title-container {
+					width: 16%;
+					position: relative;
+					height: 3rem;
+					float: left;
+					border-radius: 5px;
+					span {
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						font-weight: 600;
+						font-size: 1.5rem;
+						color: #fff;
+						text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
+						border-radius: 10px;
+						padding: 0.5rem;
+					}
 				}
-
-				.skillbar-title span {
-					display:block;
-					position:relative;
-					width: 105%;
-					background:#000;
-					// padding:0 20px;
-					height:35px;
-					line-height:35px;
-					-webkit-border-top-left-radius:3px;
-					-webkit-border-bottom-left-radius:3px;
-					-moz-border-radius-topleft:3px;
-					-moz-border-radius-bottomleft:3px;
-					border-top-left-radius:3px;
-					border-bottom-left-radius:3px;
-					text-align: center;
-					z-index: 3;
+				.score-container {
+					width: 84%;
+					display: inline-block;
+					.score-block {
+						position: relative;
+						float: left;
+						width: 100%;
+						background: #eee;
+						height: 35px;
+						margin-top: 6px;
+						border-top-right-radius: 3px;
+						border-bottom-right-radius: 3px;
+						transition-property: width, background-color;
+						.score-bar {
+							height: 100%;
+							width: 0px;
+							border-top-right-radius: 3px;
+							border-bottom-right-radius: 3px;
+						}
+						.score-indicator {
+							font-family: 'Typo-Round';
+							font-size: 1.5rem;
+							position: absolute;
+							top: 50%;
+							transform: translateY(-50%);
+							right: 1rem;
+							text-shadow: 0px 0px 10px rgba(255, 255, 255, 1);
+						}
+					}
 				}
-
-					&:nth-child(1) {
-						.skillbar-title span {
-							background:#3cc595 ;
-						}
-						.rank-profile{
-							
-							.skillbar-bar{
-								background:#74efc3;
-							}
-						}
-						
-						
+				&:nth-child(1) {
+					.title-container {
+						background-color: #7979FF;
 					}
-					&:nth-child(2) {
-						.skillbar-title span {
-							background:#d4d243 ;
-						}
-						.rank-profile{
-							
-							.skillbar-bar{
-								background:#fffe78;
-							}
-						}
-						
+					.score-bar {
+						background-color: #8C8CFF;
 					}
-					&:nth-child(3) {
-						.skillbar-title span {
-							background:#d03522 ;
-						}
-						.rank-profile{
-							
-							.skillbar-bar{
-								background:#f79f94;
-							}
-						}
-						
-					}
-					&:nth-child(4) {
-						.skillbar-title span {
-							background:#6922d0 ;
-						}
-						.rank-profile{
-							
-							.skillbar-bar{
-								background:#a173e4;
-							}
-						}
-						
-					}
-					&:nth-child(5) {
-						.skillbar-title span {
-							background:#1124ce ;
-						}
-						.rank-profile{
-							
-							.skillbar-bar{
-								background:#3e7bde;
-							}
-						}
-						
-					}
-					&:nth-child(6) {
-						.skillbar-title span {
-							background:#f79a31 ;
-						}
-						.rank-profile{
-							
-							.skillbar-bar{
-								background:#fdb767;
-							}
-						}
-						
-					}
-					&:nth-child(7) {
-						.skillbar-title span {
-							background:#444341 ;
-						}
-						.rank-profile{
-							
-							.skillbar-bar{
-								background:#868481;
-							}
-						}
-						
-					}
-					&:nth-child(8) {
-						.skillbar-title span {
-							background:#5f3f10 ;
-						}
-						.rank-profile{
-							
-							.skillbar-bar{
-								background:#8c5f1b;
-							}
-						}
-						
-					}
-
-
-
-
-				.rank-profile {
-					width:86%;
-					padding-left:14%;
-
-					.skillbar {
-						position:relative;
-						display:block;
-						margin-bottom:15px;
-						width:100%;
-						background:#eee;
-						height:35px;
-						border-radius:3px;
-						-moz-border-radius:3px;
-						-webkit-border-radius:3px;
-						-webkit-transition:0.4s linear;
-						-moz-transition:0.4s linear;
-						-ms-transition:0.4s linear;
-						-o-transition:0.4s linear;
-						transition:0.4s linear;
-						-webkit-transition-property:width, background-color;
-						-moz-transition-property:width, background-color;
-						-ms-transition-property:width, background-color;
-						-o-transition-property:width, background-color;
-						transition-property:width, background-color;
-					}
-
-					.skillbar-title {
-							position:absolute;
-							top:0;
-							left:0;
-							width:14%;
-							font-weight:bold;
-							font-size:1.5rem;
-							color:#ffffff;
-							background:#6adcfa;
-							-webkit-border-top-left-radius:3px;
-							-webkit-border-bottom-left-radius:4px;
-							-moz-border-radius-topleft:3px;
-							-moz-border-radius-bottomleft:3px;
-							border-top-left-radius:3px;
-							border-bottom-left-radius:3px;
-						}
-
-					.skillbar-title span {
-						display:block;
-						position:relative;
-						width: 105%;
-						background:#000;
-						// padding:0 20px;
-						height:35px;
-						line-height:35px;
-						-webkit-border-top-left-radius:3px;
-						-webkit-border-bottom-left-radius:3px;
-						-moz-border-radius-topleft:3px;
-						-moz-border-radius-bottomleft:3px;
-						border-top-left-radius:3px;
-						border-bottom-left-radius:3px;
-						text-align: center;
-						z-index: 3;
-					}
-					
-					
-					.skillbar-bar {
-						height:100%;
-						width:0px;
-						border-radius:3px;
-						background:#6adcfa;
-						-moz-border-radius:3px;
-						-webkit-border-radius:3px;
-						background:#000;
-					}
-
-
-					.skill-bar-percent {
-						position:absolute;
-						right:0.5rem;
-						top:0;
-						font-size:1.5rem;
-						height:100%;
-						line-height:35px;
-						color:#ffffff;
-						color:#505050;
-					}
-
-
 				}
-
-			}	
-			
+				&:nth-child(2) {
+					.title-container {
+						background-color: #06DCFB;
+					}
+					.score-bar {
+						background-color: #75ECFD;
+					}
+				}
+				&:nth-child(3) {
+					.title-container {
+						background-color: #8BFEA8;
+					}
+					.score-bar {
+						background-color: #B5FFC8;
+					}
+				}
+				&:nth-child(4) {
+					.title-container {
+						background-color: #A55FEB;
+					}
+					.score-bar {
+						background-color: #AE70ED;
+					}
+				}
+				&:nth-child(5) {
+					.title-container {
+						background-color: #FE67EB;
+					}
+					.score-bar {
+						background-color: #FE8BF0;
+					}
+				}
+				&:nth-child(6) {
+					.title-container {
+						background-color: #FF5353;
+					}
+					.score-bar {
+						background-color: #FF7373;
+					}
+				}
+				&:nth-child(7) {
+					.title-container {
+						background-color: #2DC800;
+					}
+					.score-bar {
+						background-color: #32DF00;
+					}
+				}
+				&:nth-child(8) {
+					.title-container {
+						background-color: #F7DE00;
+					}
+					.score-bar {
+						background-color: #FFF06A;
+					}
+				}
+			}
 		}
 	}
 }
@@ -614,21 +477,5 @@
 		margin-top: -200px;
 		margin-left: -200px;
 	}
-
-}
-
-
-
-.centerbox{
-  position: absolute;
-  margin: auto;
-  top: 10%;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 50%;
-  height: 50%;
-  // background-color: #ccc;
-  border-radius: 3px;
 
 }

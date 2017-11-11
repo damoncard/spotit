@@ -329,27 +329,27 @@ class RankContainer extends React.Component {
     }
 
     componentDidMount() {
-        $('.skillbar').each(function () {
-            $(this).find('.skillbar-bar').animate({
+        $('.score-block').each(function () {
+            $(this).find('.score-bar').animate({
                 width: $(this).attr('data-percent')
             }, 6000);
         })
 
-        setTimeout(function () {
-            socket.emit('status', 'end')
+        // setTimeout(function () {
+        //     socket.emit('status', 'end')
 
-            for (var id in list) {
-                if (list.hasOwnProperty(id)) {
-                    list[id].score = 0
-                    list[id].status = false
-                    list[id].trophy = false
-                }
-            }
+        //     for (var id in list) {
+        //         if (list.hasOwnProperty(id)) {
+        //             list[id].score = 0
+        //             list[id].status = false
+        //             list[id].trophy = false
+        //         }
+        //     }
 
-            reRenderComponent(<InitContainer />)
-            reactComponent.setState({ active: true })
-            reactComponent.setState({ list: list })
-        }, 10000)
+        //     reRenderComponent(<InitContainer />)
+        //     reactComponent.setState({ active: true })
+        //     reactComponent.setState({ list: list })
+        // }, 10000)
     }
 
     render() {
@@ -370,17 +370,17 @@ class RankContainer extends React.Component {
                         var percent = list[player].score / max_score * 100
                         return (
                             // {list[player].trophy && <img src='static/pic/trophy.svg' className='trophy-token' />}
-                            <div className="outerbox">
-                                <div className="skillbar-title" ><span>{list[player].name}</span></div>
-                                <div className="rank-profile">
-                                    <div className="skillbar clearfix " data-percent={percent + '%'}>
-
-                                        <div className="skillbar-bar"></div>
-                                        <div className="skill-bar-percent">{list[player].score}</div>
+                            <div className='rank-profile'>
+                                <div className='title-container'>
+                                    <span>{list[player].name}</span>
+                                </div>
+                                <div className='score-container'>
+                                    <div className='score-block' data-percent={percent + '%'}>
+                                        <div className='score-bar'></div>
+                                        <span className='score-indicator'>{list[player].score}</span>
                                     </div>
                                 </div>
                             </div>
-
                         )
                     })}
                 </div>
@@ -398,7 +398,8 @@ function startCountdown() {
             $('#countdown-timer').addClass('second-' + second)
             if (second-- < 0) {
                 $('.countdown-modal').hide()
-                remain =  Math.floor(Object.keys(list).length * 6.8)
+                // remain =  Math.floor(Object.keys(list).length * 6.8)
+                remain = 9
                 initGame()
                 for (var id in list) {
                     // var selected = Math.floor(Math.random() * 7)
