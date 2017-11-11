@@ -77,9 +77,10 @@ $(document).ready(function () {
         }
     })
 
-    if (window.orientation != 90 && window.orientation != -90) {
+    if (window.orientation != 90 && window.orientation != -90 && window.orientation != undefined) {
         $('.block-container').show()
     }
+
 
     socket.emit('ready')
 })

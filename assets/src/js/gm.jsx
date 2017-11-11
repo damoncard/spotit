@@ -43,6 +43,7 @@ $(document).ready(function () {
                 if (list[value['id']] != null) {
                     delete list[value['id']]
                     reactComponent.setState({ list: list })
+                    checkStatus()
                     if (Object.keys(list).length == 0) {
                         var countdown = 5
                         clearInterval(timer)
@@ -60,8 +61,6 @@ $(document).ready(function () {
                                 }
                             }
                         }, 1000)
-                    } else {
-                        checkStatus()
                     }
                 }
                 break
@@ -72,18 +71,7 @@ $(document).ready(function () {
                 var id = value['id']
                 var status = value['status'] == 'ready' ? true : false
                 list[id].status = status
-                var row = $('#' + id)
-                if (status) {
-                    row.find('td').each(function () {
-                        $(this).addClass('ready').removeClass('non-ready')
-                    })
-                    row.find('.fa').addClass('fa-check').removeClass('fa-times')
-                } else {
-                    row.find('td').each(function () {
-                        $(this).addClass('non-ready').removeClass('ready')
-                    })
-                    row.find('.fa').addClass('fa-times').removeClass('fa-check')
-                }
+                reactComponent.setState({ list: list })
                 checkStatus()
                 break
             // ################ Playing Phase ################ //
@@ -182,12 +170,25 @@ class InitContainer extends React.Component {
                                         {Object.keys(this.state.list).map((player) => {
                                             return (
                                                 <tr id={player}>
-                                                    <td className='player-pane non-ready'>
-                                                        <p className='player-name'>{this.state.list[player].name}</p>
-                                                    </td>
-                                                    <td className='status-pane non-ready'>
-                                                        <i className='fa fa-times'></i>
-                                                    </td>
+                                                    {this.state.list[player].status ? (
+                                                        <td className='player-pane ready'>
+                                                            <p className='player-name'>{this.state.list[player].name}</p>
+                                                        </td>
+                                                    ) : (
+                                                            <td className='player-pane non-ready'>
+                                                                <p className='player-name'>{this.state.list[player].name}</p>
+                                                            </td>
+                                                        )}
+
+                                                    {this.state.list[player].status ? (
+                                                        <td className='status-pane ready'>
+                                                            <i className='fa fa-check'></i>
+                                                        </td>
+                                                    ) : (
+                                                            <td className='status-pane non-ready'>
+                                                                <i className='fa fa-times'></i>
+                                                            </td>
+                                                        )}
                                                 </tr>
                                             )
                                         })}
@@ -397,7 +398,12 @@ function startCountdown() {
             $('#countdown-timer').addClass('second-' + second)
             if (second-- < 0) {
                 $('.countdown-modal').hide()
-                remain =  Math.floor(Object.keys(list).length * 6.8)
+                for (var id in list) {
+                    if (list.hasOwnProperty(id)) {
+                        list[id].status = false
+                    }
+                }
+                remain = Math.floor(Object.keys(list).length * 6.8)
                 initGame()
                 for (var id in list) {
                     // var selected = Math.floor(Math.random() * 7)
@@ -462,7 +468,7 @@ function checkStatus() {
         break
     }
 
-    if (all_ready) {
+    if (all_ready && Object.keys(list).length != 0) {
         timer = setTimeout(function () {
             $('.countdown-container').fadeIn(200)
             $('.countdown-modal').fadeIn(200)
