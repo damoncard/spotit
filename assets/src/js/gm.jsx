@@ -398,7 +398,7 @@ function startCountdown() {
             $('#countdown-timer').addClass('second-' + second)
             if (second-- < 0) {
                 $('.countdown-modal').hide()
-                remain = Math.floor(Object.keys(list).length * 6.8)
+                remain =  Math.floor(Object.keys(list).length * 6.8)
                 initGame()
                 for (var id in list) {
                     // var selected = Math.floor(Math.random() * 7)
