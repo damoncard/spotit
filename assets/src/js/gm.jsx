@@ -60,6 +60,8 @@ $(document).ready(function () {
                                 }
                             }
                         }, 1000)
+                    } else {
+                        checkStatus()
                     }
                 }
                 break
