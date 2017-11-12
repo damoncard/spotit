@@ -106,16 +106,6 @@ $(document).ready(function () {
                             }
                         }
 
-                        // var sorted_list = Object.keys(list).sort(function (a, b) { 
-                        //     if (scores.indexOf(list[a].score) == -1) {
-                        //         scores.push(list[a].score)
-                        //     }
-                        //     if (scores.indexOf(list[b].score) == -1) {
-                        //         scores.push(list[b].score)
-                        //     }
-                        //     return list[b].score - list[a].score 
-                        // })
-
                         scores.sort(function(a, b){return b-a})
 
                         for (var id in list) {
@@ -422,8 +412,7 @@ function startCountdown() {
                         list[id].status = false
                     }
                 }
-                // remain = Math.floor(Object.keys(list).length * 6.8)
-                remain = 9
+                remain = Math.floor(Object.keys(list).length * 6.8)
                 initGame()
                 for (var id in list) {
                     // var selected = Math.floor(Math.random() * 7)
