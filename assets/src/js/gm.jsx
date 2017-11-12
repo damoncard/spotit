@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var socket = io.connect('/admin', { reconnection: false })
+var socket = io.connect('/admin')
 var patch = require('socketio-wildcard')(io.Manager);
 patch(socket);
 
@@ -15,7 +15,6 @@ var game_running = false
 var all_ready = false
 
 $(document).ready(function () {
-
     socket.on('*', function (obj) {
         var event = obj.data[0]
         var value = obj.data[1]
@@ -46,28 +45,29 @@ $(document).ready(function () {
                     if (game_running) {
                         list[value['id']].online = false
                         reactComponent.setState({ list: list })
+                        var all_offline = checkOffline()
                     } else {
                         delete list[value['id']]
                         reactComponent.setState({ list: list })
                         checkStatus()
-                        if (Object.keys(list).length == 0) {
-                            var countdown = 5
-                            clearInterval(timer)
-                            timer = setInterval(function () {
-                                if (Object.keys(list).length == 0) {
-                                    countdown--
-                                    if (countdown == 0) {
-                                        if (reactComponent.state.active == null) {
-                                            socket.emit('status', 'out')
-                                            reRenderComponent(<InitContainer />)
-                                        } else {
-                                            reactComponent.setState({ active: false })
-                                        }
-                                        clearInterval(timer)
+                    }
+                    if (Object.keys(list).length == 0 || all_offline) {
+                        var countdown = 5
+                        clearInterval(timer)
+                        timer = setInterval(function () {
+                            if (Object.keys(list).length == 0  || all_offline) {
+                                countdown--
+                                if (countdown == 0) {
+                                    if (reactComponent.state.active == null) {
+                                        socket.emit('status', 'out')
+                                        reRenderComponent(<InitContainer />)
+                                    } else {
+                                        reactComponent.setState({ active: false })
                                     }
+                                    clearInterval(timer)
                                 }
-                            }, 1000)
-                        }
+                            }
+                        }, 1000)
                     }
                 }
                 break
@@ -113,7 +113,7 @@ $(document).ready(function () {
                             }
                         }
 
-                        scores.sort(function(a, b){return b-a})
+                        scores.sort(function (a, b) { return b - a })
 
                         for (var id in list) {
                             var rank = scores.indexOf(list[id].score) + 1
@@ -258,6 +258,20 @@ class StageContainer extends React.Component {
     updatePic(cards) {
         this.props.remain--
         this.setState({ cards: cards })
+
+        var index = 0
+        $('.cards-panel').find('img').each(function() {
+            var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back '
+            var style = {
+                position: 'absolute',
+                top: cards[index].top + '%',
+                left: cards[index].left + '%',
+                width: cards[index].width + '%',
+                animation: animation + ((Math.random() * 10) + 1) + 's linear infinite'
+            }
+            $(this).css(style)
+            index++
+        })
     }
 
     trophyTaken(id) {
@@ -319,16 +333,8 @@ class StageContainer extends React.Component {
                 </div>
                 <div className='cards-panel'>
                     {this.state.cards.map((card) => {
-                        var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back '
-                        var style = {
-                            position: 'absolute',
-                            top: card.top + '%',
-                            left: card.left + '%',
-                            width: card.width + '%',
-                            animation: animation + ((Math.random() * 10) + 1) + 's linear infinite'
-                        }
                         return (
-                            <img src={'static/pic/' + card.name + '.svg'} style={style} value={card.name} />
+                            <img src={'static/pic/' + card.name + '.svg'} value={card.name} />
                         )
                     })}
                 </div>
@@ -358,14 +364,12 @@ class RankContainer extends React.Component {
             socket.emit('status', 'end')
 
             for (var id in list) {
-                if (list.hasOwnProperty(id)) {
-                    if (list[id].online) {
-                        list[id].score = 0
-                        list[id].status = false
-                        list[id].trophy = false
-                    } else {
-                        delete list[id]
-                    }
+                if (list[id].online) {
+                    list[id].score = 0
+                    list[id].status = false
+                    list[id].trophy = false
+                } else {
+                    delete list[id]
                 }
             }
 
@@ -385,8 +389,8 @@ class RankContainer extends React.Component {
                     {Object.keys(this.state.list).map((player, index) => {
                         var num_player = Object.keys(list).length
                         var max_score = Math.floor(num_player * 6.8) - num_player
-                        for (var i in list) {
-                            if (list[i].trophy) {
+                        for (var id in list) {
+                            if (list[id].trophy) {
                                 max_score += 5
                                 break
                             }
@@ -423,12 +427,9 @@ function startCountdown() {
             if (second-- < 0) {
                 $('.countdown-modal').hide()
                 for (var id in list) {
-                    if (list.hasOwnProperty(id)) {
-                        list[id].status = false
-                    }
+                    list[id].status = false
                 }
-                // remain = Math.floor(Object.keys(list).length * 6.8)
-                remain = 6
+                remain = Math.floor(Object.keys(list).length * 6.8)
                 initGame()
                 game_running = true
                 for (var id in list) {
@@ -488,8 +489,8 @@ function nextPic() {
 }
 
 function checkStatus() {
-    for (var i in list) {
-        if (list[i].status) {
+    for (var id in list) {
+        if (list[id].status) {
             all_ready = true
             continue
         }
@@ -509,6 +510,15 @@ function checkStatus() {
         $('.countdown-modal').fadeOut(200)
         $('#countdown-timer').removeClass()
     }
+}
+
+function checkOffline() {
+    for (var id in list) {
+        if (list[id].online) {
+            return false
+        }
+    }
+    return true
 }
 
 function reRenderComponent(component) {

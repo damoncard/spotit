@@ -2,7 +2,7 @@
 var express = require('express')
 var app = express()
 var server = require('http').Server(app)
-var io = require('socket.io')(server)
+var io = require('socket.io')(server, {'pingInterval': 1000, 'pingTimeout': 2000})
 var path = require('path')
 var status = 'offline'
 
