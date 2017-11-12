@@ -102,8 +102,8 @@ class InitContainer extends React.Component {
         var react = this
 
         $('.name-input').keypress(function(event){
-            var ew = event.which;
-            if(ew == 13 || ew == 32 || 
+            var ew = event.charCode;
+            if(ew == 13 || 
                48 <= ew && ew <= 57 ||
                65 <= ew && ew <= 90 ||
                97 <= ew && ew <= 122) {

@@ -93,16 +93,35 @@ $(document).ready(function () {
                         socket.emit('result', { id: value['id'], card: answer, result: 'true' })
                     } else {
                         var trophy = $('#trophy-pos').data('pos')
+                        var scores = []
                         if (trophy != 0) {
                             var id = $('ul > li:nth-child(' + trophy + ') > .player-no').data('id')
                             list[id].score += 5
                             list[id].trophy = true
                         }
-                        var sorted_list = Object.keys(list).sort(function (a, b) { return list[b].score - list[a].score })
 
-                        for (var i in sorted_list) {
-                            var color = $('#' + sorted_list[i]).parent().children('.player-no').css('background-color')
-                            socket.emit('result', { id: sorted_list[i], rank: parseInt(i) + 1, color: color, result: 'end' })
+                        for (var id in list) {
+                            if (scores.indexOf(list[id].score) == -1) {
+                                scores.push(list[id].score)
+                            }
+                        }
+
+                        // var sorted_list = Object.keys(list).sort(function (a, b) { 
+                        //     if (scores.indexOf(list[a].score) == -1) {
+                        //         scores.push(list[a].score)
+                        //     }
+                        //     if (scores.indexOf(list[b].score) == -1) {
+                        //         scores.push(list[b].score)
+                        //     }
+                        //     return list[b].score - list[a].score 
+                        // })
+
+                        scores.sort(function(a, b){return b-a})
+
+                        for (var id in list) {
+                            var rank = scores.indexOf(list[id].score) + 1
+                            var color = $('#' + id).parent().children('.player-no').css('background-color')
+                            socket.emit('result', { id: id, rank: rank, color: color, result: 'end' })
                         }
 
                         reRenderComponent(<RankContainer list={list} />)
@@ -357,7 +376,7 @@ class RankContainer extends React.Component {
 
             <div className='rank-container'>
                 <p className='rank-header'>Leaderboard</p>
-                <div className='player-list centerbox'>
+                <div className='player-list'>
                     {Object.keys(this.state.list).map((player, index) => {
                         var num_player = Object.keys(list).length
                         var max_score = Math.floor(num_player * 6.8) - num_player
@@ -403,7 +422,8 @@ function startCountdown() {
                         list[id].status = false
                     }
                 }
-                remain = Math.floor(Object.keys(list).length * 6.8)
+                // remain = Math.floor(Object.keys(list).length * 6.8)
+                remain = 9
                 initGame()
                 for (var id in list) {
                     // var selected = Math.floor(Math.random() * 7)

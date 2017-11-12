@@ -323,7 +323,7 @@
 		background: linear-gradient(to left, rgba(252, 92, 125, 0.8), rgba(106, 130, 251, 0.8));
 		.rank-header {
 			padding-top: 5%;
-			font-size: 6rem;
+			font-size: 7rem;
 			text-align: center;
 			font-family: 'signPain';
 			color: #fff;
@@ -334,14 +334,14 @@
 			width: 55%;
 			left: 50%;
 			transform: translateX(-50%);
-			padding-top: 4rem;
+			padding-top: 3rem;
 			.rank-profile {
 				margin-bottom: 2rem;
 				height: 3rem;
 				.title-container {
-					width: 16%;
+					width: 20%;
 					position: relative;
-					height: 3rem;
+					height: 4rem;
 					float: left;
 					border-radius: 5px;
 					span {
@@ -350,7 +350,7 @@
 						left: 50%;
 						transform: translate(-50%, -50%);
 						font-weight: 600;
-						font-size: 1.5rem;
+						font-size: 2.5rem;
 						color: #fff;
 						text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
 						border-radius: 10px;
@@ -358,7 +358,7 @@
 					}
 				}
 				.score-container {
-					width: 84%;
+					width: 80%;
 					display: inline-block;
 					.score-block {
 						position: relative;
@@ -366,7 +366,7 @@
 						width: 100%;
 						background: #eee;
 						height: 35px;
-						margin-top: 6px;
+						margin-top: 16px;
 						border-top-right-radius: 3px;
 						border-bottom-right-radius: 3px;
 						transition-property: width, background-color;
@@ -378,7 +378,7 @@
 						}
 						.score-indicator {
 							font-family: 'Typo-Round';
-							font-size: 1.5rem;
+							font-size: 2rem;
 							position: absolute;
 							top: 50%;
 							transform: translateY(-50%);
