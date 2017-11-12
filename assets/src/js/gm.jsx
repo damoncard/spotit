@@ -11,6 +11,7 @@ var timer
 var delay
 var list = {}
 var remain
+var game_running = false
 var all_ready = false
 
 $(document).ready(function () {
@@ -30,6 +31,7 @@ $(document).ready(function () {
                         score: 0,
                         status: false,
                         trophy: false,
+                        online: true,
                     }
                     all_ready = false
                     $('.countdown-container').hide()
@@ -41,26 +43,31 @@ $(document).ready(function () {
                 break
             case 'leaving':
                 if (list[value['id']] != null) {
-                    delete list[value['id']]
-                    reactComponent.setState({ list: list })
-                    checkStatus()
-                    if (Object.keys(list).length == 0) {
-                        var countdown = 5
-                        clearInterval(timer)
-                        timer = setInterval(function () {
-                            if (Object.keys(list).length == 0) {
-                                countdown--
-                                if (countdown == 0) {
-                                    if (reactComponent.state.active == null) {
-                                        socket.emit('status', 'out')
-                                        reRenderComponent(<InitContainer />)
-                                    } else {
-                                        reactComponent.setState({ active: false })
+                    if (game_running) {
+                        list[value['id']].online = false
+                        reactComponent.setState({ list: list })
+                    } else {
+                        delete list[value['id']]
+                        reactComponent.setState({ list: list })
+                        checkStatus()
+                        if (Object.keys(list).length == 0) {
+                            var countdown = 5
+                            clearInterval(timer)
+                            timer = setInterval(function () {
+                                if (Object.keys(list).length == 0) {
+                                    countdown--
+                                    if (countdown == 0) {
+                                        if (reactComponent.state.active == null) {
+                                            socket.emit('status', 'out')
+                                            reRenderComponent(<InitContainer />)
+                                        } else {
+                                            reactComponent.setState({ active: false })
+                                        }
+                                        clearInterval(timer)
                                     }
-                                    clearInterval(timer)
                                 }
-                            }
-                        }, 1000)
+                            }, 1000)
+                        }
                     }
                 }
                 break
@@ -288,15 +295,18 @@ class StageContainer extends React.Component {
                     </p>
                     <ul>
                         {Object.keys(this.state.list).map((player, index) => {
+                            var online = this.state.list[player].online
                             return (
                                 index % 2 == 0 ? (
                                     <li style={{ 'background-color': '#fdb4bf' }}>
+                                        {!online && <span className='player-offline'></span>}
                                         <span className='player-no' data-id={player}>{index + 1}</span>
                                         <span className='player-name'>{this.state.list[player].name}</span>
                                         <span id={player} className='player-score'>{this.state.list[player].score}</span>
                                     </li>
                                 ) : (
                                         <li style={{ 'background-color': '#ffdddd' }}>
+                                            {!online && <span className='player-offline'></span>}
                                             <span className='player-no' data-id={player}>{index + 1}</span>
                                             <span className='player-name'>{this.state.list[player].name}</span>
                                             <span id={player} className='player-score'>{this.state.list[player].score}</span>
@@ -349,12 +359,17 @@ class RankContainer extends React.Component {
 
             for (var id in list) {
                 if (list.hasOwnProperty(id)) {
-                    list[id].score = 0
-                    list[id].status = false
-                    list[id].trophy = false
+                    if (list[id].online) {
+                        list[id].score = 0
+                        list[id].status = false
+                        list[id].trophy = false
+                    } else {
+                        delete list[id]
+                    }
                 }
             }
 
+            game_running = false
             reRenderComponent(<InitContainer />)
             reactComponent.setState({ active: true })
             reactComponent.setState({ list: list })
@@ -412,8 +427,10 @@ function startCountdown() {
                         list[id].status = false
                     }
                 }
-                remain = Math.floor(Object.keys(list).length * 6.8)
+                // remain = Math.floor(Object.keys(list).length * 6.8)
+                remain = 6
                 initGame()
+                game_running = true
                 for (var id in list) {
                     // var selected = Math.floor(Math.random() * 7)
                     var card = pile[remain--]
