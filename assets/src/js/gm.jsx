@@ -58,6 +58,9 @@ $(document).ready(function () {
                             if (Object.keys(list).length == 0  || all_offline) {
                                 countdown--
                                 if (countdown == 0) {
+                                    for (var id in list) {
+                                        delete list[id]
+                                    }
                                     if (reactComponent.state.active == null) {
                                         socket.emit('status', 'out')
                                         reRenderComponent(<InitContainer />)
