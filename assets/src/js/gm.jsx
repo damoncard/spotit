@@ -9,6 +9,7 @@ import { pile, patterns, initGame } from './pile.jsx'
 var reactComponent
 var timer
 var delay
+var bubble_creator
 var list = {}
 var remain
 var game_running = false
@@ -55,7 +56,7 @@ $(document).ready(function () {
                         var countdown = 5
                         clearInterval(timer)
                         timer = setInterval(function () {
-                            if (Object.keys(list).length == 0  || all_offline) {
+                            if (Object.keys(list).length == 0 || all_offline) {
                                 countdown--
                                 if (countdown == 0) {
                                     for (var id in list) {
@@ -263,7 +264,7 @@ class StageContainer extends React.Component {
         this.setState({ cards: cards })
 
         var index = 0
-        $('.cards-panel').find('img').each(function() {
+        $('.cards-panel').find('img').each(function () {
             var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back '
             var style = {
                 position: 'absolute',
@@ -523,6 +524,19 @@ function checkOffline() {
     }
     return true
 }
+
+// function heartbeat() {
+//     bubble_creator = setInterval(function () {
+//         var pos = $('.game-label').offset()
+//         var posY = pos.top + $('.game-label').outerHeight()/2
+//         $('.init-container').append($('<div/>').addClass('drop').css({
+//             top: posY,
+//         }))
+//         setTimeout(function() {
+//             $('.drop').remove()
+//         }, 3000)
+//     }, 5000)
+// }
 
 function reRenderComponent(component) {
     ReactDOM.unmountComponentAtNode(document.querySelector('.admin-container'))
