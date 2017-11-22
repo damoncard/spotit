@@ -51,6 +51,7 @@ $(document).ready(function () {
                         delete list[value['id']]
                         reactComponent.setState({ list: list })
                         checkStatus()
+                        socket.emit('status', 'online')
                     }
                     if (Object.keys(list).length == 0 || all_offline) {
                         var countdown = 5
