@@ -10,7 +10,7 @@
 			width: 100%;
 			top: 50%;
 			z-index: 2;
-			animation: floating 18s linear infinite;
+			animation: floating-extended 18s linear infinite;
 			.game-label {
 				font-family: 'signPain';
 				font-size: 15rem;
@@ -32,6 +32,7 @@
 						font-size: 9rem;
 						color: #fff;
 						text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.8);
+						animation: floating 22s linear infinite
 					}
 					.list-header {
 						font-size: 4rem;

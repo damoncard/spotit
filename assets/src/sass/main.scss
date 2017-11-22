@@ -41,6 +41,19 @@
 }
 
 @keyframes floating {
+    0% { transform: translateY(0) rotate(0deg); }
+    20% { transform: translateY(-10px) rotate(-1deg); }
+    30% { transform: translateY(-15px) rotate(1deg); }
+    35% { transform: translateY(-10px) rotate(1deg); }
+    45% { transform: translateY(-5px) rotate(0deg); }
+    50% { transform: translateY(0px) rotate(1deg); }
+    60% { transform: translateY(5px) rotate(0deg); }
+    70% { transform: translateY(15px) rotate(-1deg); }
+    85% { transform: translateY(5px) rotate(-1deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+
+@keyframes floating-extended {
     0% { transform: translateY(-50%) rotate(0deg); }
     20% { transform: translateY(calc(-50% - 30px)) rotate(2deg); }
     30% { transform: translateY(calc(-50% - 40px)) rotate(-1deg); }

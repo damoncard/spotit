@@ -364,24 +364,24 @@ class RankContainer extends React.Component {
             }, 4000);
         })
 
-        setTimeout(function () {
-            socket.emit('status', 'end')
+        // setTimeout(function () {
+        //     socket.emit('status', 'end')
 
-            for (var id in list) {
-                if (list[id].online) {
-                    list[id].score = 0
-                    list[id].status = false
-                    list[id].trophy = false
-                } else {
-                    delete list[id]
-                }
-            }
+        //     for (var id in list) {
+        //         if (list[id].online) {
+        //             list[id].score = 0
+        //             list[id].status = false
+        //             list[id].trophy = false
+        //         } else {
+        //             delete list[id]
+        //         }
+        //     }
 
-            game_running = false
-            reRenderComponent(<InitContainer />)
-            reactComponent.setState({ active: true })
-            reactComponent.setState({ list: list })
-        }, 15000)
+        //     game_running = false
+        //     reRenderComponent(<InitContainer />)
+        //     reactComponent.setState({ active: true })
+        //     reactComponent.setState({ list: list })
+        // }, 15000)
     }
 
     render() {
@@ -433,7 +433,8 @@ function startCountdown() {
                 for (var id in list) {
                     list[id].status = false
                 }
-                remain = Math.floor(Object.keys(list).length * 6.8)
+                // remain = Math.floor(Object.keys(list).length * 6.8)
+                remain = 9
                 initGame()
                 game_running = true
                 for (var id in list) {
