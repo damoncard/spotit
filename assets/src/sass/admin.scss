@@ -17,7 +17,7 @@
 				display: inline-block;
 				color: #fff;
 				text-shadow: 1px 1px 40px rgba(255, 255, 255, 0.6);
-				animation: heartbeat 3s linear infinite;
+				animation: heartbeat 4s linear infinite;
 			}
 		}
 		.lobby-room {
@@ -200,7 +200,7 @@
 	}
 	.stage-container {
 		height: 100%;
-		background-color: rgba(255, 190, 125, 0.6);
+		background-color: #ffbe7d;
 		.remain-indicator {
 			display: inline-block;
 			position: absolute;
