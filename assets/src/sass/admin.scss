@@ -18,6 +18,7 @@
 				color: #fff;
 				text-shadow: 1px 1px 40px rgba(255, 255, 255, 0.6);
 				animation: heartbeat 4s linear infinite;
+				cursor: default;
 			}
 		}
 		.lobby-room {
@@ -278,42 +279,42 @@
 					}
 					&:nth-child(1) {
 						.player-no {
-							background-color: #7979FF;
+							background-color: #0026ff;
 						}
 					}
 					&:nth-child(2) {
 						.player-no {
-							background-color: #06DCFB;
+							background-color: #06dcfb;
 						}
 					}
 					&:nth-child(3) {
 						.player-no {
-							background-color: #8BFEA8;
+							background-color: #8bfea8;
 						}
 					}
 					&:nth-child(4) {
 						.player-no {
-							background-color: #A55FEB;
+							background-color: #a55feb;
 						}
 					}
 					&:nth-child(5) {
 						.player-no {
-							background-color: #FE67EB;
+							background-color: #fe67eb;
 						}
 					}
 					&:nth-child(6) {
 						.player-no {
-							background-color: #FF5353;
+							background-color: #ff5353;
 						}
 					}
 					&:nth-child(7) {
 						.player-no {
-							background-color: #2DC800;
+							background-color: #2dc800;
 						}
 					}
 					&:nth-child(8) {
 						.player-no {
-							background-color: #F7DE00;
+							background-color: #ffcb2f;
 						}
 					}
 				}
@@ -342,14 +343,15 @@
 	}
 	.rank-container {
 		height: 100%;
-		background: linear-gradient(to left, rgba(252, 92, 125, 0.8), rgba(106, 130, 251, 0.8));
+		background: linear-gradient(30deg, #ffb267, #ff8811);
 		.rank-header {
 			padding-top: 5%;
 			font-size: 7rem;
 			text-align: center;
 			font-family: 'signPain';
 			color: #fff;
-			text-shadow: 1px 1px 40px rgba(255, 255, 255, 0.6);
+			text-shadow: 1px 1px 20px rgba(255, 255, 255, 0.6);
+			cursor: default;
 		}
 		.player-list {
 			position: absolute;
@@ -386,7 +388,7 @@
 						position: relative;
 						float: left;
 						width: 100%;
-						background: #eee;
+						background-color: #eee;
 						height: 35px;
 						margin-top: 16px;
 						border-top-right-radius: 3px;
@@ -411,66 +413,66 @@
 				}
 				&:nth-child(1) {
 					.title-container {
-						background-color: #7979FF;
+						background-color: #0026ff;
 					}
 					.score-bar {
-						background-color: #8C8CFF;
+						background-color: #5770ff;
 					}
 				}
 				&:nth-child(2) {
 					.title-container {
-						background-color: #06DCFB;
+						background-color: #06dcfb;
 					}
 					.score-bar {
-						background-color: #75ECFD;
+						background-color: #75ecfd;
 					}
 				}
 				&:nth-child(3) {
 					.title-container {
-						background-color: #8BFEA8;
+						background-color: #8bfea8;
 					}
 					.score-bar {
-						background-color: #B5FFC8;
+						background-color: #a3feba;
 					}
 				}
 				&:nth-child(4) {
 					.title-container {
-						background-color: #A55FEB;
+						background-color: #a55feb;
 					}
 					.score-bar {
-						background-color: #AE70ED;
+						background-color: #ae70ed;
 					}
 				}
 				&:nth-child(5) {
 					.title-container {
-						background-color: #FE67EB;
+						background-color: #fe67eb;
 					}
 					.score-bar {
-						background-color: #FE8BF0;
+						background-color: #fe8bf0;
 					}
 				}
 				&:nth-child(6) {
 					.title-container {
-						background-color: #FF5353;
+						background-color: #ff5353;
 					}
 					.score-bar {
-						background-color: #FF7373;
+						background-color: #ff6565;
 					}
 				}
 				&:nth-child(7) {
 					.title-container {
-						background-color: #2DC800;
+						background-color: #2dc800;
 					}
 					.score-bar {
-						background-color: #32DF00;
+						background-color: #32df00;
 					}
 				}
 				&:nth-child(8) {
 					.title-container {
-						background-color: #F7DE00;
+						background-color: #ffcb2f;
 					}
 					.score-bar {
-						background-color: #FFF06A;
+						background-color: #ffd34f;
 					}
 				}
 			}

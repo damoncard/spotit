@@ -364,24 +364,24 @@ class RankContainer extends React.Component {
             }, 4000);
         })
 
-        // setTimeout(function () {
-        //     socket.emit('status', 'end')
+        setTimeout(function () {
+            socket.emit('status', 'end')
 
-        //     for (var id in list) {
-        //         if (list[id].online) {
-        //             list[id].score = 0
-        //             list[id].status = false
-        //             list[id].trophy = false
-        //         } else {
-        //             delete list[id]
-        //         }
-        //     }
+            for (var id in list) {
+                if (list[id].online) {
+                    list[id].score = 0
+                    list[id].status = false
+                    list[id].trophy = false
+                } else {
+                    delete list[id]
+                }
+            }
 
-        //     game_running = false
-        //     reRenderComponent(<InitContainer />)
-        //     reactComponent.setState({ active: true })
-        //     reactComponent.setState({ list: list })
-        // }, 15000)
+            game_running = false
+            reRenderComponent(<InitContainer />)
+            reactComponent.setState({ active: true })
+            reactComponent.setState({ list: list })
+        }, 15000)
     }
 
     render() {
@@ -433,12 +433,10 @@ function startCountdown() {
                 for (var id in list) {
                     list[id].status = false
                 }
-                // remain = Math.floor(Object.keys(list).length * 6.8)
-                remain = 9
+                remain = Math.floor(Object.keys(list).length * 6.8)
                 initGame()
                 game_running = true
                 for (var id in list) {
-                    // var selected = Math.floor(Math.random() * 7)
                     var card = pile[remain--]
                     var pattern = patterns[0]
                     var set = []
@@ -525,19 +523,6 @@ function checkOffline() {
     }
     return true
 }
-
-// function heartbeat() {
-//     bubble_creator = setInterval(function () {
-//         var pos = $('.game-label').offset()
-//         var posY = pos.top + $('.game-label').outerHeight()/2
-//         $('.init-container').append($('<div/>').addClass('drop').css({
-//             top: posY,
-//         }))
-//         setTimeout(function() {
-//             $('.drop').remove()
-//         }, 3000)
-//     }, 5000)
-// }
 
 function reRenderComponent(component) {
     ReactDOM.unmountComponentAtNode(document.querySelector('.admin-container'))
