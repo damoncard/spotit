@@ -251,44 +251,63 @@ class InitContainer extends React.Component {
 }
 
 class LoadingContainer extends React.Component {
-    
+
     constructor(props) {
         super(props)
     }
 
     componentDidMount() {
-        timer = setInterval(function() {
-            for (var id in list) {
-                list[id].status = false
-            }
-            remain = Math.floor(Object.keys(list).length * 6.8)
-            initGame()
-            game_running = true
-            for (var id in list) {
-                var card = pile[remain--]
-                var pattern = patterns[0]
-                var set = []
-                for (var i in card) {
-                    set[i] = {
-                        name: card[i],
-                        top: pattern[i].top,
-                        left: pattern[i].left,
-                        width: pattern[i].width
-                    }
-                }
-                socket.emit('result', { id: id, card: set, result: 'none' })
-            }
-            reRenderComponent(<StageContainer list={list} remain={remain} />)
-            nextPic()
-            socket.emit('status', 'running')
-            clearInterval(timer)
-        }, 5000)
+        // timer = setInterval(function() {
+        //     for (var id in list) {
+        //         list[id].status = false
+        //     }
+        //     remain = Math.floor(Object.keys(list).length * 6.8)
+        //     initGame()
+        //     game_running = true
+        //     for (var id in list) {
+        //         var card = pile[remain--]
+        //         var pattern = patterns[0]
+        //         var set = []
+        //         for (var i in card) {
+        //             set[i] = {
+        //                 name: card[i],
+        //                 top: pattern[i].top,
+        //                 left: pattern[i].left,
+        //                 width: pattern[i].width
+        //             }
+        //         }
+        //         socket.emit('result', { id: id, card: set, result: 'none' })
+        //     }
+        //     reRenderComponent(<StageContainer list={list} remain={remain} />)
+        //     nextPic()
+        //     socket.emit('status', 'running')
+        //     clearInterval(timer)
+        // }, 5000)
     }
 
     render() {
         return (
             <div className='loading-container'>
-                <p className='loading-text'>Now Loading...</p>
+                <div className='loading-header'>
+                    <p className='loading-text'>Now
+                        <span style={{ 'padding-left': '1.5rem', 'color': '#fff300' }}>L</span>
+                        <span style={{ 'color': '#ea5aff', 'animation-delay': '1s' }}>o</span>
+                        <span style={{ 'color': '#71c0ff', 'animation-delay': '2s' }}>a</span>
+                        <span style={{ 'color': '#48ff23', 'animation-delay': '3s' }}>d</span>
+                        <span style={{ 'color': '#e23636', 'animation-delay': '4s' }}>i</span>
+                        <span style={{ 'color': '#9f3dff', 'animation-delay': '5s' }}>n</span>
+                        <span style={{ 'color': '#009a89', 'animation-delay': '6s' }}>g</span>
+                    </p>
+                </div>
+                <div className='loading-body'>
+                </div>
+                <div className='loading-footer'>
+                    <div className='bar-container'>
+                        <div className='bar-block' data-percent={percent + '%'}>
+                            <div className='bar-progress'></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

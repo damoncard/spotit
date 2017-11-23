@@ -200,6 +200,31 @@
 			}
 		}
 	}
+	.loading-container {
+		height: 100%;
+		background-color: #ffac57;
+		.loading-header {
+			height: 20%;
+			text-align: center;
+			line-height: 13rem;
+			.loading-text {
+				font-size: 8rem;
+				color: #fff;
+				text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6);
+				span {
+					display: inline-block;
+					text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.4);
+					// animation: waving 7s linear infinite;
+				}
+			}
+		}
+		.loading-body {
+			height: 60%;
+		}
+		.loading-footer {
+			height: 20%;
+		}
+	}
 	.stage-container {
 		height: 100%;
 		background-color: #ffbe7d;

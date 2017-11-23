@@ -104,12 +104,12 @@ class InitContainer extends React.Component {
     componentDidMount() {
         var react = this
 
-        $('.name-input').keypress(function(event){
+        $('.name-input').keypress(function (event) {
             var ew = event.charCode;
-            if(ew == 13 || 
-               48 <= ew && ew <= 57 ||
-               65 <= ew && ew <= 90 ||
-               97 <= ew && ew <= 122) {
+            if (ew == 13 ||
+                48 <= ew && ew <= 57 ||
+                65 <= ew && ew <= 90 ||
+                97 <= ew && ew <= 122) {
                 return true;
             } else {
                 alert('Only english character and numbers are allow')
@@ -317,7 +317,7 @@ class InitContainer extends React.Component {
 }
 
 class LoadingContainer extends React.Component {
-    
+
     constructor(props) {
         super(props)
     }
@@ -325,8 +325,10 @@ class LoadingContainer extends React.Component {
     render() {
         return (
             <div className='loading-container'>
-                <p className='loading-text'>Loading...</p>
-                <i className='fa fa-spinner fa-spin' aria-hidden='true'></i>
+                <div className='loading-center'>
+                    <p className='loading-text'>Loading...</p>
+                    <i className='fa fa-spinner fa-spin' aria-hidden='true'></i>
+                </div>
             </div>
         )
     }
@@ -399,11 +401,11 @@ class StageContainer extends React.Component {
                             {this.state.cards.map((card) => {
                                 {/* var animation = Math.random() * 10 > 5 ? 'rotating-front ' : 'rotating-back' */ }
                                 {/* animation: animation + ((Math.random() * 10) + 1) + 's linear infinite' */ }
-                                
+
                                 var rotate = Math.random() * 10 > 5 ? '1' : '-1'
                                 var degree = Math.random() * 360
                                 var style = {
-                                    
+
                                     position: 'absolute',
                                     top: card.top + '%',
                                     left: card.left + '%',

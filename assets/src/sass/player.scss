@@ -232,18 +232,6 @@
                       }
                     }
                   }
-                  // .instruction-illustration {
-                  //   position: absolute;
-                  //   padding: 2rem;
-                  //   top: 35%;
-                  //   position: relative;
-                  //   width: 8rem;
-                  //   margin-top: 2rem;
-                  //   img {
-                  //     display: inline-block;
-                  //     transform: rotate(330deg);
-                  //   }
-                  // }
                   .instruction-rule {
                     display: inline-block;
                     position: absolute;
@@ -758,6 +746,21 @@
             }            
           }
         }
+      }
+    }
+  }
+  .loading-container {
+    height: 100%;
+    background-color: #ffbe7d;
+    .loading-center {
+      padding-top: 10rem;
+      text-align: center;      
+      .loading-text {
+        font-size: 11rem;
+      }
+      i.fa {
+        font-size: 10rem;
+        margin-top: 13rem;
       }
     }
   }
