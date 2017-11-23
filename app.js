@@ -54,6 +54,10 @@ const user = io.of('/player').on('connection', function (socket) {
 const admin = io.of('/admin').on('connection', function (socket) {
 	status = 'online'
 
+	socket.on('loading', function() {
+		user.emit('loading')
+	})
+
 	socket.on('result', function (obj) {
 		user.emit('result', obj)
 	})

@@ -43,6 +43,9 @@ $(document).ready(function () {
                 }
                 break
             // ################## Playing Phase ################## //
+            case 'loading':
+                reRenderComponent(<LoadingContainer />)
+                break
             case 'result':
                 var userID = $('#UserID').attr('data-id')
                 if (userID == value['id']) {
@@ -313,6 +316,22 @@ class InitContainer extends React.Component {
     }
 }
 
+class LoadingContainer extends React.Component {
+    
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        return (
+            <div className='loading-container'>
+                <p className='loading-text'>Loading...</p>
+                <i className='fa fa-spinner fa-spin' aria-hidden='true'></i>
+            </div>
+        )
+    }
+}
+
 class StageContainer extends React.Component {
 
     constructor(props) {
@@ -393,7 +412,7 @@ class StageContainer extends React.Component {
                                 }
                                 return (
 
-                                    <img className="react" src={'static/pic/' + card.name + '.svg'} style={style} value={card.name} onClick={() => this.sendResult(card.name)} />
+                                    <img className='react' src={'static/pic/' + card.name + '.svg'} style={style} value={card.name} onClick={() => this.sendResult(card.name)} />
 
                                 )
                             })}

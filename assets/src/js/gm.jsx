@@ -250,6 +250,50 @@ class InitContainer extends React.Component {
     }
 }
 
+class LoadingContainer extends React.Component {
+    
+    constructor(props) {
+        super(props)
+    }
+
+    componentDidMount() {
+        timer = setInterval(function() {
+            for (var id in list) {
+                list[id].status = false
+            }
+            remain = Math.floor(Object.keys(list).length * 6.8)
+            initGame()
+            game_running = true
+            for (var id in list) {
+                var card = pile[remain--]
+                var pattern = patterns[0]
+                var set = []
+                for (var i in card) {
+                    set[i] = {
+                        name: card[i],
+                        top: pattern[i].top,
+                        left: pattern[i].left,
+                        width: pattern[i].width
+                    }
+                }
+                socket.emit('result', { id: id, card: set, result: 'none' })
+            }
+            reRenderComponent(<StageContainer list={list} remain={remain} />)
+            nextPic()
+            socket.emit('status', 'running')
+            clearInterval(timer)
+        }, 5000)
+    }
+
+    render() {
+        return (
+            <div className='loading-container'>
+                <p className='loading-text'>Now Loading...</p>
+            </div>
+        )
+    }
+}
+
 class StageContainer extends React.Component {
 
     constructor(props) {
@@ -423,7 +467,7 @@ class RankContainer extends React.Component {
 }
 
 function startCountdown() {
-    var second = 5
+    var second = 3
     clearInterval(timer)
     timer = setInterval(function () {
         if (all_ready) {
@@ -431,30 +475,9 @@ function startCountdown() {
             $('#countdown-timer').addClass('second-' + second)
             if (second-- < 0) {
                 $('.countdown-modal').hide()
-                for (var id in list) {
-                    list[id].status = false
-                }
-                remain = Math.floor(Object.keys(list).length * 6.8)
-                initGame()
-                game_running = true
-                for (var id in list) {
-                    var card = pile[remain--]
-                    var pattern = patterns[0]
-                    var set = []
-                    for (var i in card) {
-                        set[i] = {
-                            name: card[i],
-                            top: pattern[i].top,
-                            left: pattern[i].left,
-                            width: pattern[i].width
-                        }
-                    }
-                    socket.emit('result', { id: id, card: set, result: 'none' })
-                }
-                reRenderComponent(<StageContainer list={list} remain={remain} />)
-                nextPic()
-                socket.emit('status', 'running')
                 clearInterval(timer)
+                reRenderComponent(<LoadingContainer />)
+                socket.emit('loading')
             }
         } else {
             $('#countdown-timer').removeClass()
